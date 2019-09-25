@@ -1,3 +1,4 @@
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 # Trakkr
 Trakkr is a web based tool built to keep track of anything you collect.
 
