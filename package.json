@@ -1,0 +1,11 @@
+{
+  "name": "trakkr",
+  "version": "1.0.0",
+  "description": "Tool built to keep track of anything you collect",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tersoo Atsen",
+  "license": "ISC"
+}
