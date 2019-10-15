@@ -1,9 +1,67 @@
 version: 2.1 # use CircleCI 2.1
+defaults: &defaults
+  environment:
+    NODE_ENV: test
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.16
+
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
-    working_directory: ~/repo # directory where steps will run
-    docker: # run the steps with Docker
-      - image: circleci/node:10.16.3 # ...with this image as the primary container; this is where all `steps` will run
+    <<: *defaults
     steps: # a collection of executable commands
-      - checkout # special step to check out source code to working directory
-      - run: echo "hello world" # run the `echo` command
+      - run:
+          name: Download cc-test-reporter
+          command: |
+            mkdir -p tmp/
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+            chmod +x ./tmp/cc-test-reporter
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - cc-test-reporter
+
+  backend-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run:
+          name: Install packages
+          command: cd ./packages/backend && npm install
+      - run:
+          name: Run backend tests
+          command: |
+            cd ./packages/backend && npm run test:ci && cd ../..
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.backend.json packages/backend/coverage/lcov.info
+      - persist_to_workspace:
+          root: tmp
+          paths: codeclimate.backend.json
+    
+  upload-coverage:
+    <<: *defaults
+    environment:
+      - CC_TEST_REPORTER_ID: e1fff4931027681693d680f6ce3aebf03095ee61ccd99d60d589fc97e5cea485
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run:
+          name: Upload coverage results to Code Climate
+          command: |
+            # ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 1 -o tmp/codeclimate.total.json
+            # ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.backend.json
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - build
+      - backend-tests:
+          requires:
+            - build
+      - upload-coverage:
+          requires:
+            - backend-tests
