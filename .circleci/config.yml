@@ -38,7 +38,25 @@ jobs: # a collection of steps
       - persist_to_workspace:
           root: tmp
           paths: codeclimate.backend.json
-    
+  
+  frontend-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo/tmp
+      - run:
+          name: Install packages
+          command: cd ./packages/frontend && npm install
+      - run:
+          name: Run frontend tests
+          command: |
+            cd ./packages/frontend && npm run test:ci && cd ../..
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json packages/frontend/coverage/lcov.info
+      - persist_to_workspace:
+          root: tmp
+          paths: codeclimate.frontend.json
+  
   upload-coverage:
     <<: *defaults
     environment:
@@ -50,9 +68,8 @@ jobs: # a collection of steps
       - run:
           name: Upload coverage results to Code Climate
           command: |
-            # ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 1 -o tmp/codeclimate.total.json
-            # ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
-            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.backend.json
+            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
+            ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
 workflows:
   version: 2
@@ -62,6 +79,10 @@ workflows:
       - backend-tests:
           requires:
             - build
+      - frontend-tests:
+          requires:
+            - build
       - upload-coverage:
           requires:
             - backend-tests
+            - frontend-tests

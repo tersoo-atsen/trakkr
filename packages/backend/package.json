@@ -1,13 +1,15 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Application backend",
   "main": "index.js",
   "scripts": {
     "build": "npx babel src -d build",
+    "lint": "npx eslint --fix src/*.js",
     "test": "jest --watch --config jest.config.js",
+    "test:coverage": "jest --coverage -u",
     "test:ci": "jest --config jest.config.js --coverage -u",
-    "start:dev": "nodemon --exec ./node_modules/@babel/node/bin/babel-node.js src/index"
+    "dev": "nodemon --exec ./node_modules/@babel/node/bin/babel-node.js src/index"
   },
   "keywords": [],
   "author": "",

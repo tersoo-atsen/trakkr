@@ -1,0 +1,13 @@
+*,
+*::after
+,*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    background-color: #ecf0f1;
+    color: #d35400;
+    text-align: center;
+}
