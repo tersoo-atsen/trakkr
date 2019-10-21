@@ -4,8 +4,24 @@
   "description": "Tool built to keep track of anything you collect",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "lerna run build",
+    "install:all": "lerna exec \"npm install\" --stream",
+    "test": "lerna run test:ci --stream",
+    "start": "lerna run dev --stream"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrserious/trakkr.git"
+  },
+  "keywords": [
+    "nodejs",
+    "react.js",
+    "graphql"
+  ],
+  "bugs": {
+    "url": "https://github.com/mrSerious/trakkr/issues"
+  },
+  "homepage": "https://github.com/mrSerious/trakkr#readme",
   "author": "Tersoo Atsen",
   "license": "ISC"
 }
