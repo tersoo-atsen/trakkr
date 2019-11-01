@@ -6,7 +6,7 @@
   "scripts": {
     "build": "lerna run build",
     "install:all": "lerna exec \"npm install\" --stream",
-    "test": "lerna run test:ci --stream",
+    "test": "lerna run test --stream",
     "start": "lerna run dev --stream"
   },
   "repository": {

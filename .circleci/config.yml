@@ -5,6 +5,10 @@ defaults: &defaults
   working_directory: ~/repo
   docker:
     - image: circleci/node:10.16
+    - image: circleci/postgres:11.5
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_DB: circle-test
 
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
@@ -32,8 +36,12 @@ jobs: # a collection of steps
           command: cd ./packages/backend && npm install
       - run:
           name: Run backend tests
+          environment:
+            DB_USERNAME: root
+            TEST_DB_NAME: circle-test
+            DB_HOST: localhost
           command: |
-            cd ./packages/backend && npm run test:ci && cd ../..
+            cd ./packages/backend && npm run test && cd ../..
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.backend.json packages/backend/coverage/lcov.info
       - persist_to_workspace:
           root: tmp
@@ -51,7 +59,7 @@ jobs: # a collection of steps
       - run:
           name: Run frontend tests
           command: |
-            cd ./packages/frontend && npm run test:ci && cd ../..
+            cd ./packages/frontend && npm run test && cd ../..
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.frontend.json packages/frontend/coverage/lcov.info
       - persist_to_workspace:
           root: tmp
