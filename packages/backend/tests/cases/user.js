@@ -72,11 +72,6 @@ export const userItemsTestCase = {
           description: 'Painting of great value',
           name: 'Painting',
         },
-        // {
-        //   id: 3,
-        //   description: 'New important item',
-        //   name: 'New Item',
-        // },
       ],
     },
   },
@@ -154,7 +149,7 @@ export const newUser = {
     }
   }`,
   variables: {
-    firstName: 'Grover', lastName: 'Johnson', email: 'grover@example.com', password: 'applicationUser2', userName: 'demoUser2',
+    firstName: 'Grover', lastName: 'Johnson', email: 'grover@example.com', password: 'appUser2', userName: 'demoUser2',
   },
   expected: {
     data: {

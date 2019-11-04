@@ -54,12 +54,14 @@ const resolvers = {
       name,
       description,
       value,
+      imageUrl,
     }, { models }) => {
       return models.Item.create({
         userId,
         name,
         description,
         value,
+        imageUrl,
       })
     },
     deleteItem: async (root, { id }, { models }) => {

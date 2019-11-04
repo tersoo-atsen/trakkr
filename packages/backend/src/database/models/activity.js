@@ -3,6 +3,12 @@ const activity = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Password cannot be empty.',
+        },
+      },
     },
   }, {});
 
