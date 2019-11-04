@@ -4,7 +4,7 @@ import { graphql } from 'graphql';
 import resolvers from '../src/config/schema/resolvers';
 import typeDefs from '../src/config/schema/typeDefs';
 import models from '../src/database/models';
-import { itemCases, newItem, deleteItem } from './testCases/item';
+import { itemCases, newItem, deleteItem } from './cases/item';
 
 describe('Item Test Cases', () => {
   const itemTestCases = [itemCases, newItem, deleteItem];

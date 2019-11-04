@@ -9,7 +9,7 @@ import {
   userItemsTestCase,
   userActivitiesCase,
   newUser,
-} from './testCases/user';
+} from './cases/user';
 
 describe('User Test Cases', () => {
   // array of all test cases, just 1 for now

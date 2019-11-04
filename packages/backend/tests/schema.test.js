@@ -7,7 +7,7 @@ import {
 } from 'graphql-tools';
 
 import typeDefs from '../src/config/schema/typeDefs';
-import { schema } from './testCases/schema';
+import { schema } from './cases/schema';
 
 describe('Schema', () => {
   // Array of case types

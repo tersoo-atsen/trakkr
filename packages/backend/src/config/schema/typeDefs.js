@@ -14,7 +14,7 @@ const typeDefs = gql`
       id: Int!
       name: String!
       description: String!
-      imageUrl: String
+      imageUrl: String!
       value: Int!
       user: User!
     }
@@ -38,7 +38,7 @@ const typeDefs = gql`
       createUser(firstName: String!, lastName: String!, email: String!, password: String!): User!
       updateUser(firstName: String, lastName: String, email: String, password: String!): [Int!]!
       createActivity(name: String!, userId: Int!, itemId: Int!): Activity!
-      createItem(userId: Int!, name: String!, description: String!, value: Int!, imageUrl: String): Item!
+      createItem(userId: Int!, name: String!, description: String!, value: Int!, imageUrl: String!): Item!
       updateItem(name: String, description: String): [Int!]!
       deleteItem(id: Int!): Boolean!
     }`

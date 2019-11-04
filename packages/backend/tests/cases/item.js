@@ -40,8 +40,8 @@ export const itemCases = {
 
 export const newItem = {
   id: 'new item',
-  query: `mutation createItem($userId: Int!, $name: String!, $description: String!, $value: Int!){
-    createItem(userId: $userId, name: $name, description: $description, value: $value){
+  query: `mutation createItem($userId: Int!, $name: String!, $description: String!, $value: Int!, $imageUrl: String!){
+    createItem(userId: $userId, name: $name, description: $description, value: $value, imageUrl: $imageUrl){
       id
       name
       description
@@ -49,7 +49,7 @@ export const newItem = {
     }
   }`,
   variables: {
-    userId: 1, name: 'New Item', description: 'New important item', value: 1230000,
+    userId: 1, name: 'New Item', description: 'New important item', value: 1230000, imageUrl: 'some/image/path',
   },
   expected: {
     data: {
