@@ -40,8 +40,8 @@ describe('Schema', () => {
       id, query, variables, context: ctx, expected,
     } = obj;
 
-    test(`query: ${id}`, async () => {
-      return expect(
+    test(`${id}`, async () => {
+      expect(
         graphql(mockSchema, query, null, { ctx }, variables),
       ).resolves.toEqual(expected);
     });

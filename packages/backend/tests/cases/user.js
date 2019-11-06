@@ -138,14 +138,17 @@ export const userActivitiesCase = {
   },
 };
 
-export const newUser = {
-  id: 'new user',
-  query: `mutation createUser($firstName: String!, $lastName: String!, $email: String!, $password: String!){
-    createUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password){
-      id
-      lastName
-      firstName
-      email
+export const signUp = {
+  id: 'user sign up',
+  query: `mutation signUp($firstName: String!, $lastName: String!, $email: String!, $password: String!, $userName: String){
+    signUp(firstName: $firstName, lastName: $lastName, email: $email, password: $password, userName: $userName){
+      user {
+        id
+        lastName
+        firstName
+        email
+      }
+      token
     }
   }`,
   variables: {
@@ -153,12 +156,89 @@ export const newUser = {
   },
   expected: {
     data: {
-      createUser: {
-        id: 2,
-        lastName: 'Johnson',
-        firstName: 'Grover',
-        email: 'grover@example.com',
+      signUp: {
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzMwMzk4NDUsImV4cCI6MTU3MzA0MTY0NX0.1B1ryU93orWpxXM3aK1farIABGEyZ5DiYdoE3ifgL1c',
+        user: {
+          email: 'grover@example.com',
+          firstName: 'Grover',
+          id: 2,
+          lastName: 'Johnson',
+        },
       },
     },
   },
 };
+
+export const signIn = {
+  id: 'user sign in',
+  query: `mutation signIn($login: String!, $password: String!){
+    signIn(login: $login, password: $password){
+      token
+      user {
+        id
+        lastName
+        firstName
+        email
+      }
+    }
+  }`,
+  variables: {
+    login: 'john.doe@example.com', password: 'applicationUser1',
+  },
+  expected: {
+    data: {
+      signIn: {
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzMwMzk4NDUsImV4cCI6MTU3MzA0MTY0NX0.1B1ryU93orWpxXM3aK1farIABGEyZ5DiYdoE3ifgL1c',
+        user: {
+          email: 'john.doe@example.com',
+          firstName: 'John',
+          id: 1,
+          lastName: 'Doe',
+        },
+      },
+    },
+  },
+};
+
+
+export const signInUserNotFound = {
+  id: 'user sign in',
+  query: `mutation signIn($login: String!, $password: String!){
+    signIn(login: $login, password: $password){
+      token
+      user {
+        id
+        lastName
+        firstName
+        email
+      }
+      token
+    }
+  }`,
+  variables: {
+    login: 'grover123@example.com', password: 'appUser2',
+  },
+};
+
+export const signInInvalidPassword = {
+  id: 'user sign in',
+  query: `mutation signIn($login: String!, $password: String!){
+  signIn(login: $login, password: $password){
+    token
+    user {
+      id
+      lastName
+      firstName
+      email
+    }
+    token
+  }
+}`,
+  variables: {
+    login: 'grover@example.com', password: '',
+  },
+}
+
+export const me = {
+  // id: 'user ',
+}

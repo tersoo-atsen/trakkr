@@ -40,6 +40,8 @@ jobs: # a collection of steps
             DB_USERNAME: root
             TEST_DB_NAME: circle-test
             DB_HOST: localhost
+            JWT_SECRET: trakkr-JWT_SECRET
+            TEST_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzMwMzk4NDUsImV4cCI6MTU3MzA0MTY0NX0.1B1ryU93orWpxXM3aK1farIABGEyZ5DiYdoE3ifgL1c
           command: |
             cd ./packages/backend && npm run test && cd ../..
             ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.backend.json packages/backend/coverage/lcov.info

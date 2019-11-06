@@ -1,3 +1,8 @@
+import { AuthenticationError, UserInputError, ForbiddenError } from 'apollo-server';
+
+import { createToken } from '../../utils/token';
+import { validatePassword } from '../../utils/password';
+
 const resolvers = {
   Activity: {
     async item(item) {
@@ -36,35 +41,70 @@ const resolvers = {
     },
   },
   Mutation: {
-    createUser: async (root, {
-      firstName,
-      lastName,
-      email,
-      password,
-    }, { models }) => {
-      return models.User.create({
+    signUp: async (
+      root,
+      {
+        firstName, lastName, email, password, userName,
+      },
+      { secret, models }) => {
+      const user = models.User.create({
         firstName,
         lastName,
+        userName,
         email,
         password,
       })
+
+      return { token: createToken(user, secret, '1h'), user };
+    },
+    signIn: async (root, { login, password }, { secret, models }) => {
+      const user = await models.User.findByLogin(login);
+
+      if (!user) {
+        throw new UserInputError(
+          'No user found with this login credentials.',
+        );
+      }
+
+      const isValid = validatePassword(password, user.password);
+
+      if (!isValid) {
+        throw new AuthenticationError('Invalid password.');
+      }
+
+      return { token: createToken(user, secret, '1h'), user };
     },
     createItem: async (root, {
-      userId,
       name,
       description,
       value,
       imageUrl,
-    }, { models }) => {
+    }, { me, models }) => {
+      if (!me) {
+        throw new ForbiddenError('Not authenticated as user.');
+      }
       return models.Item.create({
-        userId,
+        userId: me.id,
         name,
         description,
         value,
         imageUrl,
       })
     },
-    deleteItem: async (root, { id }, { models }) => {
+    deleteItem: async (root, { id }, { models/* , me */ }) => {
+      // if (!me) {
+      //   throw new ForbiddenError('Not authenticated as user.');
+      // }
+      // const item = await models.Item.findById(id)
+
+      // if (!item) {
+      //   throw new Error('No item found')
+      // }
+
+      // if (me.id !== item.userId) {
+      //   throw new Error('You can only edit the posts you created!')
+      // }
+
       return models.Item.destroy({ where: { id } });
     },
   },
