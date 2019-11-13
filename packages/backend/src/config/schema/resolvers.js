@@ -1,7 +1,9 @@
-import { AuthenticationError, UserInputError, ForbiddenError } from 'apollo-server';
+import { AuthenticationError, UserInputError } from 'apollo-server';
+import { combineResolvers } from 'graphql-resolvers';
 
 import { createToken } from '../../utils/token';
 import { validatePassword } from '../../utils/password';
+import { isAuthenticated, isItemOwner } from './authorization';
 
 const resolvers = {
   Activity: {
@@ -74,39 +76,30 @@ const resolvers = {
 
       return { token: createToken(user, secret, '1h'), user };
     },
-    createItem: async (root, {
-      name,
-      description,
-      value,
-      imageUrl,
-    }, { me, models }) => {
-      if (!me) {
-        throw new ForbiddenError('Not authenticated as user.');
-      }
-      return models.Item.create({
-        userId: me.id,
+    createItem: combineResolvers(
+      isAuthenticated,
+      async (root, {
         name,
         description,
         value,
         imageUrl,
-      })
-    },
-    deleteItem: async (root, { id }, { models/* , me */ }) => {
-      // if (!me) {
-      //   throw new ForbiddenError('Not authenticated as user.');
-      // }
-      // const item = await models.Item.findById(id)
-
-      // if (!item) {
-      //   throw new Error('No item found')
-      // }
-
-      // if (me.id !== item.userId) {
-      //   throw new Error('You can only edit the posts you created!')
-      // }
-
-      return models.Item.destroy({ where: { id } });
-    },
+      }, { models, me }) => {
+        return models.Item.create({
+          userId: me.id,
+          name,
+          description,
+          value,
+          imageUrl,
+        })
+      },
+    ),
+    deleteItem: combineResolvers(
+      isAuthenticated,
+      isItemOwner,
+      async (root, { id }, { models }) => {
+        return models.Item.destroy({ where: { id } });
+      },
+    ),
   },
 };
 
