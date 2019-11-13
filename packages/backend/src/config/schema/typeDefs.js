@@ -5,6 +5,7 @@ const typeDefs = gql`
       id: Int!
       firstName: String!
       lastName: String!
+      userName: String
       email: String
       password: String!
       items: [Item!]!
@@ -41,10 +42,10 @@ const typeDefs = gql`
     type Mutation {
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
       signIn(login: String!, password: String!): AuthResponse
-      updateUser(firstName: String, lastName: String, email: String, password: String!): [Int!]!
+      updateUser(firstName: String, lastName: String, userName: String): User
       createActivity(name: String!, userId: Int!, itemId: Int!): Activity!
       createItem(name: String!, description: String!, value: Int!, imageUrl: String!): Item!
-      updateItem(name: String, description: String): [Int!]!
+      updateItem(name: String, description: String): User
       deleteItem(id: Int!): Boolean!
     }`
 

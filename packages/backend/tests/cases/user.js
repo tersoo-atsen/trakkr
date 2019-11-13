@@ -200,7 +200,6 @@ export const signIn = {
   },
 };
 
-
 export const signInUserNotFound = {
   id: 'user sign in',
   query: `mutation signIn($login: String!, $password: String!){
@@ -212,7 +211,6 @@ export const signInUserNotFound = {
         firstName
         email
       }
-      token
     }
   }`,
   variables: {
@@ -223,22 +221,44 @@ export const signInUserNotFound = {
 export const signInInvalidPassword = {
   id: 'user sign in',
   query: `mutation signIn($login: String!, $password: String!){
-  signIn(login: $login, password: $password){
-    token
-    user {
-      id
-      lastName
-      firstName
-      email
+    signIn(login: $login, password: $password){
+      token
+      user {
+        id
+        lastName
+        firstName
+        email
+      }
     }
-    token
-  }
-}`,
+  }`,
   variables: {
     login: 'grover@example.com', password: '',
   },
 }
 
-export const me = {
-  // id: 'user ',
+export const updateUser = {
+  id: 'update user',
+  query: `mutation updateUser($firstName: String, $lastName: String, $userName: String){
+    updateUser(firstName: $firstName, lastName: $lastName, userName: $userName){
+      id
+      firstName
+      lastName
+      userName
+    }
+  }`,
+  variables: {
+    firstName: 'James',
+    lastName: 'Boring',
+  },
+
+  expected: {
+    data: {
+      updateUser: {
+        id: 1,
+        firstName: 'James',
+        lastName: 'Boring',
+        userName: 'demoUser1',
+      },
+    },
+  },
 }
