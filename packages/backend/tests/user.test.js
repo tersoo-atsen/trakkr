@@ -12,6 +12,7 @@ import {
   signIn,
   signInUserNotFound,
   signInInvalidPassword,
+  updateUser,
 } from './cases/user';
 
 describe('User Test Cases', () => {
@@ -22,11 +23,12 @@ describe('User Test Cases', () => {
     userActivitiesCase,
     signUp,
     signIn,
+    updateUser,
   ];
   // reading the actual schema
   // make the actual schema and resolvers executable
   const schema = makeExecutableSchema({ typeDefs, resolvers });
-  const context = { models, secret: process.env.JWT_SECRET };
+  let context = { models, secret: process.env.JWT_SECRET };
   const testToken = process.env.TEST_TOKEN;
   // running the test for each case in the cases array
   userCases.forEach((obj) => {
@@ -35,6 +37,16 @@ describe('User Test Cases', () => {
     } = obj;
 
     test(`${id}`, async () => {
+      let me;
+      if (id === 'update user') {
+        const signResult = await graphql(schema, signIn.query, null, context, signIn.variables);
+        const { data: { signIn: { user } } } = signResult;
+        me = user;
+        context = {
+          ...context,
+          me,
+        }
+      }
       const result = await graphql(schema, query, null, context, variables);
       if (result.data.signUp) {
         result.data.signUp.token = testToken;
@@ -42,6 +54,7 @@ describe('User Test Cases', () => {
       if (result.data.signIn) {
         result.data.signIn.token = testToken;
       }
+
       return expect(result).toEqual(expected);
     });
   });

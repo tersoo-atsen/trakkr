@@ -73,9 +73,15 @@ const resolvers = {
       if (!isValid) {
         throw new AuthenticationError('Invalid password.');
       }
-
       return { token: createToken(user, secret, '1h'), user };
     },
+    updateUser: combineResolvers(
+      isAuthenticated,
+      async (root, { firstName, lastName, userName }, { models, me }) => {
+        const user = await models.User.findByPk(me.id);
+        return user.update({ userName, firstName, lastName });
+      },
+    ),
     createItem: combineResolvers(
       isAuthenticated,
       async (root, {
