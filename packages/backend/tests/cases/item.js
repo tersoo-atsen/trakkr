@@ -37,7 +37,6 @@ export const singleItem = {
   },
 }
 
-
 export const newItem = {
   id: 'new item',
   query: `mutation createItem($name: String!, $description: String!, $value: Int!, $imageUrl: String!){
@@ -74,4 +73,12 @@ export const deleteItem = {
       deleteItem: true,
     },
   },
+}
+
+export const deleteNonexistentItem = {
+  id: 'remove non-existent item',
+  query: `mutation deleteItem($id: Int!) {
+    deleteItem(id: $id)
+  }`,
+  variables: { id: 30 },
 }
