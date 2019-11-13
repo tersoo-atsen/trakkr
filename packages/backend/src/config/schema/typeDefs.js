@@ -29,16 +29,21 @@ const typeDefs = gql`
     type Query {
       getItem(id: Int!): Item
       getUser(id: Int!): User
-      me: User
       getUserActivities(userId: Int!): [Activity]
       getUserItems(userId: Int!): [Item]
     }
 
+    type AuthResponse {
+      token: String!
+      user: User!
+    }
+
     type Mutation {
-      createUser(firstName: String!, lastName: String!, email: String!, password: String!): User!
+      signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
+      signIn(login: String!, password: String!): AuthResponse
       updateUser(firstName: String, lastName: String, email: String, password: String!): [Int!]!
       createActivity(name: String!, userId: Int!, itemId: Int!): Activity!
-      createItem(userId: Int!, name: String!, description: String!, value: Int!, imageUrl: String!): Item!
+      createItem(name: String!, description: String!, value: Int!, imageUrl: String!): Item!
       updateItem(name: String, description: String): [Int!]!
       deleteItem(id: Int!): Boolean!
     }`

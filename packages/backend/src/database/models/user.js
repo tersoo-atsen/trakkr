@@ -1,3 +1,5 @@
+import { generatePasswordHash } from '../../utils/password';
+
 const user = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
@@ -54,8 +56,8 @@ const user = (sequelize, DataTypes) => {
           msg: 'Password cannot be empty.',
         },
         len: {
-          args: [5, 10],
-          msg: 'Password must be between 5 and 10 chars long.',
+          args: [7, 20],
+          msg: 'Password must be between 7 and 20 chars long.',
         },
       },
     },
@@ -74,7 +76,7 @@ const user = (sequelize, DataTypes) => {
 
   User.findByLogin = async (login) => {
     let foundUser = await User.findOne({
-      where: { username: login },
+      where: { userName: login },
     });
     if (!foundUser) {
       foundUser = await User.findOne({
@@ -83,6 +85,10 @@ const user = (sequelize, DataTypes) => {
     }
     return foundUser;
   };
+
+  User.beforeCreate(async (newUser) => {
+    newUser.password = generatePasswordHash(newUser.password);
+  });
 
   return User;
 };

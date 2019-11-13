@@ -8,25 +8,57 @@ import {
   singleUserTestCase,
   userItemsTestCase,
   userActivitiesCase,
-  newUser,
+  signUp,
+  signIn,
+  signInUserNotFound,
+  signInInvalidPassword,
 } from './cases/user';
 
 describe('User Test Cases', () => {
   // array of all test cases, just 1 for now
-  const userCases = [singleUserTestCase, userItemsTestCase, userActivitiesCase, newUser];
+  const userCases = [
+    singleUserTestCase,
+    userItemsTestCase,
+    userActivitiesCase,
+    signUp,
+    signIn,
+  ];
   // reading the actual schema
   // make the actual schema and resolvers executable
   const schema = makeExecutableSchema({ typeDefs, resolvers });
-
+  const context = { models, secret: process.env.JWT_SECRET };
+  const testToken = process.env.TEST_TOKEN;
   // running the test for each case in the cases array
   userCases.forEach((obj) => {
     const {
       id, query, variables, expected,
-    } = obj
+    } = obj;
 
-    test(`returns a ${id}`, async () => {
-      const result = await graphql(schema, query, null, { models }, variables);
+    test(`${id}`, async () => {
+      const result = await graphql(schema, query, null, context, variables);
+      if (result.data.signUp) {
+        result.data.signUp.token = testToken;
+      }
+      if (result.data.signIn) {
+        result.data.signIn.token = testToken;
+      }
       return expect(result).toEqual(expected);
     });
+  });
+
+  const {
+    id, query, variables,
+  } = signInUserNotFound;
+
+  test(`${id}`, async () => {
+    const result = await graphql(schema, query, null, context, variables);
+    expect(result.errors[0].message).toEqual('No user found with this login credentials.');
+  });
+
+  test(`${signInInvalidPassword.id}`, async () => {
+    const result = await graphql(
+      schema, signInInvalidPassword.query, null, context, signInInvalidPassword.variables,
+    );
+    expect(result.errors[0].message).toEqual('Invalid password.');
   });
 });
