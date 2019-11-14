@@ -5,9 +5,9 @@ import resolvers from '../src/config/schema/resolvers';
 import typeDefs from '../src/config/schema/typeDefs';
 import models from '../src/database/models';
 import {
-  singleUserTestCase,
-  userItemsTestCase,
-  userActivitiesCase,
+  singleUser,
+  userItems,
+  userActivities,
   signUp,
   signIn,
   signInUserNotFound,
@@ -18,9 +18,9 @@ import {
 describe('User Test Cases', () => {
   // array of all test cases, just 1 for now
   const userCases = [
-    singleUserTestCase,
-    userItemsTestCase,
-    userActivitiesCase,
+    singleUser,
+    userItems,
+    userActivities,
     signUp,
     signIn,
     updateUser,

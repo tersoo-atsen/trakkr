@@ -1,5 +1,5 @@
 
-export const singleUserTestCase = {
+export const singleUser = {
   id: 'single user',
   query: `
     query GetUser($id: Int!){
@@ -17,28 +17,20 @@ export const singleUserTestCase = {
       }
     }    
   `,
-  variables: { id: 1 },
-
-  // Expected result
+  variables: { id: 2 },
   expected: {
     data: {
       getUser: {
-        id: 1,
-        firstName: 'John',
+        id: 2,
+        firstName: 'Jane',
         lastName: 'Doe',
-        email: 'john.doe@example.com',
+        email: 'jane.doe@example.com',
         items: [
           {
-            id: 1,
-            name: 'Statue',
-            description: 'Statue of great value',
-            value: 1000000,
-          },
-          {
-            id: 2,
-            name: 'Painting',
-            description: 'Painting of great value',
-            value: 100000,
+            id: 3,
+            name: 'Sculpture',
+            description: 'Sculpture of great value',
+            value: 1020000,
           },
         ],
       },
@@ -46,7 +38,7 @@ export const singleUserTestCase = {
   },
 };
 
-export const userItemsTestCase = {
+export const userItems = {
   id: 'user items',
   query: `
     query GetUserItems($userId: Int!){
@@ -57,27 +49,22 @@ export const userItemsTestCase = {
       }
     }`,
 
-  variables: { userId: 1 },
+  variables: { userId: 2 },
 
   expected: {
     data: {
       getUserItems: [
         {
-          id: 1,
-          description: 'Statue of great value',
-          name: 'Statue',
-        },
-        {
-          id: 2,
-          description: 'Painting of great value',
-          name: 'Painting',
+          id: 3,
+          description: 'Sculpture of great value',
+          name: 'Sculpture',
         },
       ],
     },
   },
 };
 
-export const userActivitiesCase = {
+export const userActivities = {
   id: 'user activities',
   query: `
     query getUserActivities($userId: Int!) {
@@ -161,7 +148,7 @@ export const signUp = {
         user: {
           email: 'grover@example.com',
           firstName: 'Grover',
-          id: 2,
+          id: 3,
           lastName: 'Johnson',
         },
       },

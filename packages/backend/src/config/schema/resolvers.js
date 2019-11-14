@@ -106,6 +106,13 @@ const resolvers = {
         return models.Item.destroy({ where: { id } });
       },
     ),
+    updateItem: async (root, { id, name, description }, { models }) => {
+      const item = await models.Item.findByPk(id);
+      if (!item) {
+        return new Error('Item not found!');
+      }
+      return item.update({ name, description });
+    },
   },
 };
 

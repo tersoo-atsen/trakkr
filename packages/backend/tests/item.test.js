@@ -5,12 +5,14 @@ import resolvers from '../src/config/schema/resolvers';
 import typeDefs from '../src/config/schema/typeDefs';
 import models from '../src/database/models';
 import {
-  singleItem, newItem, deleteItem, deleteNonexistentItem,
+  singleItem, newItem, deleteItem, deleteNonexistentItem, updateNonexistentItem, updateItem,
 } from './cases/item';
 import { signIn, signUp } from './cases/user';
 
 describe('Item Test Cases', () => {
-  const itemTestCases = [newItem, deleteItem, singleItem, deleteNonexistentItem];
+  const itemTestCases = [
+    newItem, updateNonexistentItem, updateItem, deleteItem, singleItem, deleteNonexistentItem,
+  ];
   const schema = makeExecutableSchema({ typeDefs, resolvers });
 
   itemTestCases.forEach((obj) => {
@@ -31,6 +33,9 @@ describe('Item Test Cases', () => {
       if (id === 'remove non-existent item') {
         return expect(result.errors[0].message).toEqual('Item not found!');
       }
+      if (id === 'update non-existent item') {
+        return expect(result.errors[0].message).toEqual('Item not found!');
+      }
       return expect(result).toEqual(expected);
     });
   });
@@ -43,7 +48,11 @@ describe('Item Test Cases', () => {
   test(`${deleteItem.id} with not authorization`, async () => {
     const context = { models, secret: process.env.JWT_SECRET };
     const variables = {
-      firstName: 'Test', lastName: 'User', email: 'test.user@example.com', password: 'testUser1', userName: 'testUser1',
+      firstName: 'Test',
+      lastName: 'User',
+      email: 'test.user@example.com',
+      password: 'testUser1',
+      userName: 'testUser1',
     };
     const signUpResult = await graphql(schema, signUp.query, null, context, variables);
     const { data: { signUp: { user } } } = signUpResult;

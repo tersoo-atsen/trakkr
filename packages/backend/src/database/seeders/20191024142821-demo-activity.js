@@ -13,6 +13,13 @@ export default {
       itemId: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
+    },
+    {
+      name: 'Update',
+      userId: 2,
+      itemId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }], {});
   },
 
