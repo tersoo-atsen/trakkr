@@ -12,9 +12,18 @@ export default {
     {
       name: 'Painting',
       description: 'Painting of great value',
-      imageUrl: 'some/path/to/image',
-      value: 100000,
+      imageUrl: 'some/path/to/painting',
+      value: 50000,
       userId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      name: 'Sculpture',
+      description: 'Sculpture of great value',
+      imageUrl: 'some/path/to/sculpture',
+      value: 1020000,
+      userId: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

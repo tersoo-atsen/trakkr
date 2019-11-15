@@ -45,7 +45,7 @@ const typeDefs = gql`
       updateUser(firstName: String, lastName: String, userName: String): User
       createActivity(name: String!, userId: Int!, itemId: Int!): Activity!
       createItem(name: String!, description: String!, value: Int!, imageUrl: String!): Item!
-      updateItem(name: String, description: String): User
+      updateItem(id: Int!, name: String, description: String): Item
       deleteItem(id: Int!): Boolean!
     }`
 
