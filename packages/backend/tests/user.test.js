@@ -1,8 +1,8 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { graphql } from 'graphql';
 
-import resolvers from '../src/config/schema/resolvers';
-import typeDefs from '../src/config/schema/typeDefs';
+import resolvers from '../src/schema/resolvers';
+import typeDefs from '../src/schema/typeDefs';
 import models from '../src/database/models';
 import {
   singleUser,

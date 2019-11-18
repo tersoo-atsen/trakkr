@@ -1,13 +1,13 @@
 import { makeExecutableSchema } from 'graphql-tools';
 import { graphql } from 'graphql';
 
-import resolvers from '../src/config/schema/resolvers';
-import typeDefs from '../src/config/schema/typeDefs';
+import resolvers from '../src/schema/resolvers';
+import typeDefs from '../src/schema/typeDefs';
 import models from '../src/database/models';
 import {
   singleItem, newItem, deleteItem, deleteNonexistentItem, updateNonexistentItem, updateItem,
 } from './cases/item';
-import { signIn, signUp } from './cases/user';
+import { signIn } from './cases/user';
 
 describe('Item Test Cases', () => {
   const itemTestCases = [
@@ -48,14 +48,11 @@ describe('Item Test Cases', () => {
   test(`${deleteItem.id} with not authorization`, async () => {
     const context = { models, secret: process.env.JWT_SECRET };
     const variables = {
-      firstName: 'Test',
-      lastName: 'User',
-      email: 'test.user@example.com',
-      password: 'testUser1',
-      userName: 'testUser1',
+      login: 'jane.doe@example.com',
+      password: 'applicationUser2',
     };
-    const signUpResult = await graphql(schema, signUp.query, null, context, variables);
-    const { data: { signUp: { user } } } = signUpResult;
+    const signInResult = await graphql(schema, signIn.query, null, context, variables);
+    const { data: { signIn: { user } } } = signInResult;
     const vars = { id: 1 };
     const result = await graphql(
       schema,
