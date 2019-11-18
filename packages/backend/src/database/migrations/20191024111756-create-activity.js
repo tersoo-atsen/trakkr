@@ -24,12 +24,6 @@ export default {
       itemId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Items',
-          key: 'id',
-          as: 'itemId',
-        },
       },
       createdAt: {
         allowNull: false,

@@ -1,3 +1,15 @@
+import { activityNames } from '../../utils/activityNames';
+
+const saveAuditLog = async (action, model, sequelize) => {
+  await sequelize.models.Activity.create({
+    userId: model.userId,
+    itemId: model.id,
+    name: action,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+};
+
 const item = (sequelize, DataTypes) => {
   const Item = sequelize.define('Item', {
     name: {
@@ -52,12 +64,20 @@ const item = (sequelize, DataTypes) => {
       foreignKey: 'userId',
       onDelete: 'CASCADE',
     })
-    Item.hasMany(models.Activity, {
-      foreignKey: 'itemId',
-      as: 'itemActivities',
-    })
   };
 
+  Item.afterCreate(async (newItem) => {
+    await saveAuditLog(activityNames.ADD, newItem, sequelize);
+  });
+
+  Item.afterUpdate(async (updatedItem) => {
+    await saveAuditLog(activityNames.UPDATE, updatedItem, sequelize);
+  });
+
+  Item.beforeBulkDestroy(async (res) => {
+    const foundItem = await sequelize.models.Item.findByPk(res.where.id);
+    saveAuditLog(activityNames.DELETE, foundItem, sequelize);
+  });
   return Item;
 };
 

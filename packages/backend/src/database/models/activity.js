@@ -6,7 +6,7 @@ const activity = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           args: true,
-          msg: 'Password cannot be empty.',
+          msg: 'Activity name cannot be empty.',
         },
       },
     },
@@ -25,7 +25,6 @@ const activity = (sequelize, DataTypes) => {
         name: 'itemId',
         allowNull: false,
       },
-      onDelete: 'CASCADE',
     })
   };
 

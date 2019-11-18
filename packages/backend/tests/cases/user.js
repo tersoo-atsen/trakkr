@@ -85,39 +85,24 @@ export const userActivities = {
       }
     }`,
 
-  variables: { userId: 1 },
+  variables: { userId: 2 },
 
   expected: {
     data: {
       getUserActivities: [
         {
-          id: 1,
-          name: 'Add',
-          user: {
-            id: 1,
-            firstName: 'John',
-            lastName: 'Doe',
-            email: 'john.doe@example.com',
-          },
-          item: {
-            name: 'Statue',
-            description: 'Statue of great value',
-            value: 1000000,
-          },
-        },
-        {
-          id: 2,
+          id: 3,
           name: 'Update',
           user: {
-            id: 1,
-            firstName: 'John',
+            id: 2,
+            firstName: 'Jane',
             lastName: 'Doe',
-            email: 'john.doe@example.com',
+            email: 'jane.doe@example.com',
           },
           item: {
-            name: 'Statue',
-            description: 'Statue of great value',
-            value: 1000000,
+            name: 'Painting',
+            description: 'Painting of great value',
+            value: 50000,
           },
         },
       ],
@@ -130,7 +115,6 @@ export const signUp = {
   query: `mutation signUp($firstName: String!, $lastName: String!, $email: String!, $password: String!, $userName: String){
     signUp(firstName: $firstName, lastName: $lastName, email: $email, password: $password, userName: $userName){
       user {
-        id
         lastName
         firstName
         email
@@ -148,7 +132,6 @@ export const signUp = {
         user: {
           email: 'grover@example.com',
           firstName: 'Grover',
-          id: 3,
           lastName: 'Johnson',
         },
       },

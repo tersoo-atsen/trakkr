@@ -6,7 +6,7 @@ import {
   mockServer,
 } from 'graphql-tools';
 
-import typeDefs from '../src/config/schema/typeDefs';
+import typeDefs from '../src/schema/typeDefs';
 import { schema } from './cases/schema';
 
 describe('Schema', () => {

@@ -1,9 +1,10 @@
 import { AuthenticationError, UserInputError } from 'apollo-server';
 import { combineResolvers } from 'graphql-resolvers';
 
-import { createToken } from '../../utils/token';
-import { validatePassword } from '../../utils/password';
+import { createToken } from '../utils/token';
+import { validatePassword } from '../utils/password';
 import { isAuthenticated, isItemOwner } from './authorization';
+import { find } from '../utils/requests';
 
 const resolvers = {
   Activity: {
@@ -32,14 +33,10 @@ const resolvers = {
       return models.User.findByPk(id)
     },
     getUserItems: async (root, { userId }, { models }) => {
-      return models.Item.findAll({
-        where: { userId },
-      })
+      return find(models.Item, userId)
     },
     getUserActivities: async (root, { userId }, { models }) => {
-      return models.Activity.findAll({
-        where: { userId },
-      })
+      return find(models.Activity, userId)
     },
   },
   Mutation: {

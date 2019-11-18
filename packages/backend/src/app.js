@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
 
-import { resolvers, typeDefs } from './config/schema';
+import { resolvers, typeDefs } from './schema';
 import models from './database/models'
 import { getMe } from './utils/getMe';
 

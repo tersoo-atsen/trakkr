@@ -3,8 +3,8 @@ import { graphql } from 'graphql';
 import request from 'supertest';
 
 import app from '../src/app';
-import resolvers from '../src/config/schema/resolvers';
-import typeDefs from '../src/config/schema/typeDefs';
+import resolvers from '../src/schema/resolvers';
+import typeDefs from '../src/schema/typeDefs';
 import models from '../src/database/models';
 import { signIn } from './cases/user';
 
