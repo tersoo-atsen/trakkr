@@ -32,6 +32,7 @@ const typeDefs = gql`
       getUser(id: Int!): User
       getUserActivities(userId: Int!): [Activity]
       getUserItems(userId: Int!): [Item]
+      searchItems(search: String): [Item]!
     }
 
     type AuthResponse {

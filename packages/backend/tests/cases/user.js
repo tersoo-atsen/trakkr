@@ -1,4 +1,3 @@
-
 export const singleUser = {
   id: 'single user',
   query: `
