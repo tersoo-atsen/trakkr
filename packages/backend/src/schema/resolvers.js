@@ -1,11 +1,13 @@
 import { AuthenticationError, UserInputError } from 'apollo-server';
 import { combineResolvers } from 'graphql-resolvers';
+import Sequelize from 'sequelize';
 
 import { createToken } from '../utils/token';
 import { validatePassword } from '../utils/password';
 import { isAuthenticated, isItemOwner } from './authorization';
 import { find } from '../utils/requests';
 
+const { Op } = Sequelize;
 const resolvers = {
   Activity: {
     async item(item) {
@@ -37,6 +39,29 @@ const resolvers = {
     },
     getUserActivities: async (root, { userId }, { models }) => {
       return find(models.Activity, userId)
+    },
+    searchItems: async (root, { search }, { models }) => {
+      return models.Item.findAll({
+        where: {
+          [Op.or]: [
+            {
+              name: {
+                [Op.like]: `${search.charAt(0).toUpperCase() + search.slice(1)}%`,
+              },
+            },
+            {
+              name: {
+                [Op.like]: `${search}%`,
+              },
+            },
+            {
+              name: {
+                [Op.like]: `%${search}%`,
+              },
+            },
+          ],
+        },
+      });
     },
   },
   Mutation: {
