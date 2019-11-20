@@ -16,6 +16,10 @@ export default {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      location: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       imageUrl: {
         type: Sequelize.STRING,
       },

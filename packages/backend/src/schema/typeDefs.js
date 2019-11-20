@@ -15,6 +15,7 @@ const typeDefs = gql`
       id: Int!
       name: String!
       description: String!
+      location: String!
       imageUrl: String!
       value: Int!
       user: User!
@@ -44,8 +45,7 @@ const typeDefs = gql`
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
       signIn(login: String!, password: String!): AuthResponse
       updateUser(firstName: String, lastName: String, userName: String): User
-      createActivity(name: String!, userId: Int!, itemId: Int!): Activity!
-      createItem(name: String!, description: String!, value: Int!, imageUrl: String!): Item!
+      createItem(name: String!, description: String!, value: Int!, imageUrl: String!, location: String!): Item!
       updateItem(id: Int!, name: String, description: String): Item
       deleteItem(id: Int!): Boolean!
     }`

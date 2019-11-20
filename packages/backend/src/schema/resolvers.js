@@ -111,6 +111,7 @@ const resolvers = {
         description,
         value,
         imageUrl,
+        location,
       }, { models, me }) => {
         return models.Item.create({
           userId: me.id,
@@ -118,6 +119,7 @@ const resolvers = {
           description,
           value,
           imageUrl,
+          location,
         })
       },
     ),
