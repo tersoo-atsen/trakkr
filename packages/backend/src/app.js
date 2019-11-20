@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
@@ -10,6 +11,7 @@ import { getMe } from './utils/getMe';
 const app = express();
 
 app.use(bodyParser.json(), cors());
+app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to the trakkr graphql api server!')
