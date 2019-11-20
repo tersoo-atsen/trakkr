@@ -4,8 +4,8 @@
   "description": "Application frontend",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel ./src/index.html --out-dir build",
-    "build": "parcel build ./src/index.html -d build",
+    "dev": "npx parcel ./src/index.html --out-dir build",
+    "build": "npx parcel build ./src/index.html -d build",
     "lint": "npx eslint --fix src/**/*.js*",
     "test:dev": "jest --watch",
     "test": "jest --config jest.config.js --coverage -u",
@@ -36,7 +36,9 @@
     "eslint-plugin-react": "^7.16.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.12.0",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.23.7"
   },
   "dependencies": {
     "react": "^16.10.2",
