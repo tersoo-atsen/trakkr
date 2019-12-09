@@ -35,16 +35,17 @@ export const singleItem = {
 
 export const newItem = {
   id: 'new item',
-  query: `mutation createItem($name: String!, $description: String!, $value: Int!, $imageUrl: String!){
-    createItem(name: $name, description: $description, value: $value, imageUrl: $imageUrl){
+  query: `mutation createItem($name: String!, $description: String!, $value: Int!, $imageUrl: String!, $location: String!){
+    createItem(name: $name, description: $description, value: $value, imageUrl: $imageUrl, location: $location){
       id
       name
       description
-      value
+      value,
+      location,
     }
   }`,
   variables: {
-    name: 'New Item', description: 'New important item', value: 1230000, imageUrl: 'some/image/path',
+    name: 'New Item', description: 'New important item', value: 1230000, imageUrl: 'some/image/path', location: 'Kaduna',
   },
   expected: {
     data: {
@@ -53,6 +54,7 @@ export const newItem = {
         name: 'New Item',
         description: 'New important item',
         value: 1230000,
+        location: 'Kaduna',
       },
     },
   },

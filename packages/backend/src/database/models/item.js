@@ -43,6 +43,16 @@ const item = (sequelize, DataTypes) => {
         },
       },
     },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Image URL cannot be empty.',
+        },
+      },
+    },
     value: {
       type: DataTypes.INTEGER,
       allowNull: false,

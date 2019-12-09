@@ -4,10 +4,11 @@
   "description": "Tool built to keep track of anything you collect",
   "main": "index.js",
   "scripts": {
-    "build": "lerna run build",
-    "install:all": "lerna exec \"npm install\" --stream",
-    "test": "lerna run test --stream",
-    "start": "lerna run dev --stream"
+    "build": "npx lerna run build",
+    "heroku-postbuild": "npm run install:all && npx lerna run build --stream",
+    "install:all": "npx lerna exec npm install --stream",
+    "test": "npx lerna run test --stream",
+    "start": "node ./packages/backend/build/server.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,7 @@
   "keywords": [
     "nodejs",
     "react.js",
+    "redux.js",
     "graphql"
   ],
   "bugs": {
@@ -23,5 +25,8 @@
   },
   "homepage": "https://github.com/mrSerious/trakkr#readme",
   "author": "Tersoo Atsen",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lerna": "^3.18.4"
+  }
 }
