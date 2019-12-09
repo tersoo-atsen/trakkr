@@ -7,20 +7,20 @@ import dbConfig from '../config/config';
 
 dotenv.config();
 const basename = path.basename(module.filename);
-process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.trim() : '';
+// process.env.NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV.trim() : '';
 const env = process.env.NODE_ENV || 'development';
 const config = dbConfig[env];
 const db = {};
 let sequelize;
 
-if (env === 'production') {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialect: 'postgres',
-    protocol: 'postgres',
-  });
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
-    config.database, config.username, config.password, config,
+    config.database,
+    config.username,
+    config.password,
+    config,
   );
 }
 

@@ -4,7 +4,7 @@
   "description": "Application backend",
   "main": "server.js",
   "scripts": {
-    "build": "rm -rf ./build && npx babel src -d build && npm run db-migrate",
+    "build": "rm -rf ./build && npx babel src -d build",
     "dev": "nodemon --exec ./node_modules/@babel/node/bin/babel-node.js src/server.js",
     "lint": "npx eslint --fix src/*.js",
     "db-init": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
