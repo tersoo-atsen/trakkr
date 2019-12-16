@@ -4,8 +4,8 @@
   "description": "Application frontend",
   "main": "index.js",
   "scripts": {
-    "dev": "npx parcel ./src/index.html --out-dir build",
-    "build": "npx parcel build ./src/index.html -d build",
+    "dev": "npx parcel ./public/index.html --out-dir build",
+    "build": "npx parcel build ./public/index.html -d build",
     "lint": "npx eslint --fix src/**/*.js*",
     "test:dev": "jest --watch",
     "test": "jest --config jest.config.js --coverage -u",
@@ -17,13 +17,14 @@
   "author": "Tersoo Atsen",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
-    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.7.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
+    "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
     "cssnano": "^4.1.10",
     "enzyme": "^3.10.0",
@@ -41,6 +42,8 @@
     "sass": "^1.23.7"
   },
   "dependencies": {
+    "bulma": "^0.8.0",
+    "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
   },

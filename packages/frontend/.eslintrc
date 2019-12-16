@@ -4,6 +4,7 @@
     "es6": true,
     "jest": true
   },
+  "parser": "babel-eslint",
   "extends": [
     "airbnb"
   ],
@@ -37,5 +38,8 @@
         ]
       }
     ],
+    "react/state-in-constructor": 0,
+    "react/button-has-type": 0,
+    "react/jsx-props-no-spreading": 0
   }
 }

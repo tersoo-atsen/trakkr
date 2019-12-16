@@ -1,12 +1,10 @@
 import React from 'react';
-import './app.scss';
 
-function App() {
-  return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
-  );
-}
+import './app.scss';
+import Navbar from '../navbar';
+
+const App = () => (
+  <Navbar />
+);
 
 export default App;

@@ -30,6 +30,7 @@ module.exports = {
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
     '\\\\node_modules\\\\',
+    'index.js',
   ],
 
   // A list of reporter names that Jest uses when writing coverage reports
@@ -46,7 +47,7 @@ module.exports = {
   // Make calling deprecated APIs throw helpful error messages
   // errorOnDeprecated: false,
 
-  // Force coverage collection from ignored files usin a array of glob patterns
+  // Force coverage collection from ignored files using a array of glob patterns
   // forceCoverageMatch: [],
 
   // A path to a module which exports an async function that is triggered once before all test suites
@@ -68,7 +69,8 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
