@@ -2,9 +2,23 @@
   color: rgb(255, 2, 2);
 }
 
-nav.navbar {
+.navbar {
+  transition: background-color 1000ms ease;
+  -webkit-transition: background-color 1000ms ease;
+  -moz-transition: background-color 1000ms linear;
+  -o-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+}
+
+.navbar.colored {
+  background-color: rgba(black, 0.8);
+  color: #ffffff;
+}
+
+.navbar.transparent {
   background-color: transparent;
 }
+
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   nav.navbar {

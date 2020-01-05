@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="90" width="90">
+  <defs>
+    <image id="812e2847-6f58-40af-a61d-427e2fed6243" opacity="1" x="0" y="0" width="90" height="90" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABaCAYAAAA4qEECAAAABmJLR0QA/wD/AP+gvaeTAAAESElEQVR4nO3cTWzbZBgH8P/j2nHSTUgIIQEFCQlVo0lFtwsTCJA2OBaJI4yvIbH1znEXPqRJu3FetQui28QN8SFxQAINDnCZNq1tOnLYhQI3Dm2XOHbeh0MozajtxI39OPae39F23vfRX47z+nX8AkoppZRSSimllFLlQUkO3rCrJ5jwBoAXATwB4FAmVU2oOb+TKK9B9igHtVz3qcDQMgMnD9rR/W5o0E279nxg+CsADwnUU1pW3M5mtfokiL+Ehjy22KCph0sAHhaqpdQig96wqycZeFmymDKLvEYz4fWIXR0GnWPfutrAzl8Z1VU6cT+GL4VtZNC5ut/+NKN6SivuGj0TtpF962pGtZRaXNCHwzbq5eJgYkcdKj0atJCRbsGLoAW4PcddYtApAPPIbx5mB8AqwCvG95YbQBeImVRqOlUO2z7OxEpWbtdqMybAtwAv5F3LIALfINtaPNJubxb+0tEC3EkMGQAYdNQE5us1oFL4oHuOuzSJIe+hY+S4ZwoftAG9mXcNwxDorcIHTUA97xpGMF+GUUfojVVeP9oRg4jDhT+ji0KDFlL4S8ckjuvD6BktRIMWokEL0aCFaNBCchl13AGqnuMuGdApAhpIb0pzB8Aqga9M+d7FWcBLqd2xiU+Ttmq1x4P+bNsz47QzHN20bSzOttu/Z9vPvaJyE7103AGqMiEDAC8EAb5pAW72fQ0nGrTXn9IUCHkXLwSOe1auv2iiQZv+YyZhefS5n2jQOU1pzufQ5z7So45MpzSjpijTaHtcOo4WokEL0aCFaNBCNGghGrQQDVqIBi1EgxaiQQvRoIVo0EI0aCEatJC4oLfDNq7h0CMZ1VJqcUFvhn7ANhPxxKJoIoNm4IfQHcTnm3btg3VMP5pZVSUU+WTjtl17wRD/dJBGo56YZP2m1yS8SZb47wZHgvbPIHyXXUn3l9hRh+lOvQfCn1LFlJnddKpbiHyA2QNCvwgqKQsRowuVLouAA/3gqWRsw/iCCO/nXUgeBkcI5FgzT9+9+8fg/o3p6cfYN6l846160PkewLU0Gisy0+W3/7+Nu/xOWu33/6lk8RkY+gXAg2k1XDRE/Mm6XYNVoc+Bf4Mn/jit9i0AmPO835jxGoC/02q4gCpEfIF9s8m+2STiCwAqKbW99d84uh50rrHFxwH8mFLjas/qPTcsdc9rzfmdE4bxCoBlBpqImMVTo2Pwiuhbp/E3R/uFjQT6q81wktcltub8zgMR9QjcjvF143vPiU78M7Ce6PiueXffNp9PJ+x2LeHxKeLr5Ey92gC6ov+PtsCXGfTsyB8gfNS0q6CK9RkAcNecZsKHyXrly8mOH9s2gFsMXmHfu9TwhyxelYUW4AZO7VeppXkIfKPne8d3V+rKk+ilYxbwbBuLAN3Muq/dFbomIWRA+Ize1T+z3bPYW6MurdcftgHcAvjK4JpzSimllFJKKaVi/ANzj0XRLdf68QAAAABJRU5ErkJggg=="/>
+    <pattern id="pattern-2" x="0" y="0" width="1" height="1" patternUnits="objectBoundingBox">
+      <use xlink:href="#812e2847-6f58-40af-a61d-427e2fed6243" transform="scale(1,1)"/>
+    </pattern>
+  </defs>
+  <g>
+    <rect fill="url(#pattern-2)" opacity="1" x="0" y="0" width="90" height="90"/>
+  </g>
+</svg>

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import './app.scss';
-import Navbar from '../navbar';
+import LandingPage from '../landingPage';
 
 const App = () => (
-  <Navbar />
+  <LandingPage />
 );
 
 export default App;
