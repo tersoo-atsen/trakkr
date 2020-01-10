@@ -1,10 +1,19 @@
 import React from 'react';
+import {
+  Switch,
+  Route,
+} from 'react-router-dom';
 
 import './app.scss';
+import routes from '../../utils/routes';
 import LandingPage from '../landingPage';
+import NotFoundPage from '../notFoundPage';
 
 const App = () => (
-  <LandingPage />
+  <Switch>
+    <Route exact path={routes.home} component={LandingPage} />
+    <Route component={NotFoundPage} />
+  </Switch>
 );
 
 export default App;

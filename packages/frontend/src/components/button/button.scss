@@ -5,7 +5,7 @@
   width: 120px;
 }
 
-button.buttons--white {
+.button.buttons--white-text {
   color: #fff;
 }
 
@@ -14,7 +14,6 @@ button.buttons--white {
   background-color: #d70508;
   font-weight: bold;
   color: #fff;
-  margin-bottom: 0;
   border: none;
 }
 
@@ -23,7 +22,6 @@ button.buttons--white {
 }
 
 .button.transparent {
-  margin-bottom: 0;
   border: none;
   background-color: transparent;
   font-weight: bold;

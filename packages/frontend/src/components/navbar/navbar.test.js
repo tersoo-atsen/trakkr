@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 
 import Navbar from './navbar';
 
@@ -8,7 +9,11 @@ jest.useFakeTimers();
 describe('Navbar component', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = mount(<Navbar />);
+    wrapper = mount(
+      <MemoryRouter>
+        <Navbar />
+      </MemoryRouter>,
+    );
   });
 
   it('Should render correctly', () => {
