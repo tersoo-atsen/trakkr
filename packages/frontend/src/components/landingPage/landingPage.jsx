@@ -16,7 +16,7 @@ class LandingPage extends Component {
       <div className="feature">
         <div className="feature__wrapper is-clearfix">
           <div className="is-pulled-left">
-            <img className="feature__icon" src={`..${feature.iconSrc}`} alt={feature.altText} />
+            <img className="feature__icon" src={feature.iconSrc} alt={feature.altText} />
           </div>
           <div className="feature__text is-pulled-left">
             <p className="feature__title">{feature.title}</p>
