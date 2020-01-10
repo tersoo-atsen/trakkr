@@ -6,11 +6,26 @@ import Footer from '../footer';
 import ImageLoader from '../imageLoader';
 import { dashboard as hiRes } from '../../utils/images/images';
 import lowRes from '../../assets/images/trakkr-dashboard-blurred.png';
-import devices from '../../assets/images/multiple-devices.svg';
-import activity from '../../assets/images/secure.svg';
+import features from '../../utils/features';
 
 class LandingPage extends Component {
   state = {};
+
+  featureElement = (feature, idx) => (
+    <div key={idx} className="column">
+      <div className="feature">
+        <div className="feature__wrapper is-clearfix">
+          <div className="is-pulled-left">
+            <img className="feature__icon" src={`..${feature.iconSrc}`} alt={feature.altText} />
+          </div>
+          <div className="feature__text is-pulled-left">
+            <p className="feature__title">{feature.title}</p>
+            <p className="feature__sub-text">{feature.desc}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   render() {
     return (
@@ -34,32 +49,7 @@ class LandingPage extends Component {
           </div>
           <div className="page-bottom__features">
             <div className="columns">
-              <div className="column">
-                <div className="feature">
-                  <div className="feature__wrapper is-clearfix">
-                    <div className="is-pulled-left">
-                      <img className="feature__icon" src={devices} alt="Multiple devices" />
-                    </div>
-                    <div className="feature__text is-pulled-left">
-                      <p className="feature__title">Access items anytime</p>
-                      <p className="feature__sub-text">Manage your inventory on any computer, tablet or phone.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="column">
-                <div className="feature">
-                  <div className="feature__wrapper is-clearfix">
-                    <div className="is-pulled-left">
-                      <img className="feature__icon" src={activity} alt="Activity tracker" />
-                    </div>
-                    <div className="feature__text is-pulled-left">
-                      <p className="feature__title">Activity tracker</p>
-                      <p className="feature__sub-text">Remain secure by always knowing what’s been changed, when and by whom.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {features.map((feature, idx) => this.featureElement(feature, idx))}
             </div>
           </div>
         </div>

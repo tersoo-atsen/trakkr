@@ -1,7 +1,3 @@
-.header {
-  color: rgb(255, 2, 2);
-}
-
 .navbar {
   transition: background-color 1000ms ease;
   -webkit-transition: background-color 1000ms ease;
@@ -11,7 +7,7 @@
 }
 
 .navbar.colored {
-  background-color: rgba(black, 0.8);
+  background-color: rgba(#2d3039, 0.9);
   color: #ffffff;
 }
 
@@ -22,7 +18,7 @@
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
   nav.navbar {
-    padding: 0 28px;
+    padding: 0.5rem;
   }
 }
 

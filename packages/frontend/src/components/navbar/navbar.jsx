@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 import Button from '../button';
@@ -25,20 +26,20 @@ class Navbar extends Component {
   render() {
     const { isTop } = this.state;
     const navClasses = isTop ? 'navbar is-fixed-top transparent' : 'navbar is-fixed-top colored';
-    const buttonClass = isTop ? null : 'buttons--white';
+    const buttonClass = isTop ? null : 'buttons--white-text';
 
     return (
       <nav className={navClasses}>
         <div className="navbar-brand navbar-start">
-          <a className="navbar-item is-capitalized" href="/">
+          <Link className="navbar-item is-capitalized" to="/">
             <img className="trakkr_logo" src={trakkrLogo} alt="trakkr logo" />
-          </a>
+          </Link>
         </div>
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <Button classes={buttonClass} label="Sign in" type="transparent" />
-              <Button label="Sign up" type="round" />
+              <Button classes={buttonClass} path="/login" label="Sign in" type="transparent" />
+              <Button path="/logout" label="Sign up" type="round" />
             </div>
           </div>
         </div>
