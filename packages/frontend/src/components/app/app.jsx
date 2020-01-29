@@ -4,7 +4,6 @@ import {
   Route,
 } from 'react-router-dom';
 
-import './app.scss';
 import routes from '../../utils/routes';
 import LandingPage from '../landingPage';
 import NotFoundPage from '../notFoundPage';

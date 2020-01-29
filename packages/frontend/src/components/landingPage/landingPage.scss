@@ -45,7 +45,7 @@
 }
 
 .page-bottom {
-  background-color: #f4f7fa;
+  background-color: rgba(245, 247, 250, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -83,11 +83,11 @@
   .page-wrapper {
     .page-top,
     .page-bottom {
-      height: 250px;
+      height: 300px;
     }
 
     .page-content {
-      top: 10%;
+      top: 15%;
 
       .page-top__text-wrapper {
         max-width: 80%;
@@ -104,14 +104,14 @@
   }
 
   .page-bottom__features {
-    width: 80%;
+    max-width: 90%;
 
     .feature {
       padding: 0 1rem;
 
       .feature__wrapper {
         .feature__text {
-          font-size: 0.6rem;
+          font-size: 0.7rem;
           margin-left: 10px;
           max-width: 60%;
         }
