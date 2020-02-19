@@ -188,7 +188,7 @@ export const signInUserNotFound = {
 };
 
 export const signInInvalidPassword = {
-  id: 'user sign in',
+  id: 'user sign in fail',
   query: `mutation signIn($login: String!, $password: String!){
     signIn(login: $login, password: $password){
       token

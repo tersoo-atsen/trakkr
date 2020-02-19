@@ -4,9 +4,8 @@ import './landingPage.scss';
 import Navbar from '../navbar';
 import Footer from '../footer';
 import ImageLoader from '../imageLoader';
-import { dashboard as hiRes } from '../../utils/images/images';
+import { dashboard as hiRes, features } from '../../utils';
 import lowRes from '../../assets/images/trakkr-dashboard-blurred.png';
-import features from '../../utils/features';
 
 class LandingPage extends Component {
   state = {};

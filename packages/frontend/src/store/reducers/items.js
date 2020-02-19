@@ -1,8 +1,6 @@
 const initialState = {
-  items: [],
+  userItems: [],
   singleItem: {},
-  loading: false,
-  error: [],
 };
 
 function itemReducer(state = initialState) {

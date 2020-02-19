@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import { MockedProvider } from '@apollo/react-testing';
 
 import App from './app';
 import LandingPage from '../landingPage';
@@ -10,9 +11,11 @@ describe('App component', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = mount(
-      <MemoryRouter initialEntries={['/']}>
-        <App />
-      </MemoryRouter>,
+      <MockedProvider>
+        <MemoryRouter initialEntries={['/']}>
+          <App />
+        </MemoryRouter>
+      </MockedProvider>,
     );
   });
 

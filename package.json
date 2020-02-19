@@ -8,7 +8,8 @@
     "heroku-postbuild": "npm run install:all && npx lerna run build --stream",
     "install:all": "npx lerna exec npm install --stream",
     "test": "npx lerna run test --stream",
-    "start": "node ./packages/backend/build/server.js"
+    "start": "node ./packages/backend/build/server.js",
+    "dev": "npx lerna run dev"
   },
   "repository": {
     "type": "git",

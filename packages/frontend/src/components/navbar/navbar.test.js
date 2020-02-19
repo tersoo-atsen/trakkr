@@ -16,6 +16,10 @@ describe('Navbar component', () => {
     );
   });
 
+  afterEach(() => {
+    wrapper.unmount();
+  });
+
   it('Should render correctly', () => {
     const navbar = wrapper.find('.navbar.is-fixed-top.transparent');
     expect(wrapper.children().length).toEqual(1);

@@ -72,6 +72,6 @@ describe('User Test Cases', () => {
     const result = await graphql(
       schema, signInInvalidPassword.query, null, context, signInInvalidPassword.variables,
     );
-    expect(result.errors[0].message).toEqual('Invalid password.');
+    expect(result.errors[0].message).toEqual('Login failed. Please try again.');
   });
 });

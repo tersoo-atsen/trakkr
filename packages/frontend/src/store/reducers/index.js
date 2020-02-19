@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import items from './items';
-import trakkr from './trakkr';
+import item from './items';
+import global from './global';
+import user from './user';
 
-export default combineReducers({ items, trakkr });
+export default combineReducers({ item, global, user });

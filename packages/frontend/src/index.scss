@@ -18,15 +18,22 @@ $navbar-breakpoint: 0;
 @import "../node_modules/bulma/sass/layout/section.sass";
 @import "../node_modules/bulma/sass/grid/columns.sass";
 
-.button:focus:not(:active), .button.is-focused:not(:active) {
+.button:focus:not(:active),
+.button.is-focused:not(:active) {
   box-shadow: none;
 }
 
 body {
   font: 400 14px/1.6 "Lato", Verdana, sans-serif;
-  background: url('./assets/images/page-bg.png') center repeat;
+  background: url("./assets/images/page-bg.png") center repeat;
   color: #505050;
   -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+textarea {
+  font: 400 12px/1.6 "Lato", Verdana, sans-serif;
 }
 
 .responsive {
