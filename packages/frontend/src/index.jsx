@@ -7,7 +7,7 @@ import { ApolloProvider } from 'react-apollo';
 import store from './store/store';
 import App from './components/app';
 import './index.scss';
-import apolloClient from './utils/apolloClient';
+import { apolloClient } from './utils';
 
 const app = (
   <ApolloProvider client={apolloClient}>

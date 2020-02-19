@@ -93,7 +93,7 @@ const resolvers = {
       const isValid = validatePassword(password, user.password);
 
       if (!isValid) {
-        throw new AuthenticationError('Invalid password.');
+        throw new AuthenticationError('Login failed. Please try again.');
       }
       return { token: createToken(user, secret, '1h'), user };
     },

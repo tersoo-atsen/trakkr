@@ -8,10 +8,18 @@
 
 .navbar.colored {
   background-color: rgba(#2d3039, 0.9);
+
+  a.button:hover {
+    color: #fff;
+  }
 }
 
 .navbar.transparent {
   background-color: transparent;
+
+  .button.round:hover {
+    color: #fff;
+  }
 }
 
 // Medium devices (tablets, 768px and up)

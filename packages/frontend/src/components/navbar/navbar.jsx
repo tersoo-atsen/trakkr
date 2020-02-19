@@ -1,15 +1,21 @@
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 import Button from '../button';
-import trakkrLogo from '../../../public/trakkr-logo.svg';
+import trakkrLogo from '../../assets/images/trakkr-logo.svg';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   state = { isTop: true };
 
   componentDidMount() {
+    this._isMounted = true;
     this.handleScroll();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleScroll = () => {
@@ -19,7 +25,9 @@ class Navbar extends Component {
       if (scrollPosition === isTop) {
         return;
       }
-      this.setState({ isTop: scrollPosition });
+      if (this._isMounted) {
+        this.setState({ isTop: scrollPosition });
+      }
     });
   }
 

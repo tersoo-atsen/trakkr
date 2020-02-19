@@ -2,7 +2,7 @@
 import React from 'react';
 
 import './footer.scss';
-import trakkrLogo from '../../../public/trakkr-logo.svg';
+import trakkrLogo from '../../assets/images/trakkr-logo.svg';
 import facebook from '../../assets/images/facebook.svg';
 import twitter from '../../assets/images/twitter.svg';
 import instagram from '../../assets/images/instagram.svg';
