@@ -66,8 +66,6 @@ export class Login extends Component {
       email, password, formErrors,
     } = this.state;
 
-    const { loginError } = this.props;
-
     return (
       <Mutation mutation={USER_LOGIN} variables={{ login: email, password }}>
         {(loginMutation, { error }) => (
@@ -89,7 +87,6 @@ export class Login extends Component {
                   </div>
                   <div className="column">
                     <div className="login__page__form_error_wrapper">
-                      {loginError && <pre>{loginError}</pre>}
                       {error && /* istanbul ignore next */(
                         <pre>
                           {error.graphQLErrors.map(/* istanbul ignore next */({ message }, idx) => (
@@ -173,11 +170,8 @@ export class Login extends Component {
 }
 
 Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   dispatch: PropTypes.func.isRequired,
-  loginError: PropTypes.arrayOf.isRequired,
 };
 
 function mapStateToProps(state) {
