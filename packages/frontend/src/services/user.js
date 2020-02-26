@@ -1,29 +1,29 @@
-import { saveToLocalStorage/* , removeFromLocalStorage */ } from '../utils';
+import { saveToLocalStorage, removeFromLocalStorage } from '../utils';
 
 const login = async (loginMutation, email, password) => {
   try {
     const response = await loginMutation({ variables: { login: email, password } });
-    const { token } = response.data.signIn;
+    const { token, user } = response.data.signIn;
 
     if (!token) return null;
 
     const result = saveToLocalStorage('token', token);
     if (!result) return null;
 
-    return token;
+    return { token, user };
   } catch (e) {
     return null;
   }
 };
 
-// const logout = () => {
-// remove user from local storage to log user out
-// removeFromLocalStorage('token');
-// };
+const logout = () => {
+  // remove user from local storage to log user out
+  removeFromLocalStorage('token');
+};
 
 const userService = {
   login,
-  // logout,
+  logout,
 };
 
 export default userService;

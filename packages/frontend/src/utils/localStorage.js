@@ -11,16 +11,17 @@ export const saveToLocalStorage = (key, value) => {
 // export const getFromLocalStorage = (itemKey) => {
 //   try {
 //     return JSON.parse(localStorage.getItem(itemKey));
-//   } catch (e) {s
+//   } catch (e) {
 //     return null;
 //   }
 // };
 
-// export const removeFromLocalStorage = (itemKey) => {
-// try {
-//   localStorage.removeItem(itemKey);
-//   return true;
-// } catch (e) {
-//   return null;
-// }
-// };
+export const removeFromLocalStorage = (itemKey) => {
+  const name = localStorage.getItem(itemKey);
+  /* istanbul ignore if */
+  if (name !== null) {
+    localStorage.removeItem(itemKey);
+    return true;
+  }
+  return false;
+};

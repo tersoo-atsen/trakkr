@@ -1,16 +1,32 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import LandingPage from './landingPage';
 import Button from '../button';
 
+const mockStore = configureStore([]);
+
 describe('Landing page component', () => {
   let wrapper;
+  let store;
+
   beforeEach(() => {
+    store = mockStore({
+      global: {
+        loggingIn: false,
+        loggedIn: false,
+        error: [],
+        user: {},
+      },
+    });
     wrapper = mount(
       <MemoryRouter>
-        <LandingPage />
+        <Provider store={store}>
+          <LandingPage />
+        </Provider>
       </MemoryRouter>,
     );
   });

@@ -1,21 +1,29 @@
 /* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import PropTypes from 'prop-types';
 
 import './navbar.scss';
-import Button from '../button';
 import trakkrLogo from '../../assets/images/trakkr-logo.svg';
+import NavItems from '../navItems';
+import authActions from '../../store/actions';
 
 export class Navbar extends Component {
-  state = { isTop: true };
+  container = React.createRef();
+
+  state = { isTop: true, showMenu: false };
 
   componentDidMount() {
     this._isMounted = true;
     this.handleScroll();
+    document.addEventListener('mouseup', this.closeMenu);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
+    document.removeEventListener('mouseup', this.closeMenu);
   }
 
   handleScroll = () => {
@@ -31,8 +39,29 @@ export class Navbar extends Component {
     });
   }
 
+  openMenu = (event) => {
+    event.preventDefault();
+    const { showMenu } = this.state;
+
+    this.setState({ showMenu: !showMenu });
+  }
+
+  closeMenu = (event) => {
+    /* istanbul ignore else */
+    if (this.container.current && !this.container.current.contains(event.target)) {
+      this.setState({ showMenu: false });
+    }
+  }
+
+  handleLogout = () => {
+    const { dispatch, history } = this.props;
+
+    authActions.logout(dispatch, history);
+  }
+
   render() {
-    const { isTop } = this.state;
+    const { isTop, showMenu } = this.state;
+    const { loggedIn, currentUser } = this.props;
     const navClasses = isTop ? 'navbar is-fixed-top transparent' : 'navbar is-fixed-top colored';
     const buttonClass = isTop ? null : 'buttons--white-text';
 
@@ -45,9 +74,15 @@ export class Navbar extends Component {
         </div>
         <div className="navbar-end">
           <div className="navbar-item">
-            <div className="buttons">
-              <Button classes={buttonClass} path="/login" label="Sign in" type="transparent" />
-              <Button path="/logout" label="Sign up" type="round" />
+            <div className="buttons" ref={this.container}>
+              <NavItems
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+                buttonClass={buttonClass}
+                toggleMenu={this.openMenu}
+                showMenu={showMenu}
+                handleLogout={this.handleLogout}
+              />
             </div>
           </div>
         </div>
@@ -56,4 +91,21 @@ export class Navbar extends Component {
   }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+  currentUser: PropTypes.objectOf(PropTypes.string).isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { loggedIn, user } = state.global;
+  return {
+    loggedIn,
+    currentUser: user,
+  };
+};
+
+const ConnectedNavbar = compose(withRouter, connect(mapStateToProps))(Navbar);
+
+export default ConnectedNavbar;

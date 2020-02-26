@@ -26,27 +26,33 @@ describe('authentication action creators', () => {
       loggedIn: false,
       loggingIn: false,
       error: [],
+      user: {},
     };
 
     store = mockStore(initialState);
   });
 
   it('should dispatch login success', async () => {
-    loginMutation = jest.fn().mockImplementation(() => new Promise((resolve) => resolve({
-      loading: false,
-      error: null,
-      data: {
-        signIn: {
-          token: 'token',
+    loginMutation = jest.fn()
+      .mockImplementation(() => new Promise((resolve) => resolve({
+        loading: false,
+        error: null,
+        data: {
+          signIn: {
+            token: 'token',
+            user: {
+              firstName: 'John',
+              lastName: 'Doe',
+            },
+          },
         },
-      },
-    })));
+      })));
     loginActionParams = {
       loginMutation, email, password, history,
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
-      { type: 'LOGIN_SUCCESS', loggedIn: true },
+      { type: 'LOGIN_SUCCESS', loggedIn: true, user: { firstName: 'John', lastName: 'Doe' } },
     ];
 
     await store.dispatch(authActions.login(loginActionParams));
@@ -59,7 +65,8 @@ describe('authentication action creators', () => {
         loading: false,
         error: null,
         data: {
-          signIn: {},
+          signIn: {
+          },
         },
       })));
     loginActionParams = {

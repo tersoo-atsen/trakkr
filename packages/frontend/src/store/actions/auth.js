@@ -4,8 +4,8 @@ import userService from '../../services';
 const request = (loggingIn) => (
   { type: authConstants.LOGIN_REQUEST, loggingIn }
 );
-const success = (loggedIn) => (
-  { type: authConstants.LOGIN_SUCCESS, loggedIn }
+const success = (loggedIn, user) => (
+  { type: authConstants.LOGIN_SUCCESS, loggedIn, user }
 );
 const failure = (error) => (
   { type: authConstants.LOGIN_FAIL, error }
@@ -18,9 +18,13 @@ const login = (loginActionParams) => async (dispatch) => {
 
   dispatch(request(true));
 
-  const token = await userService.login(loginMutation, email, password);
-  if (token) {
-    dispatch(success(true));
+  const result = await userService.login(loginMutation, email, password);
+  let token = null;
+
+  if (result) {
+    const { user } = result;
+    token = result.token;
+    dispatch(success(true, user));
     history.push('/');
   } else {
     const error = ['Login failed. Please try again.'];
@@ -29,14 +33,15 @@ const login = (loginActionParams) => async (dispatch) => {
   return token;
 };
 
-// const logout = () => {
-// userService.logout();
-// return { type: authConstants.LOGOUT };
-// };
+const logout = (dispatch, history) => {
+  userService.logout();
+  dispatch({ type: authConstants.LOGOUT });
+  history.push('/');
+};
 
 const authActions = {
   login,
-  // logout,
+  logout,
 };
 
 export default authActions;

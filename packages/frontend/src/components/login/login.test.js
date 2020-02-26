@@ -2,10 +2,10 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from '@apollo/react-testing';
-import wait from 'waait';
+import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { GraphQLError } from 'graphql';
-import configureStore from 'redux-mock-store';
+import wait from 'waait';
 
 import ConnectedLogin, { Login } from './login';
 import { USER_LOGIN } from '../../graphql/mutations';
@@ -26,8 +26,10 @@ describe('Login component', () => {
         loggingIn: false,
         loggedIn: false,
         error: [],
+        user: {},
       },
     });
+
     store.dispatch = jest.fn();
 
     props = {
