@@ -86,7 +86,7 @@ const resolvers = {
 
       if (!user) {
         throw new UserInputError(
-          'No user found with this login credentials.',
+          'Invalid login. Please try again.',
         );
       }
 

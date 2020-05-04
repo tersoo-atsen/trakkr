@@ -65,7 +65,7 @@ describe('User Test Cases', () => {
 
   test(`${id}`, async () => {
     const result = await graphql(schema, query, null, context, variables);
-    expect(result.errors[0].message).toEqual('No user found with this login credentials.');
+    expect(result.errors[0].message).toEqual('Invalid login. Please try again.');
   });
 
   test(`${signInInvalidPassword.id}`, async () => {

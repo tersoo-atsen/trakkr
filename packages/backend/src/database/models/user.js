@@ -25,7 +25,10 @@ const user = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Email address already in use!',
+      },
       validate: {
         notEmpty: {
           args: true,
@@ -39,7 +42,10 @@ const user = (sequelize, DataTypes) => {
     },
     userName: {
       type: DataTypes.STRING,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'Username already in use!',
+      },
       validate: {
         notEmpty: {
           args: true,

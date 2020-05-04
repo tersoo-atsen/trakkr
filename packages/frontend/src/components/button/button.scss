@@ -1,8 +1,12 @@
 .buttons .button {
   height: 40px;
+  color: #fff;
   font-size: 14px;
   font-family: "Lato", Vernada, sans-serif;
   width: 120px;
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
 }
 
 .button.buttons--white-text {
@@ -13,8 +17,11 @@
   border-radius: 50px;
   background-color: #d70508;
   font-weight: bold;
-  color: #fff;
   border: none;
+}
+
+.button.round:hover {
+  background-color: #960002;
 }
 
 .button.transparent {
