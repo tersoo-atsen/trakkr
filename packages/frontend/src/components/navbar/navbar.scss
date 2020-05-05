@@ -7,7 +7,7 @@
 }
 
 .navbar.colored {
-  background-color: rgba(#2d3039, 0.3);
+  background-color: #2d3039;
 
   a.button:hover {
     color: #fff;
@@ -26,12 +26,5 @@
 @media (min-width: 768px) {
   nav.navbar {
     padding: 0.5rem;
-  }
-}
-
-// Small devices (landscape phones, less than 768px)
-@media (max-width: 767.98px) {
-  .navbar-item img.trakkr_logo {
-    max-height: 1rem;
   }
 }

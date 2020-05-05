@@ -2,65 +2,60 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
 import authActions from './auth';
+import { testToken } from '../../../__mocks__/graphqlMocks';
 
+let mutation = jest.fn();
+let expectedActions;
+let store;
+let email;
+let password;
+let firstName;
+let lastName;
 const mockStore = configureMockStore([thunk]);
+const history = {
+  push: jest.fn(),
+};
 
-describe('authentication action creators', () => {
-  let email;
-  let password;
-  let history;
-  let expectedActions;
-  let store;
-  let loginMutation = jest.fn();
+describe('login action creators', () => {
   let loginActionParams;
-
+  email = 'john.doe@example.com';
+  password = 'somePassword';
   beforeEach(() => {
-    loginMutation.mockReset();
-    email = 'tersoo.atsen@outlook.com';
-    password = 'somePassword';
-    history = {
-      push: jest.fn(),
-    };
-
+    mutation.mockReset();
     const initialState = {
       loggedIn: false,
       loggingIn: false,
       error: [],
       user: {},
     };
-
     store = mockStore(initialState);
   });
-
   it('should dispatch login success', async () => {
-    loginMutation = jest.fn()
-      .mockImplementation(() => new Promise((resolve) => resolve({
-        loading: false,
-        error: null,
-        data: {
-          signIn: {
-            token: 'token',
-            user: {
-              firstName: 'John',
-              lastName: 'Doe',
-            },
+    mutation = jest.fn().mockImplementation(() => new Promise((resolve) => resolve({
+      loading: false,
+      error: null,
+      data: {
+        signIn: {
+          token: testToken,
+          user: {
+            firstName: 'John',
+            lastName: 'Doe',
           },
         },
-      })));
+      },
+    })));
     loginActionParams = {
-      loginMutation, email, password, history,
+      loginMutation: mutation, email, password, history,
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_SUCCESS', loggedIn: true, user: { firstName: 'John', lastName: 'Doe' } },
     ];
-
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
-
   it('should dispatch login fail if token is not returned', async () => {
-    loginMutation = jest.fn()
+    mutation = jest.fn()
       .mockImplementation(() => new Promise((resolve) => resolve({
         loading: false,
         error: null,
@@ -70,21 +65,19 @@ describe('authentication action creators', () => {
         },
       })));
     loginActionParams = {
-      loginMutation, email, password, history,
+      loginMutation: mutation, email, password, history,
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
     ];
-
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
-
   it('should dispatch login fail if token is not saved', async () => {
     const repeat = (str, x) => new Array(x + 1).join(str);
     const token = repeat('x', (12 * 1024 * 1024) / 2); // each JS character is 2 bytes
-    loginMutation = jest.fn()
+    mutation = jest.fn()
       .mockImplementation(() => new Promise((resolve) => resolve({
         loading: false,
         error: null,
@@ -95,29 +88,103 @@ describe('authentication action creators', () => {
         },
       })));
     loginActionParams = {
-      loginMutation, email, password, history,
+      loginMutation: mutation, email, password, history,
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
     ];
-
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
-
   it('should dispatch login fail on mutation fail', async () => {
-    loginMutation.mockImplementation(() => {
+    mutation.mockImplementation(() => {
       throw new Error();
     });
     loginActionParams = {
-      loginMutation, email, password, history,
+      loginMutation: mutation, email, password, history,
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(authActions.login(loginActionParams));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+describe('signup action creators', () => {
+  let signupActionParams;
+  const userName = 'xianDoe';
+  firstName = 'Xian';
+  lastName = 'Doe';
+  email = 'xia.doe@example.com';
+  password = '!Example_pword';
+  beforeEach(() => {
+    mutation.mockReset();
+    const initialState = {
+      registering: false,
+      error: [],
+    };
+    store = mockStore(initialState);
+  });
+  it('should dispatch signup success', async () => {
+    mutation = jest.fn()
+      .mockImplementation(() => new Promise((resolve) => resolve({
+        registering: false,
+        error: null,
+        data: {
+          signUp: {
+            token: testToken,
+            user: {
+              firstName: 'Xian',
+              lastName: 'Doe',
+            },
+          },
+        },
+      })));
+    expectedActions = [
+      { type: 'REGISTER_REQUEST', registering: true },
+      { type: 'REGISTER_SUCCESS', registering: false, user: { firstName: 'Xian', lastName: 'Doe' } },
+    ];
+    signupActionParams = {
+      signupMutation: mutation, email, firstName, lastName, password, userName, history,
+    };
+    await store.dispatch(authActions.signup(signupActionParams));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('should dispatch sign up fail if token is not returned', async () => {
+    mutation = jest.fn()
+      .mockImplementation(() => new Promise((resolve) => resolve({
+        registering: false,
+        error: null,
+        data: {
+          signUp: {
+          },
+        },
+      })));
+    expectedActions = [
+      { type: 'REGISTER_REQUEST', registering: true },
+      { type: 'REGISTER_FAIL', error: ['Registration failed. Please try again.'] },
+    ];
+    signupActionParams = {
+      signupMutation: mutation, email, firstName, lastName, password, userName, history,
+    };
+    await store.dispatch(authActions.signup(signupActionParams));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+  it('should dispatch signup fail on mutation fail', async () => {
+    mutation.mockImplementation(() => {
+      throw new Error();
+    });
+    signupActionParams = {
+      signupMutation: mutation, email, firstName, lastName, password, userName, history,
+    };
+    expectedActions = [
+      { type: 'REGISTER_REQUEST', registering: true },
+      { type: 'REGISTER_FAIL', error: ['Registration failed. Please try again.'] },
+    ];
+    await store.dispatch(authActions.signup(signupActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

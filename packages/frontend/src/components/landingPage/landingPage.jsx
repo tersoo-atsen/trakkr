@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './landingPage.scss';
-import Navbar from '../navbar';
+import ConnectedNavbar from '../navbar';
 import Footer from '../footer';
 import ImageLoader from '../imageLoader';
 import { dashboard as hiRes, features } from '../../utils';
@@ -29,7 +29,7 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="page-wrapper">
-        <Navbar />
+        <ConnectedNavbar />
         <div className="page-top" />
         <div className="page-bottom" />
         <Footer />

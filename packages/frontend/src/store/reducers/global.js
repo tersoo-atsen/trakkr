@@ -7,7 +7,7 @@ const initialState = {
   error: [],
 };
 
-function globalReducer(state = initialState, action) {
+const globalReducer = (state = initialState, action) => {
   switch (action.type) {
     case authConstants.LOGIN_REQUEST:
       return {
@@ -39,6 +39,6 @@ function globalReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
 export default globalReducer;
