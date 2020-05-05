@@ -6,7 +6,7 @@ import { Mutation } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import './login.scss';
-import trakkrLogo from '../../assets/images/trakkr-logo.svg';
+import trakkrLogo from '../../assets/images/trakkr_logo.png';
 import facebook from '../../assets/images/facebook.png';
 import google from '../../assets/images/google.png';
 import twitter from '../../assets/images/twitter.png';
@@ -27,12 +27,12 @@ export class Login extends Component {
   handleChange = (event) => {
     const { value, name } = event.target;
     const { formErrors } = this.state;
-    const updatedFormErrors = validateFields(name, value, formErrors);
+    const updatedErrors = validateFields(name, value, formErrors);
 
     this.setState({
       formErrors: {
         ...formErrors,
-        ...updatedFormErrors,
+        ...updatedErrors,
       },
       [name]: value,
     });
@@ -97,10 +97,11 @@ export class Login extends Component {
                     </div>
                     <form className="login_form" onSubmit={(e) => this.handleSubmit(e, loginMutation)} noValidate>
                       <div className="login_form_wrapper">
+
                         <div className="field">
                           <div className="control">
                             <input
-                              className={formErrors.email.length > 0 ? 'is_invalid input login_form_input' : 'input login_form_input'}
+                              className={formErrors.email.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
                               name="email"
                               type="email"
                               placeholder="Email"
@@ -108,15 +109,16 @@ export class Login extends Component {
                               onChange={this.handleChange}
                               required
                             />
-                            <div className="error-message login_form_error">
+                            <div className="error-message form_error">
                               <span>{formErrors.email}</span>
                             </div>
                           </div>
                         </div>
+
                         <div className="field">
                           <div className="control">
                             <input
-                              className={formErrors.password.length > 0 ? 'is_invalid input login_form_input' : 'input login_form_input'}
+                              className={formErrors.password.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
                               name="password"
                               type="password"
                               placeholder="Password"
@@ -124,34 +126,54 @@ export class Login extends Component {
                               onChange={this.handleChange}
                               required
                             />
-                            <div className="error-message login_form_error">
+                            <div className="error-message form_error">
                               <span>{formErrors.password}</span>
                             </div>
                           </div>
                         </div>
-                        <div className="field login_form_forgot">
-                          <Link className="login_form_forgot__link" to="/">
-                            Forgot password?
-                          </Link>
-                        </div>
-                        <div className="field">
-                          <div className="control login_form_submit">
-                            <button className="button login_form_submit_button">Sign in</button>
-                          </div>
-                        </div>
-                        <div className="columns">
-                          <div className="column">
-                            <div className="login_form_social">
-                              <img className="login_form_social--facebook" src={facebook} alt="Sign in with facebook" />
-                              <img className="login_form_social--twitter" src={twitter} alt="Sign in with twitter" />
-                              <img className="login_form_social--google" src={google} alt="Sign in with google" />
+
+                        <div className="field is-horizontal">
+                          <div className="field-body">
+                            <div className="field login_form_forgot">
+                              <Link className="login_form_forgot__link" to="/">
+                                Forgot password?
+                              </Link>
                             </div>
                           </div>
-                          <div className="column">
-                            <div className="login_form_register">
-                              <div className="login_form_register_wrapper">
-                                Don&apos;t have an account?&nbsp;
-                                <Link className="login_form_register_link" to="/">Sign Up</Link>
+                        </div>
+
+                        <div className="field is-horizontal">
+                          <div className="field-body">
+                            <div className="field">
+                              <div className="control login_form_submit">
+                                <button className="button login_form_submit_button">Sign in</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="field is-horizontal">
+                          <div className="field-body">
+                            <div className="field">
+
+                              <div className="login_form_social">
+                                <img className="login_form_social--facebook" src={facebook} alt="Sign in with facebook" />
+                                <img className="login_form_social--twitter" src={twitter} alt="Sign in with twitter" />
+                                <img className="login_form_social--google" src={google} alt="Sign in with google" />
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="field is-horizontal">
+                          <div className="field-body">
+                            <div className="field">
+                              <div className="login_form_register">
+                                <div className="login_form_register_wrapper">
+                                  Don&apos;t have an account?&nbsp;
+                                  <Link className="login_form_register_link" to="/signup">Sign up</Link>
+                                </div>
                               </div>
                             </div>
                           </div>

@@ -6,7 +6,7 @@ import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import './navbar.scss';
-import trakkrLogo from '../../assets/images/trakkr-logo.svg';
+import trakkrLogo from '../../assets/images/trakkr_logo.png';
 import NavItems from '../navItems';
 import authActions from '../../store/actions';
 
@@ -64,7 +64,6 @@ export class Navbar extends Component {
     const { loggedIn, currentUser } = this.props;
     const navClasses = isTop ? 'navbar is-fixed-top transparent' : 'navbar is-fixed-top colored';
     const buttonClass = isTop ? null : 'buttons--white-text';
-
     return (
       <nav className={navClasses}>
         <div className="navbar-brand navbar-start">
@@ -90,14 +89,12 @@ export class Navbar extends Component {
     );
   }
 }
-
 Navbar.propTypes = {
   currentUser: PropTypes.objectOf(PropTypes.string).isRequired,
   loggedIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
-
 const mapStateToProps = (state) => {
   const { loggedIn, user } = state.global;
   return {
@@ -105,7 +102,5 @@ const mapStateToProps = (state) => {
     currentUser: user,
   };
 };
-
 const ConnectedNavbar = compose(withRouter, connect(mapStateToProps))(Navbar);
-
 export default ConnectedNavbar;
