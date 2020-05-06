@@ -19,7 +19,7 @@ describe('Landing page component', () => {
         loggingIn: false,
         loggedIn: false,
         error: [],
-        user: {},
+        currentUser: {},
       },
     });
     wrapper = mount(

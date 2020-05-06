@@ -20,7 +20,7 @@ describe('App component', () => {
       global: {
         loggingIn: false,
         loggedIn: false,
-        user: {},
+        currentUser: {},
         error: [],
       },
     });

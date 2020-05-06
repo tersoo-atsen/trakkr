@@ -96,10 +96,10 @@ Navbar.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => {
-  const { loggedIn, user } = state.global;
+  const { loggedIn, currentUser } = state.global;
   return {
     loggedIn,
-    currentUser: user,
+    currentUser,
   };
 };
 const ConnectedNavbar = compose(withRouter, connect(mapStateToProps))(Navbar);

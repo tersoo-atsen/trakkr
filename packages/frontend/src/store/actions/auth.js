@@ -3,8 +3,8 @@ import userService from '../../services';
 
 const login = (loginActionParams) => async (dispatch) => {
   const request = (loggingIn) => ({ type: authConstants.LOGIN_REQUEST, loggingIn });
-  const success = (loggedIn, user) => ({ type: authConstants.LOGIN_SUCCESS, loggedIn, user });
-  const failure = (error) => ({ type: authConstants.LOGIN_FAIL, error });
+  const success = (loggedIn, currentUser) => ({ type: authConstants.LOGIN_SUCCESS, loggedIn, currentUser });
+  const failure = (error) => ({ type: authConstants.LOGIN_FAILURE, error });
   const {
     loginMutation, email, password, history,
   } = loginActionParams;
@@ -28,7 +28,7 @@ const signup = (signupActionParams) => async (dispatch) => {
   const success = (registering, user) => (
     { type: authConstants.REGISTER_SUCCESS, registering, user }
   );
-  const failure = (error) => ({ type: authConstants.REGISTER_FAIL, error });
+  const failure = (error) => ({ type: authConstants.REGISTER_FAILURE, error });
   const {
     signupMutation, email, firstName, lastName, password, userName, history,
   } = signupActionParams;

@@ -1,9 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import rootReducer from './reducers';
 
+const persistConfig = {
+  key: 'root',
+  storage,
+  blacklist: ['router'],
+};
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let middleware = [];
 if (process.env.NODE_ENV === 'development') {
@@ -11,6 +18,9 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   middleware = [...middleware, thunk];
 }
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)));
-
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export default () => {
+  const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(...middleware)));
+  const persistor = persistStore(store);
+  return { store, persistor };
+};

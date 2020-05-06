@@ -18,7 +18,7 @@ function registerReducer(state = initialState, action) {
         registering: false,
       };
     }
-    case authConstants.REGISTER_FAIL: {
+    case authConstants.REGISTER_FAILURE: {
       return {
         ...state,
         registering: false,

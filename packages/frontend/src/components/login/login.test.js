@@ -27,7 +27,7 @@ describe('Login component', () => {
         loggingIn: false,
         loggedIn: false,
         error: [],
-        user: {},
+        currentUser: {},
       },
     });
     store.dispatch = jest.fn();
