@@ -31,7 +31,7 @@ describe('Navbar component', () => {
         loggingIn: false,
         loggedIn: false,
         error: [],
-        user: {},
+        currentUser: {},
       },
     });
 
@@ -46,7 +46,7 @@ describe('Navbar component', () => {
         loggingIn: false,
         loggedIn: true,
         error: [],
-        user: { firstName: 'John', lastName: 'Doe' },
+        currentUser: { firstName: 'John', lastName: 'Doe' },
       },
     });
 

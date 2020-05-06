@@ -3,7 +3,7 @@ import { authConstants } from '../constants';
 const initialState = {
   loggedIn: false,
   loggingIn: false,
-  user: {},
+  currentUser: {},
   error: [],
 };
 
@@ -18,11 +18,11 @@ const globalReducer = (state = initialState, action) => {
       return {
         ...state,
         loggedIn: action.loggedIn,
-        user: action.user,
+        currentUser: action.currentUser,
         loggingIn: false,
       };
     }
-    case authConstants.LOGIN_FAIL: {
+    case authConstants.LOGIN_FAILURE: {
       return {
         ...state,
         loggingIn: false,
@@ -32,7 +32,7 @@ const globalReducer = (state = initialState, action) => {
     case authConstants.LOGOUT: {
       return {
         ...state,
-        user: {},
+        currentUser: {},
         loggedIn: false,
       };
     }

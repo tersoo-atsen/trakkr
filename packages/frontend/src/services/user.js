@@ -5,8 +5,8 @@ const login = async (loginMutation, email, password) => {
     const response = await loginMutation({ variables: { login: email, password } });
     const { token, user } = response.data.signIn;
     if (!token) return null;
-    const result = saveToLocalStorage('token', token);
-    if (!result) return null;
+    user.token = token;
+    saveToLocalStorage('user', user);
     return { token, user };
   } catch (e) {
     return null;
@@ -30,7 +30,7 @@ const signup = async (signupMutation, email, firstName, lastName, password, user
 
 const logout = () => {
   // remove user from local storage to log user out
-  removeFromLocalStorage('token');
+  removeFromLocalStorage('user');
 };
 
 const userService = {

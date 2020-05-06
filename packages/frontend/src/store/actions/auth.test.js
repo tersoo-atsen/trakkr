@@ -26,7 +26,7 @@ describe('login action creators', () => {
       loggedIn: false,
       loggingIn: false,
       error: [],
-      user: {},
+      currentUser: {},
     };
     store = mockStore(initialState);
   });
@@ -49,7 +49,7 @@ describe('login action creators', () => {
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
-      { type: 'LOGIN_SUCCESS', loggedIn: true, user: { firstName: 'John', lastName: 'Doe' } },
+      { type: 'LOGIN_SUCCESS', loggedIn: true, currentUser: { firstName: 'John', lastName: 'Doe', token: testToken } },
     ];
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
@@ -69,14 +69,14 @@ describe('login action creators', () => {
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
-      { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
+      { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch login fail if token is not saved', async () => {
     const repeat = (str, x) => new Array(x + 1).join(str);
-    const token = repeat('x', (12 * 1024 * 1024) / 2); // each JS character is 2 bytes
+    const token = repeat('x', (1200 * 1024 * 1024) / 2); // each JS character is 2 bytes
     mutation = jest.fn()
       .mockImplementation(() => new Promise((resolve) => resolve({
         loading: false,
@@ -92,7 +92,7 @@ describe('login action creators', () => {
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
-      { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
+      { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
@@ -106,7 +106,7 @@ describe('login action creators', () => {
     };
     expectedActions = [
       { type: 'LOGIN_REQUEST', loggingIn: true },
-      { type: 'LOGIN_FAIL', error: ['Login failed. Please try again.'] },
+      { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(authActions.login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
@@ -165,7 +165,7 @@ describe('signup action creators', () => {
       })));
     expectedActions = [
       { type: 'REGISTER_REQUEST', registering: true },
-      { type: 'REGISTER_FAIL', error: ['Registration failed. Please try again.'] },
+      { type: 'REGISTER_FAILURE', error: ['Registration failed. Please try again.'] },
     ];
     signupActionParams = {
       signupMutation: mutation, email, firstName, lastName, password, userName, history,
@@ -182,7 +182,7 @@ describe('signup action creators', () => {
     };
     expectedActions = [
       { type: 'REGISTER_REQUEST', registering: true },
-      { type: 'REGISTER_FAIL', error: ['Registration failed. Please try again.'] },
+      { type: 'REGISTER_FAILURE', error: ['Registration failed. Please try again.'] },
     ];
     await store.dispatch(authActions.signup(signupActionParams));
     expect(store.getActions()).toEqual(expectedActions);
