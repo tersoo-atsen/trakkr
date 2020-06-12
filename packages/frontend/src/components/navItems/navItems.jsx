@@ -15,7 +15,7 @@ const NavItems = (Props) => {
     !loggedIn
       ? (
         <>
-          <Button classes={buttonClass} path="/login" label="Sign in" type="transparent" />
+          <Button classes={buttonClass} path="/login" label="Log in" type="transparent" />
           <Button path="/signup" label="Sign up" type="round" />
         </>
       )

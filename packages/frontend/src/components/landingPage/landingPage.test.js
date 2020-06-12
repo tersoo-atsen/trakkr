@@ -36,7 +36,7 @@ describe('Landing page component', () => {
     const buttons = wrapper.find(Button);
 
     expect(navbar).toBeDefined();
-    expect(buttons).toHaveLength(2);
+    expect(buttons).toHaveLength(3);
     expect(wrapper.find(LandingPage).length).toBe(1);
   });
 });
