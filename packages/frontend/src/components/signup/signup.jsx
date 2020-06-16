@@ -7,9 +7,6 @@ import PropTypes from 'prop-types';
 
 import './signup.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
-import facebook from '../../assets/images/facebook.png';
-import google from '../../assets/images/google.png';
-import twitter from '../../assets/images/twitter.png';
 import { USER_SIGNUP } from '../../graphql/mutations';
 import { validateFields, formValid, generateUsername } from '../../utils';
 import authActions from '../../store/actions';
@@ -35,7 +32,7 @@ export class Signup extends Component {
     this.setState({
       [name]: value,
     },
-    () => this.validateFormFields(name, value));
+      () => this.validateFormFields(name, value));
   }
 
   validateFormFields = (name, value) => {
@@ -86,17 +83,19 @@ export class Signup extends Component {
       <Mutation mutation={USER_SIGNUP} varaibales={{}}>
         {(signupMutation, { error }) => (
           <div className="signup_page">
-            <div className="signup_page__content">
+            <div className="signup_page__content container">
               <div className="signup_page__logo">
                 <Link to="/">
                   <img className="trakkr_logo" src={trakkrLogo} alt="trakkr logo" />
                 </Link>
               </div>
               <div className="signup_page__content_wrapper">
-                <div className="columns">
+                <div className="columns is-desktop">
                   <div className="column">
                     <h1 className="signup_page__title_text">
-                      Create an account
+                      <span id="first-part">Create an account,</span>
+                      <br />
+                      <span id="second-part">Let&apos;s get started</span>
                     </h1>
                   </div>
                   <div className="column">
@@ -129,10 +128,7 @@ export class Signup extends Component {
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                        <div className="field is-horizontal">
-                          <div className="field-body">
+
                             <div className="field">
                               <div className="control is-expanded">
                                 <input
@@ -154,7 +150,7 @@ export class Signup extends Component {
                         <div className="field is-horizontal">
                           <div className="field-body">
                             <div className="field is-expanded">
-                              <div className="field has-addons">
+                              <div className="field">
                                 <div className="control is-expanded">
                                   <input
                                     className={formErrors.email.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
@@ -176,7 +172,7 @@ export class Signup extends Component {
                         <div className="field is-horizontal">
                           <div className="field-body">
                             <div className="field is-expanded">
-                              <div className="field has-addons">
+                              <div className="field">
                                 <div className="control is-expanded">
                                   <input
                                     className={formErrors.password.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
@@ -193,12 +189,9 @@ export class Signup extends Component {
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                        <div className="field is-horizontal">
-                          <div className="field-body">
+
                             <div className="field is-expanded">
-                              <div className="field has-addons">
+                              <div className="field">
                                 <div className="control is-expanded">
                                   <input
                                     className="input form_input"
@@ -224,17 +217,6 @@ export class Signup extends Component {
                                 <button className="button signup_form_submit_button">
                                   Submit
                                 </button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="field is-horizontal">
-                          <div className="field-body">
-                            <div className="field">
-                              <div className="signup_form_social">
-                                <img className="signup_form_social--facebook" src={facebook} alt="Sign in with facebook" />
-                                <img className="signup_form_social--twitter" src={twitter} alt="Sign in with twitter" />
-                                <img className="signup_form_social--google" src={google} alt="Sign in with google" />
                               </div>
                             </div>
                           </div>
