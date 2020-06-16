@@ -7,9 +7,6 @@ import PropTypes from 'prop-types';
 
 import './login.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
-import facebook from '../../assets/images/facebook.png';
-import google from '../../assets/images/google.png';
-import twitter from '../../assets/images/twitter.png';
 import { USER_LOGIN } from '../../graphql/mutations';
 import { validateFields, formValid } from '../../utils';
 import authActions from '../../store/actions';
@@ -70,19 +67,19 @@ export class Login extends Component {
       <Mutation mutation={USER_LOGIN} variables={{ login: email, password }}>
         {(loginMutation, { error }) => (
           <div className="login_page">
-            <div className="login_page__content">
+            <div className="login_page__content container">
               <div className="login_page__logo">
                 <Link to="/">
                   <img className="trakkr_logo" src={trakkrLogo} alt="trakkr logo" />
                 </Link>
               </div>
               <div className="login_page__content_wrapper">
-                <div className="columns">
+                <div className="columns is-desktop">
                   <div className="column">
                     <h1 className="login_page__title_text">
-                      Hello welcome back,
+                      <span id="first-part">Hello welcome back,</span>
                       <br />
-                      sign in to continue
+                      <span id="second-part">Sign in to continue</span>
                     </h1>
                   </div>
                   <div className="column">
@@ -134,16 +131,6 @@ export class Login extends Component {
 
                         <div className="field is-horizontal">
                           <div className="field-body">
-                            <div className="field login_form_forgot">
-                              <Link className="login_form_forgot__link" to="/">
-                                Forgot password?
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="field is-horizontal">
-                          <div className="field-body">
                             <div className="field">
                               <div className="control login_form_submit">
                                 <button className="button login_form_submit_button">Sign in</button>
@@ -154,14 +141,10 @@ export class Login extends Component {
 
                         <div className="field is-horizontal">
                           <div className="field-body">
-                            <div className="field">
-
-                              <div className="login_form_social">
-                                <img className="login_form_social--facebook" src={facebook} alt="Sign in with facebook" />
-                                <img className="login_form_social--twitter" src={twitter} alt="Sign in with twitter" />
-                                <img className="login_form_social--google" src={google} alt="Sign in with google" />
-                              </div>
-
+                            <div className="field login_form_forgot">
+                              <Link className="login_form_forgot__link" to="/">
+                                Forgot password?
+                              </Link>
                             </div>
                           </div>
                         </div>
