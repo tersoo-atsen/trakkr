@@ -1,7 +1,6 @@
 .login_page {
   background: #f4f7fa;
   min-height: 100vh;
-  padding: 80px 0;
 }
 
 .login_page__content {
@@ -39,7 +38,7 @@
 }
 
 .login_page__logo {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .login_form {
@@ -50,7 +49,7 @@
   background-color: #fff;
   border-radius: 6px;
   border: 1px solid rgba(245, 0, 0, 0.15);
-  padding: 60px;
+  padding: 40px;
   -webkit-box-shadow: 1px 15px 18px rgba(0, 0, 0, 0.03);
   -moz-box-shadow: 1px 15px 18px rgba(0, 0, 0, 0.003);
   box-shadow: 1px 15px 18px rgba(0, 0, 0, 0.03);
@@ -61,6 +60,8 @@
 }
 
 .login_form_forgot {
+  text-align: center;
+
   .login_form_forgot__link {
     color: #d70508;
   }
@@ -94,15 +95,6 @@
   box-shadow: 0px 0px 15px 10px rgba(68, 0, 1, 0.2);
 }
 
-.login_form_social img {
-  height: 2rem;
-  padding: 0.5rem;
-  border-radius: 50px;
-  -webkit-box-shadow: 0px 0px 2px 1px rgba(180, 180, 180, 0.5);
-  -moz-box-shadow: 0px 0px 2px 1px rgba(180, 180, 180, 0.5);
-  box-shadow: 0px 0px 5px 1px rgba(180, 180, 180, 0.5);
-}
-
 .login_form_social img:not(:last-child) {
   margin-right: 20px;
 }
@@ -115,19 +107,26 @@
   }
 }
 
-.login_form_register,
-.login_form_social {
+.login_form_register {
   margin-top: 1rem;
   text-align: center;
 }
 
 @media screen and (min-width: 769px) {
+  .login_page {
+    padding: 80px 0;
+  }
+
   .login_page__content {
     padding: 0 60px;
   }
 
-  .login_form_forgot {
-    text-align: center;
+  .login_page__logo {
+    margin-bottom: 100px;
+  }
+
+  .login_form_wrapper {
+    padding: 60px;
   }
 }
 

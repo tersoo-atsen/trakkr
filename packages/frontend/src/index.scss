@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:200,300,400,700,900|Oswald:300,400,600&display=swap");
 
 // Set your brand colors
-$red: #d70508;
+$red: #fa080c;
 $page-bg: #f4f7fa;
 $navbar-breakpoint: 0;
 
@@ -24,10 +24,14 @@ $navbar-breakpoint: 0;
   box-shadow: none;
 }
 
+html * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   font: 300 16px/1.6 "Lato", Verdana, sans-serif;
   color: #505050;
-  -webkit-font-smoothing: antialiased;
 }
 
 button,
