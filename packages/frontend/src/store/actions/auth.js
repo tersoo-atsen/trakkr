@@ -3,7 +3,9 @@ import userService from '../../services';
 
 const login = (loginActionParams) => async (dispatch) => {
   const request = (loggingIn) => ({ type: authConstants.LOGIN_REQUEST, loggingIn });
-  const success = (loggedIn, currentUser) => ({ type: authConstants.LOGIN_SUCCESS, loggedIn, currentUser });
+  const success = (loggedIn, currentUser) => (
+    { type: authConstants.LOGIN_SUCCESS, loggedIn, currentUser }
+  );
   const failure = (error) => ({ type: authConstants.LOGIN_FAILURE, error });
   const {
     loginMutation, email, password, history,
@@ -15,7 +17,7 @@ const login = (loginActionParams) => async (dispatch) => {
     const { user } = result;
     token = result.token;
     dispatch(success(true, user));
-    history.push('/');
+    history.push('/dashboard');
   } else {
     const error = ['Login failed. Please try again.'];
     dispatch(failure(error));

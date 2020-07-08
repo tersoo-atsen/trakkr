@@ -11,6 +11,10 @@ export default {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      fields: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+        defaultValue: null,
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,

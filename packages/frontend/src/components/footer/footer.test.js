@@ -1,12 +1,17 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
 
 import Footer from './footer';
 
 describe('Footer component', () => {
   let component;
   beforeEach(() => {
-    component = mount(<Footer />);
+    component = mount(
+      <MemoryRouter initialEntries={['/']}>
+        <Footer />
+      </MemoryRouter>,
+    );
   });
 
   it('Should render correctly', () => {

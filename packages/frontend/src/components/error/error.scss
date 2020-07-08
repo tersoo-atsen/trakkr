@@ -1,0 +1,28 @@
+.error-page-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .content-wrapper {
+    max-width: 500px;
+    text-align: center;
+
+    .error-message {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .error-description {
+      color: #b1b1b1;
+      margin-bottom: 20px;
+    }
+
+    .try-again {
+      text-transform: uppercase;
+      color: #000000;
+      font-weight: 600;
+    }
+  }
+}

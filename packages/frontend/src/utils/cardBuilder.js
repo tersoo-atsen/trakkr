@@ -5,7 +5,7 @@ import total from '../assets/images/total.png';
 import value from '../assets/images/money.png';
 import itemCount from '../assets/images/summary-list.png';
 
-export const featureColumns = [
+export const featuresList = [
   {
     id: 'devices',
     iconSrc: devices,
@@ -29,7 +29,7 @@ export const featureColumns = [
   },
 ];
 
-export const summaryColumns = [
+export const summaryList = [
   {
     id: 'items',
     iconSrc: itemCount,
@@ -50,43 +50,5 @@ export const summaryColumns = [
     altText: 'Value',
     title: 'Total Value',
     value: '$14.2K',
-  },
-];
-
-export const activityList = [
-  {
-    name: 'Deleted',
-    item: 'Bronze Statue',
-    attributes: [],
-    user: 'Henry Atsen',
-    time: '08:34pm',
-  },
-  {
-    name: 'Updated',
-    item: 'Ivory Statue',
-    attributes: ['Name', 'Image'],
-    user: 'Henry Atsen',
-    time: '08:14pm',
-  },
-  {
-    name: 'Updated',
-    item: 'Ivory Statue',
-    attributes: ['Quantity'],
-    user: 'Henry Atsen',
-    time: '05:07pm',
-  },
-  {
-    name: 'Updated',
-    item: 'Ivory Statue',
-    attributes: ['Value'],
-    user: 'Henry Atsen',
-    time: '05:07pm',
-  },
-  {
-    name: 'Created',
-    item: 'Ivory Statue',
-    attributes: [],
-    user: 'Henry Atsen',
-    time: '06:30am',
   },
 ];

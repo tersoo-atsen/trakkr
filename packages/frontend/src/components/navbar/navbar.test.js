@@ -26,15 +26,6 @@ describe('Navbar component', () => {
       dispatch: jest.fn(),
     };
 
-    store = mockStore({
-      global: {
-        loggingIn: false,
-        loggedIn: false,
-        error: [],
-        currentUser: {},
-      },
-    });
-
     wrapper = mount(
       <MemoryRouter initialEntries={['/login']}>
         <Navbar {...props} />
@@ -99,20 +90,19 @@ describe('Navbar component', () => {
 
   it('should open dropdown menu when button is clicked', () => {
     connectedNavbar.find('.dropdown__button').simulate('click');
-    expect(connectedNavbar.find(Navbar).instance().state.showMenu).toBe(true);
-    // expect(connectedNavbar.find(Navbar).instance().openMenu).toHaveBeenCalled();
+    expect(connectedNavbar.find(Navbar).instance().state.showDropdown).toBe(true);
   });
 
   it('should close dropdown menu when button is toggled', () => {
     connectedNavbar.find('.dropdown__button').simulate('click');
     connectedNavbar.find('.dropdown__button').simulate('click');
-    expect(connectedNavbar.find(Navbar).instance().state.showMenu).toBe(false);
+    expect(connectedNavbar.find(Navbar).instance().state.showDropdown).toBe(false);
   });
 
   it('should close menu if click is outside of dropdown', () => {
     connectedNavbar.find('.dropdown__button').simulate('click');
     global.document.dispatchEvent(new Event('mouseup'));
-    expect(connectedNavbar.find(Navbar).instance().state.showMenu).toBe(false);
+    expect(connectedNavbar.find(Navbar).instance().state.showDropdown).toBe(false);
   });
 
   it('should navigate user to home page on log out', () => {

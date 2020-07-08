@@ -3,6 +3,7 @@
   color: #fff;
   font-size: 14px;
   font-family: "Lato", Vernada, sans-serif;
+  font-weight: 400;
   width: 120px;
   -webkit-transition: all ease-in-out 0.3s;
   -moz-transition: all ease-in-out 0.3s;
@@ -16,7 +17,6 @@
 .button.round {
   border-radius: 50px;
   background-color: #d70508;
-  font-weight: 200;
   border: none;
 }
 
@@ -27,7 +27,6 @@
 .button.transparent {
   border: none;
   background-color: transparent;
-  font-weight: 200;
 }
 
 .button.transparent:hover {

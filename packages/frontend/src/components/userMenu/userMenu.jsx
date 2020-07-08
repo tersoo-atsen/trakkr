@@ -8,7 +8,7 @@ import ExpandArrow from '../../assets/images/expand-arrow.png';
 
 const UserMenu = (props) => {
   const {
-    currentUser, toggleDropdown, showDropdown, handleLogout,
+    currentUser, openDropdown, showDropdown, handleLogout,
   } = props;
   return (
     <>
@@ -19,13 +19,13 @@ const UserMenu = (props) => {
       </p>
       <img className="avatar" src={ProfilePhoto} alt="user profile" />
       <div className="dropdown">
-        <button className="dropdown__button" onClick={toggleDropdown}>
+        <button className="dropdown__button" onClick={openDropdown}>
           <img src={ExpandArrow} alt="expand arrow" className="dropdown__expand_arrow" />
         </button>
         {
           showDropdown ? (
             <div className="dropdown__content">
-              <Link className="dropdown" to="/Profile">User Profile</Link>
+              <Link className="dropdown__profile_button" to="/Profile">User Profile</Link>
               <button className="dropdown__logout_button" onClick={handleLogout}>Log Out</button>
             </div>
           ) : null
@@ -35,8 +35,9 @@ const UserMenu = (props) => {
   );
 };
 UserMenu.propTypes = {
-  currentUser: PropTypes.objectOf(PropTypes.string).isRequired,
-  toggleDropdown: PropTypes.func.isRequired,
+  currentUser: PropTypes
+    .objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
+  openDropdown: PropTypes.func.isRequired,
   showDropdown: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
 };

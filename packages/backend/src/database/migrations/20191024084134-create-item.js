@@ -24,7 +24,11 @@ export default {
         type: Sequelize.STRING,
       },
       value: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       userId: {

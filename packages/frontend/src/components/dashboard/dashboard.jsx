@@ -1,31 +1,63 @@
-/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-underscore-dangle */
 import React, { Component } from 'react';
+import { Query } from 'react-apollo';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import './dashboard.scss';
 import Sidebar from '../sidebar';
 import Usermenu from '../userMenu';
-import { summaryColumns, activityList } from '../../utils/cardBuilder';
 import Button from '../button';
+import Loader from '../loader';
+import Error from '../error';
+import { summaryList, summaryColumns, activtyList } from '../../utils';
+import { GET_USER_ACTIVITIES } from '../../graphql/queries';
+import authActions from '../../store/actions';
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
+  container = React.createRef();
+
   state = {
     showSidebar: true,
     isMobile: window.innerWidth <= 769,
+    showDropdown: false,
   };
 
   componentDidMount() {
+    this._isMounted = true;
     this.updateDimensions();
     window.addEventListener('resize', this.updateDimensions);
+    document.addEventListener('mouseup', this.closeDropdown);
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
     window.removeEventListener('resize', this.updateDimensions);
+    document.removeEventListener('mouseup', this.closeDropdown);
   }
 
   updateDimensions = () => {
-    const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 0;
+    const windowWidth = window.innerWidth;
     const isMobile = windowWidth <= 769;
     this.setState({ isMobile, showSidebar: !isMobile });
+  }
+
+  openDropdown = (event) => {
+    event.preventDefault();
+    const { showDropdown } = this.state;
+    this.setState({ showDropdown: !showDropdown });
+  }
+
+  closeDropdown = (event) => {
+    /* istanbul ignore else */
+    if (this.container.current && !this.container.current.contains(event.target)) {
+      this.setState({ showDropdown: false });
+    }
+  }
+
+  handleLogout = () => {
+    const { dispatch, history } = this.props;
+    authActions.logout(dispatch, history);
   }
 
   renderToggler = (classes) => (
@@ -44,81 +76,76 @@ class Dashboard extends Component {
     this.setState({ showSidebar: !showSidebar });
   };
 
-  summaryColumn = (item) => {
-    const classNames = `summary-icon-wrapper ${item.id}`;
-    return (
-      <div key={item.id} className="column">
-        <div className="card">
-          <div className="card-content">
-            <div className="icon-group">
-              <div className={`icon-bg ${item.id}`} />
-              <div className={classNames}>
-                <img className="summary-icon responsive" src={item.iconSrc} alt={item.altText} />
-              </div>
-            </div>
-            <div className="summary-description">
-              <p className="summary-description__title">{item.title}</p>
-              <p className="summary-description__sub-text">{item.value}</p>
-            </div>
-          </div>
-        </div>
+  content = (activities) => (
+    <>
+      {activities.map((activity, idx) => activtyList(activity, idx))}
+      <div className="activity-btn-wrapper has-text-centered">
+        <Button
+          label="View all activity"
+          type="transparent"
+          path="/activity"
+        />
       </div>
-    );
-  };
-
-  activtyList = (activity, idx) => (
-    <div key={idx} className="activity">
-      <div className="activity--left">
-        <span className="activity__name">{activity.name}</span>
-        <span className="activity__item">{activity.item}</span>
-        {activity.attributes !== [] ? activity.attributes
-          .map((attr, indx) => (<span key={indx} className="activity__attr">{attr}</span>)) : null}
-      </div>
-      <div className="activity--right">
-        <span className="activity__user">{activity.user}</span>
-        <span className="activity__time">{activity.time}</span>
-      </div>
-    </div>
+    </>
   );
 
   render() {
-    const { showSidebar, isMobile } = this.state;
-    const devProps = {
-      currentUser: { firstName: 'John', lastName: 'Doe' },
-      toggleDropdown: () => { },
-      showDropdown: false,
-      handleLogout: () => { },
-    };
+    const { currentUser } = this.props;
+    const { showSidebar, isMobile, showDropdown } = this.state;
     const classes = showSidebar ? 'sidebar-toggler sidebar-open' : 'sidebar-toggler';
     return (
-      <div className="dashboard-wrapper">
-        {(isMobile && showSidebar && (<Sidebar showSidebar={showSidebar} />))
-          || (!isMobile && <Sidebar showSidebar={showSidebar} />)}
-        {isMobile && this.renderToggler(classes)}
-        <div className="dashboard-content">
-          <div className="user-menu">
-            <Usermenu {...devProps} />
-          </div>
-          <div className="content-area">
-            <h2 className="content-area__title">Item Summary</h2>
-            <div className="summary-cards">
-              <div className="columns is-mobile is-variable is-1-mobile is-1-tablet is-4-desktop is-8-widescreen is-2-fullhd">
-                {summaryColumns.map((item) => this.summaryColumn(item))}
+      <Query query={GET_USER_ACTIVITIES} variables={{ userId: currentUser.id }}>
+        {({ loading, error, data }) => {
+          const activities = data ? data.getUserActivities : [];
+          if (loading) return <Loader />;
+          if (error) return <Error message="An error occurred" />;
+          if (activities.length > 5) activities.length = 5;
+
+          return (
+            <div className="dashboard-wrapper">
+              {(isMobile && showSidebar && (<Sidebar showSidebar={showSidebar} />))
+                || (!isMobile && <Sidebar showSidebar={showSidebar} />)}
+              {isMobile && this.renderToggler(classes)}
+              <div className="dashboard-content" name="dashboardContent">
+                <div className="user-menu" ref={this.container}>
+                  <Usermenu
+                    currentUser={currentUser}
+                    openDropdown={this.openDropdown}
+                    showDropdown={showDropdown}
+                    handleLogout={this.handleLogout}
+                  />
+                </div>
+                <div className="content-area">
+                  <h2 className="content-area__title">Item Summary</h2>
+                  <div className="summary-cards">
+                    <div className="columns is-mobile is-variable is-1-mobile is-1-tablet is-4-desktop is-8-widescreen is-2-fullhd">
+                      {summaryList.map((item) => summaryColumns(item))}
+                    </div>
+                  </div>
+                  <h2 className="content-area__title">Recent Activity</h2>
+                  {activities.length === 0 ? <p>Such empty!</p> : this.content(activities)}
+                </div>
               </div>
             </div>
-            <h2 className="content-area__title">Recent Activity</h2>
-            {activityList.map((activity, idx) => this.activtyList(activity, idx))}
-            <div className="activity-btn-wrapper has-text-centered">
-              <Button
-                label="View all activity"
-                type="transparent"
-                path="/activity"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+          );
+        }}
+      </Query>
     );
   }
 }
-export default Dashboard;
+Dashboard.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
+  currentUser: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
+};
+const mapStateToProps = (state) => {
+  const { currentUser } = state.global;
+  return {
+    currentUser,
+  };
+};
+const ConnectedDashboard = connect(mapStateToProps)(Dashboard);
+export default ConnectedDashboard;

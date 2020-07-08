@@ -26,7 +26,6 @@
 
 .signup_page__title_text {
   font: 200 3rem "Lato", Verdana, sans-serif;
-  margin-top: 32px;
 
   #second-part {
     color: #abb6c4;
@@ -138,6 +137,10 @@
   .signup_page__content {
     padding: 0 60px;
   }
+
+  .singup_page__title_text {
+    margin-top: 32px;
+  }  
 }
 
 @media screen and (max-width: 600px) {
@@ -148,7 +151,7 @@
 
 @media screen and (max-width: 768px) {
   .signup_page__title_text {
-    font-size: 1.98rem;
+    font-size: 1.5rem;
   }
 
   .signup_form_login_wrapper {

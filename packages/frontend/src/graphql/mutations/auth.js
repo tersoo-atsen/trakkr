@@ -5,6 +5,7 @@ export const USER_LOGIN = gql`
     signIn(login: $login, password: $password) {
       token
       user{
+        id
         firstName
         lastName
       }

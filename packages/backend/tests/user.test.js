@@ -5,6 +5,8 @@ import resolvers from '../src/schema/resolvers';
 import typeDefs from '../src/schema/typeDefs';
 import models from '../src/database/models';
 import {
+  invalidDate,
+  today,
   singleUser,
   userItems,
   userActivities,
@@ -48,13 +50,18 @@ describe('User Test Cases', () => {
         }
       }
       const result = await graphql(schema, query, null, context, variables);
+      if (result.data.getItem && expected.id === 'user items invalid date') {
+        ;
+      }
+      if (result.data.getUserActivities) {
+        result.data.getUserActivities.map((activity) => (activity.updatedAt = today))
+      }
       if (result.data.signUp) {
         result.data.signUp.token = testToken;
       }
       if (result.data.signIn) {
         result.data.signIn.token = testToken;
       }
-
       return expect(result).toEqual(expected);
     });
   });

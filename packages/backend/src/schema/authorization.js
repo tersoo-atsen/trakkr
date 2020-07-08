@@ -2,7 +2,7 @@ import { ForbiddenError } from 'apollo-server';
 import { skip } from 'graphql-resolvers';
 
 export const isAuthenticated = (root, args, { me }) => {
-  return me ? skip : new ForbiddenError('Not authenticated as user.')
+  return me ? skip : new ForbiddenError('You are not signed in.')
 };
 
 export const isItemOwner = async (root, { id }, { models, me }) => {
@@ -10,10 +10,8 @@ export const isItemOwner = async (root, { id }, { models, me }) => {
   if (!item) {
     throw new Error('Item not found!');
   }
-
   if (item.userId !== me.id) {
-    throw new ForbiddenError('Not authenticated as owner.');
+    throw new ForbiddenError('You are cannnot perform this action.');
   }
-
   return skip;
 };

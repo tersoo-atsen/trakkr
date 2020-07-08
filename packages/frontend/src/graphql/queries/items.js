@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_ALL_ITEMS = gql`
+export const GET_USER_ITEMS = gql`
   query UserItems($userId: Int!){
     getUserItems(userId: $userId) {
       id
@@ -10,4 +10,4 @@ export const GET_ALL_ITEMS = gql`
   }
 `;
 
-export const dummy = {};
+export const itmDummy = 'dummy';

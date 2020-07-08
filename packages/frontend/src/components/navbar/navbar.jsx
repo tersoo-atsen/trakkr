@@ -61,11 +61,11 @@ export class Navbar extends Component {
     const { isTop, showDropdown } = this.state;
     const { loggedIn, currentUser } = this.props;
     const navClasses = isTop ? 'navbar is-fixed-top transparent' : 'navbar is-fixed-top colored';
-    const buttonClass = isTop ? null : 'buttons--white-text';
+    const buttonClass = isTop ? '' : 'buttons--white-text';
     return (
       <nav className={navClasses}>
         <div className="navbar-brand navbar-start">
-          <Link className="navbar-item is-capitalized" to="/">
+          <Link className="navbar-item" to="/">
             <img className="trakkr_logo" src={trakkrLogo} alt="trakkr logo" />
           </Link>
         </div>
@@ -76,7 +76,7 @@ export class Navbar extends Component {
                 loggedIn={loggedIn}
                 currentUser={currentUser}
                 buttonClass={buttonClass}
-                toggleDropdown={this.openDropdown}
+                openDropdown={this.openDropdown}
                 showDropdown={showDropdown}
                 handleLogout={this.handleLogout}
               />
@@ -88,7 +88,10 @@ export class Navbar extends Component {
   }
 }
 Navbar.propTypes = {
-  currentUser: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentUser: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
   loggedIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   dispatch: PropTypes.func.isRequired,

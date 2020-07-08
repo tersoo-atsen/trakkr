@@ -12,25 +12,22 @@
       align-items: center;
       margin-left: auto;
       padding: 30px 0;
+      width: 200px;
 
       p.user_name {
         color: inherit;
         margin-right: 10px;
       }
-
-      .avatar {
-        height: 1.75rem;
-      }
     }
 
     .content-area {
       max-width: 90%;
-      margin: 0 auto;
+      margin: 40px auto 0;
 
       .content-area__title {
         color: #000000;
         font-weight: 200;
-        font-size: 20px;
+        font-size: 16px;
         margin-bottom: 20px;
       }
 
@@ -45,7 +42,6 @@
         clear: both;
         padding: 20px 6px;
         transition: all ease 0.3s;
-        // font-size: 11px;
 
         .activity--left {
           .activity__item {
@@ -93,6 +89,7 @@
       margin-top: 20px;
 
       .button.transparent {
+        font-size: 10px;
         -webkit-transition: all ease 0.3s;
         -moz-transition: all ease 0.3s;
         transition: all ease 0.3s;
@@ -303,7 +300,18 @@
         max-width: 1024px;
         padding: 0 20px;
 
+        .content-area__title {
+          font-size: 20px;
+        }
+
         .activity {
+          font-size: inherit;
+        }
+      }
+
+      .activity-btn-wrapper {
+
+        .button.transparent {
           font-size: inherit;
         }
       }

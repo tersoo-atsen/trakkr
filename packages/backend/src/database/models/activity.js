@@ -10,6 +10,10 @@ const activity = (sequelize, DataTypes) => {
         },
       },
     },
+    fields: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: null,
+    },
   }, {});
 
   Activity.associate = (models) => {

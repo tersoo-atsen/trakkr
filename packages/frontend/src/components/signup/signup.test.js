@@ -153,8 +153,6 @@ describe('Signup component', () => {
     component.find('form').simulate('submit');
     await wait(5); // wait for response
     component.update();
-    // console.log(component.debug());
-    // const tree = component.toJSON();
     // expect(tree.children).toContain('Error!');
   });
 });

@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 const typeDefs = gql`
+    scalar Date
+
     type User {
       id: Int!
       firstName: String!
@@ -8,6 +10,7 @@ const typeDefs = gql`
       userName: String
       email: String
       password: String!
+      createdAt: Date!
       items: [Item!]!
     }
 
@@ -18,6 +21,8 @@ const typeDefs = gql`
       location: String!
       imageUrl: String!
       value: Int!
+      quantity: Int!
+      createdAt: Date!
       user: User!
     }
 
@@ -26,6 +31,8 @@ const typeDefs = gql`
       name: String!
       user: User!
       item: Item!
+      fields: [String]
+      updatedAt: Date!
     }
 
     type Query {
@@ -45,8 +52,8 @@ const typeDefs = gql`
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
       signIn(login: String!, password: String!): AuthResponse
       updateUser(firstName: String, lastName: String, userName: String): User
-      createItem(name: String!, description: String!, value: Int!, imageUrl: String!, location: String!): Item!
-      updateItem(id: Int!, name: String, description: String): Item
+      createItem(name: String!, description: String!, value: Int!, imageUrl: String!, location: String!, quantity: Int!): Item!
+      updateItem(id: Int!, name: String, description: String, value: Int, quantity: Int, location: String): Item
       deleteItem(id: Int!): Boolean!
     }`
 

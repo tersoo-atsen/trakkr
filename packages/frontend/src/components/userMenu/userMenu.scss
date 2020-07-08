@@ -1,5 +1,10 @@
+.avatar,
+.dropdown__expand_arrow {
+  max-height: 1.2rem;
+}
+
 p.user_name {
-  font-size: 16px;
+  font-size: 14px;
   margin-right: 10px;
 }
 
@@ -22,7 +27,7 @@ button.dropdown__button {
 }
 
 .dropdown__button:hover .dropdown__expand_arrow {
-  background-color: rgba(215, 5, 8, 0.2);
+  background-color: #f0f2f6;
   cursor: pointer;
 }
 
@@ -32,7 +37,7 @@ button.dropdown__button {
 }
 
 .dropdown__button:focus .dropdown__expand_arrow {
-  background-color: rgba(215, 5, 8, 0.2);
+  background-color: #f0f2f6;
   cursor: pointer;
 }
 
@@ -61,9 +66,23 @@ button.dropdown__button {
   background-color: transparent;
   width: 100%;
   text-align: left;
+  font-weight: 200;
 }
 
 .dropdown__content button:hover,
 .dropdown__content a:hover {
   background-color: rgba(200, 200, 200, 0.2);
+}
+
+@media screen and (min-width: 768px) {
+  .avatar,
+  .dropdown__expand_arrow {
+    max-height: 1.75rem;
+  }
+
+  p.user_name {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
 }
