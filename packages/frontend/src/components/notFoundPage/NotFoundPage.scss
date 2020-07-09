@@ -1,15 +1,17 @@
-@import '../../assets//styles/variables.scss';
+@import "../../assets//styles/variables.scss";
 
 .not-found {
   text-align: center;
   display: flex;
   align-items: center;
   height: 100vh;
+  background: #f4f7fa;
 
   .not-found__text-wrapper {
     margin: auto;
     max-width: 500px;
-    color: map-get($black , 000);
+    color: map-get($black, 000);
+    padding: 1rem;
   }
 
   .not-found__title-text {
@@ -33,7 +35,13 @@
 
   .no-found__home-link {
     text-transform: uppercase;
-    color: map-get($black , 000);
+    color: map-get($black, 000);
     font-weight: 600;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .not-found {
+    padding: 1rem;
   }
 }

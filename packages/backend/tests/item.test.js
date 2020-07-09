@@ -28,7 +28,6 @@ describe('Item Test Cases', () => {
         const { data: { signIn: { user } } } = result;
         me = user;
       }
-
       const result = await graphql(schema, query, null, { models, me }, variables);
       if (id === 'remove non-existent item') {
         return expect(result.errors[0].message).toEqual('Item not found!');
@@ -42,7 +41,7 @@ describe('Item Test Cases', () => {
 
   test(`${newItem.id} with no authentication`, async () => {
     const result = await graphql(schema, newItem.query, null, { models }, newItem.variables);
-    return expect(result.errors[0].message).toEqual('Not authenticated as user.');
+    return expect(result.errors[0].message).toEqual('You are not signed in.');
   });
 
   test(`${deleteItem.id} with not authorization`, async () => {
@@ -60,6 +59,6 @@ describe('Item Test Cases', () => {
       null, { models, me: user },
       vars,
     );
-    return expect(result.errors[0].message).toEqual('Not authenticated as owner.');
+    return expect(result.errors[0].message).toEqual('You are cannnot perform this action.');
   });
 });

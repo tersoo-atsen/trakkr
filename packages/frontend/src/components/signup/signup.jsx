@@ -31,8 +31,7 @@ export class Signup extends Component {
     const { value, name } = event.target;
     this.setState({
       [name]: value,
-    },
-      () => this.validateFormFields(name, value));
+    }, () => this.validateFormFields(name, value));
   }
 
   validateFormFields = (name, value) => {

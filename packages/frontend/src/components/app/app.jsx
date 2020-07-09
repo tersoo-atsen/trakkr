@@ -6,12 +6,14 @@ import LandingPage from '../landingPage';
 import NotFoundPage from '../notFoundPage';
 import ConnectedLogin from '../login';
 import Signup from '../signup';
+import Dashboard from '../dashboard';
 
 const App = () => (
   <Switch>
     <Route exact path={routes.home} component={LandingPage} />
     <Route path={routes.login} component={ConnectedLogin} />
     <Route path={routes.signup} component={Signup} />
+    <Route path={routes.dashboard} component={Dashboard} />
     <Route component={NotFoundPage} />
   </Switch>
 );

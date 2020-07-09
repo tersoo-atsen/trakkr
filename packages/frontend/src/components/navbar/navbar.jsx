@@ -13,17 +13,17 @@ import authActions from '../../store/actions';
 export class Navbar extends Component {
   container = React.createRef();
 
-  state = { isTop: true, showMenu: false };
+  state = { isTop: true, showDropdown: false };
 
   componentDidMount() {
     this._isMounted = true;
     this.handleScroll();
-    document.addEventListener('mouseup', this.closeMenu);
+    document.addEventListener('mouseup', this.closeDropdown);
   }
 
   componentWillUnmount() {
     this._isMounted = false;
-    document.removeEventListener('mouseup', this.closeMenu);
+    document.removeEventListener('mouseup', this.closeDropdown);
   }
 
   handleScroll = () => {
@@ -39,35 +39,33 @@ export class Navbar extends Component {
     });
   }
 
-  openMenu = (event) => {
+  openDropdown = (event) => {
     event.preventDefault();
-    const { showMenu } = this.state;
-
-    this.setState({ showMenu: !showMenu });
+    const { showDropdown } = this.state;
+    this.setState({ showDropdown: !showDropdown });
   }
 
-  closeMenu = (event) => {
+  closeDropdown = (event) => {
     /* istanbul ignore else */
     if (this.container.current && !this.container.current.contains(event.target)) {
-      this.setState({ showMenu: false });
+      this.setState({ showDropdown: false });
     }
   }
 
   handleLogout = () => {
     const { dispatch, history } = this.props;
-
     authActions.logout(dispatch, history);
   }
 
   render() {
-    const { isTop, showMenu } = this.state;
+    const { isTop, showDropdown } = this.state;
     const { loggedIn, currentUser } = this.props;
     const navClasses = isTop ? 'navbar is-fixed-top transparent' : 'navbar is-fixed-top colored';
-    const buttonClass = isTop ? null : 'buttons--white-text';
+    const buttonClass = isTop ? '' : 'buttons--white-text';
     return (
       <nav className={navClasses}>
         <div className="navbar-brand navbar-start">
-          <Link className="navbar-item is-capitalized" to="/">
+          <Link className="navbar-item" to="/">
             <img className="trakkr_logo" src={trakkrLogo} alt="trakkr logo" />
           </Link>
         </div>
@@ -78,8 +76,8 @@ export class Navbar extends Component {
                 loggedIn={loggedIn}
                 currentUser={currentUser}
                 buttonClass={buttonClass}
-                toggleMenu={this.openMenu}
-                showMenu={showMenu}
+                openDropdown={this.openDropdown}
+                showDropdown={showDropdown}
                 handleLogout={this.handleLogout}
               />
             </div>
@@ -90,7 +88,10 @@ export class Navbar extends Component {
   }
 }
 Navbar.propTypes = {
-  currentUser: PropTypes.objectOf(PropTypes.string).isRequired,
+  currentUser: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
   loggedIn: PropTypes.bool.isRequired,
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   dispatch: PropTypes.func.isRequired,

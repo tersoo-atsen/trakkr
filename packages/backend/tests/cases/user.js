@@ -1,3 +1,5 @@
+export const today = new Date().toISOString();
+export const invalidDate = 242345215;
 export const singleUser = {
   id: 'single user',
   query: `
@@ -63,6 +65,34 @@ export const userItems = {
   },
 };
 
+export const userItemsInvalidDate = {
+  id: 'user items invalid date',
+  query: `
+    query GetUserItems($userId: Int!){
+      getUserItems(userId: $userId) {
+        id
+        description
+        name
+        createdAt
+      }
+    }`,
+
+  variables: { userId: 2 },
+
+  expected: {
+    data: {
+      getUserItems: [
+        {
+          id: 3,
+          description: 'Sculpture of great value',
+          name: 'Sculpture',
+          createdAt: today,
+        },
+      ],
+    },
+  },
+};
+
 export const userActivities = {
   id: 'user activities',
   query: `
@@ -70,6 +100,7 @@ export const userActivities = {
       getUserActivities(userId: $userId) {
         id
         name
+        updatedAt
         user {
           id
           firstName
@@ -91,7 +122,8 @@ export const userActivities = {
       getUserActivities: [
         {
           id: 3,
-          name: 'Update',
+          name: 'Created',
+          updatedAt: today,
           user: {
             id: 2,
             firstName: 'Jane',
@@ -99,9 +131,9 @@ export const userActivities = {
             email: 'jane.doe@example.com',
           },
           item: {
-            name: 'Painting',
-            description: 'Painting of great value',
-            value: 50000,
+            name: 'Sculpture',
+            description: 'Sculpture of great value',
+            value: 1020000,
           },
         },
       ],

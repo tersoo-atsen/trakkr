@@ -1,23 +1,23 @@
 export default {
   up: (queryInterface/* , Sequelize */) => {
     return queryInterface.bulkInsert('Activities', [{
-      name: 'Add',
+      name: 'Created',
       userId: 1,
       itemId: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      name: 'Update',
+      name: 'Created',
       userId: 1,
-      itemId: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    {
-      name: 'Update',
-      userId: 2,
       itemId: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      name: 'Created',
+      userId: 2,
+      itemId: 3,
       createdAt: new Date(),
       updatedAt: new Date(),
     }], {});

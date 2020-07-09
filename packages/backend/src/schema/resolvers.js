@@ -6,9 +6,11 @@ import { createToken } from '../utils/token';
 import { validatePassword } from '../utils/password';
 import { isAuthenticated, isItemOwner } from './authorization';
 import { find } from '../utils/requests';
+import Date from './scalar/Date';
 
 const { Op } = Sequelize;
 const resolvers = {
+  Date,
   Activity: {
     async item(item) {
       return item.getItem()
@@ -112,6 +114,7 @@ const resolvers = {
         value,
         imageUrl,
         location,
+        quantity,
       }, { models, me }) => {
         return models.Item.create({
           userId: me.id,
@@ -120,6 +123,7 @@ const resolvers = {
           value,
           imageUrl,
           location,
+          quantity,
         })
       },
     ),
@@ -130,12 +134,18 @@ const resolvers = {
         return models.Item.destroy({ where: { id } });
       },
     ),
-    updateItem: async (root, { id, name, description }, { models }) => {
+    updateItem: async (root, {
+      id, name, description, quantity, value, location,
+    }, { models }) => {
       const item = await models.Item.findByPk(id);
       if (!item) {
         return new Error('Item not found!');
       }
-      return item.update({ name, description });
+      return item.update(
+        {
+          name, description, quantity, value, location,
+        },
+      );
     },
   },
 };

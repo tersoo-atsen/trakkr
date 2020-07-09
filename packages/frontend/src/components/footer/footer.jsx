@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './footer.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
@@ -13,7 +14,9 @@ const Footer = () => (
       <div className="columns is-tablet is-marginless">
         <div className="column">
           <div className="footer-section is-flex is-horizontal-center">
-            <img className="footer__logo" src={trakkrLogo} alt="Trakkr logo" />
+            <Link className="navbar-item" to="/">
+              <img className="footer__logo" src={trakkrLogo} alt="Trakkr logo" />
+            </Link>
           </div>
         </div>
         <div className="column">

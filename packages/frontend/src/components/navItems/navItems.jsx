@@ -1,14 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import './navItems.scss';
 import Button from '../button';
-import ProfilePhoto from '../../assets/images/user.png';
-import ExpandArrow from '../../assets/images/expand-arrow.png';
+import UserMenu from '../userMenu';
 
 const NavItems = (Props) => {
   const {
-    loggedIn, currentUser, buttonClass, toggleMenu, showMenu, handleLogout,
+    loggedIn,
+    currentUser,
+    buttonClass,
+    openDropdown,
+    showDropdown,
+    handleLogout,
   } = Props;
 
   return (
@@ -20,27 +23,12 @@ const NavItems = (Props) => {
         </>
       )
       : (
-        <>
-          <p className="user_name">
-            {currentUser.firstName}
-            &nbsp;
-            {currentUser.lastName}
-          </p>
-          <img src={ProfilePhoto} alt="user profile" />
-          <div className="dropdown">
-            <button className="dropdown__button" onClick={toggleMenu}>
-              <img src={ExpandArrow} alt="expand arrow" className="dropdown__expand_arrow" />
-            </button>
-            {
-              showMenu ? (
-                <div className="dropdown__content">
-                  <Link className="dropdown" to="/Profile">User Profile</Link>
-                  <button className="dropdown__logout_button" onClick={handleLogout}>Log Out</button>
-                </div>
-              ) : null
-            }
-          </div>
-        </>
+        <UserMenu
+          currentUser={currentUser}
+          openDropdown={openDropdown}
+          showDropdown={showDropdown}
+          handleLogout={handleLogout}
+        />
       )
   );
 };

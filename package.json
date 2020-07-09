@@ -7,6 +7,7 @@
     "build": "npx lerna run build",
     "heroku-postbuild": "npm run install:all && npx lerna run build --stream",
     "install:all": "npx lerna exec npm install --stream",
+    "lint": "npx lerna run lint --stream",
     "test": "npx lerna run test --stream",
     "start": "node ./packages/backend/build/server.js",
     "dev": "npx lerna run dev"
