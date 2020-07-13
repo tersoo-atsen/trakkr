@@ -17,7 +17,7 @@ const LandingPage = () => (
         <h3 className="page-header__title-text">
           Your Complete
           <br />
-              Collection Tracking Solution
+          Collection Tracking Solution
         </h3>
         <h5 className="page-header__sub-text">All of your stuff. All in one place.</h5>
       </div>
@@ -29,11 +29,11 @@ const LandingPage = () => (
             <h3 className="page-intro__text">
               A simple inventory
               <br />
-                  software for business
+              software for business
               <br />
-                  and teams to stay on top
+              and teams to stay on top
               <br />
-                  of their stuff.
+              of their stuff.
             </h3>
           </div>
         </div>

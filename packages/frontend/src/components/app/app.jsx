@@ -7,13 +7,15 @@ import NotFoundPage from '../notFoundPage';
 import ConnectedLogin from '../login';
 import Signup from '../signup';
 import Dashboard from '../dashboard';
+import PrivateRoute from '../privateRoute';
+
 
 const App = () => (
   <Switch>
     <Route exact path={routes.home} component={LandingPage} />
     <Route path={routes.login} component={ConnectedLogin} />
     <Route path={routes.signup} component={Signup} />
-    <Route path={routes.dashboard} component={Dashboard} />
+    <PrivateRoute component={Dashboard} path={routes.dashboard} />
     <Route component={NotFoundPage} />
   </Switch>
 );

@@ -19,11 +19,18 @@
 .footer__link--twitter,
 .footer__link--facebook,
 .footer__link--instagram {
+  background-color: #e2e2e298;
   border-radius: 50px;
-  padding: 0.20rem;
-  border: 2px solid #e2e2e24f;
-  height: 25px;
-  background-color: #e2e2e24f;
+  height: 30px;
+  padding: 0.5rem;
+  opacity: 0.6;
+  transition: ease-in all 0.3s;
+}
+
+.footer__link--twitter:hover,
+.footer__link--facebook:hover,
+.footer__link--instagram:hover {
+  opacity: 1;
 }
 
 .footer__link:not(:first-child) {
