@@ -26,12 +26,12 @@ const Footer = () => (
         </div>
         <div className="column">
           <div className="footer-section is-flex is-horizontal-center links_wrapper">
-            <span className="footer__links">
+            <div className="footer__links">
               <span className="footer__link"><img className="footer__link--twitter" src={twitter} alt="Twitter link" /></span>
               <span className="footer__link"><img className="footer__link--facebook" src={facebook} alt="Facebook link" /></span>
               <span className="footer__link"><img className="footer__link--instagram" src={instagram} alt="Instagram link" /></span>
               <span />
-            </span>
+            </div>
           </div>
         </div>
       </div>

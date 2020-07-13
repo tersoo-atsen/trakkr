@@ -109,6 +109,7 @@ describe('Navbar component', () => {
     connectedNavbar.find('.dropdown__button').simulate('click');
     connectedNavbar.find('.dropdown__logout_button').simulate('click');
     connectedNavbar.find(Navbar).update();
-    expect(connectedNavbar.find(Navbar).instance().props.location.pathname).toBe('/');
+    const history = connectedNavbar.find('Router').prop('history');
+    expect(history.location.pathname).toBe('/');
   });
 });

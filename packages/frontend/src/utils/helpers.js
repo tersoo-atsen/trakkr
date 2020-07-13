@@ -14,6 +14,22 @@ export const formatDate = (dateString) => {
   return event;
 };
 
+export const saveToLocalStorage = (key, value) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
+
+export const getFromLocalStorage = (itemKey) => JSON.parse(localStorage.getItem(itemKey));
+
+export const removeFromLocalStorage = (itemKey) => {
+  const name = JSON.parse(localStorage.getItem(itemKey));
+  /* istanbul ignore if */
+  if (name !== null) {
+    localStorage.removeItem(itemKey);
+    return true;
+  }
+  return false;
+};
+
 export const featureColumns = (feature) => {
   const classNames = `feature-icon-wrapper ${feature.id}`;
   return (
@@ -74,3 +90,11 @@ export const activtyList = (activity, idx) => (
     </div>
   </div>
 );
+
+export const isAuthenticated = () => {
+  const user = getFromLocalStorage('user');
+  if (user !== null) {
+    return true;
+  }
+  return false;
+};

@@ -25,7 +25,8 @@ const UserMenu = (props) => {
         {
           showDropdown ? (
             <div className="dropdown__content">
-              <Link className="dropdown__profile_button" to="/Profile">User Profile</Link>
+              <Link className="dropdown__dashboard_button" to="/dashboard">Dashboard</Link>
+              <Link className="dropdown__profile_button" to="/profile">User Profile</Link>
               <button className="dropdown__logout_button" onClick={handleLogout}>Log Out</button>
             </div>
           ) : null
