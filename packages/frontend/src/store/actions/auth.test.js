@@ -76,7 +76,7 @@ describe('login action creators', () => {
   });
   it('should dispatch login fail if token is not saved', async () => {
     const repeat = (str, x) => new Array(x + 1).join(str);
-    const token = repeat('x', (1200 * 1024 * 1024) / 2); // each JS character is 2 bytes
+    const token = repeat('x', (1000 * 500 * 1000) / 2); // each JS character is 2 bytes
     mutation = jest.fn()
       .mockImplementation(() => new Promise((resolve) => resolve({
         loading: false,

@@ -78,9 +78,15 @@
 .button.signup_form_submit_button:hover {
   border-color: transparent;
   color: #ffffff;
-  -webkit-box-shadow: 0 1px 6px 0 rgba(32,33,36,0.6);
-  -moz-box-shadow: 0 1px 6px 0 rgba(32,33,36,0.6);
+  -webkit-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
+  -moz-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
   box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
+}
+
+.button.login_form_submit_button.is-loading::after {
+  border: 3px solid #ffffff;
+  border-right-color: transparent;
+  border-top-color: transparent;
 }
 
 .signup_form_social img {
@@ -110,15 +116,13 @@
   text-align: center;
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 600px) {
   .signup_page {
-    padding: 80px 0;
+    padding: 80px 50px 0;
   }
+}
 
-  .signup_page__content {
-    padding: 0 60px;
-  }
-
+@media screen and (min-width: 769px) {
   .signup_page__logo {
     margin-bottom: 100px;
   }
@@ -133,8 +137,8 @@
 }
 
 @media screen and (max-width: 600px) {
-  .signup_page__content {
-    padding: 60px 20px;
+  .signup_page {
+    padding: 80px 0;
   }
 }
 

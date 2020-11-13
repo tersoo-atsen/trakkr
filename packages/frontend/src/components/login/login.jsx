@@ -65,7 +65,7 @@ export class Login extends Component {
 
     return (
       <Mutation mutation={USER_LOGIN} variables={{ login: email, password }}>
-        {(loginMutation, { error }) => (
+        {(loginMutation, { loading, error }) => (
           <div className="login_page">
             <div className="login_page__content container">
               <div className="login_page__logo">
@@ -133,7 +133,9 @@ export class Login extends Component {
                           <div className="field-body">
                             <div className="field">
                               <div className="control login_form_submit">
-                                <button className="button login_form_submit_button">Sign in</button>
+                                <button type="submit" className={loading ? 'button login_form_submit_button is-loading' : 'button login_form_submit_button'}>
+                                  Sign in
+                                </button>
                               </div>
                             </div>
                           </div>
