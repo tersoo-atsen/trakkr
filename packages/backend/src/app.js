@@ -19,7 +19,7 @@ app.get('/api', (req, res) => {
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../frontend/build/index.html'))
-})
+});
 
 const server = new ApolloServer({
   introspection: true,
@@ -30,7 +30,6 @@ const server = new ApolloServer({
   context: async ({ req }) => {
     const secret = process.env.JWT_SECRET;
     const me = await getMe(req, secret);
-
     return { models, me, secret };
   },
 });

@@ -10,7 +10,7 @@
     "lint": "npx lerna run lint --stream",
     "test": "npx lerna run test --stream",
     "start": "node ./packages/backend/build/server.js",
-    "dev": "npx lerna run dev"
+    "dev": "npx lerna run dev --stream"
   },
   "repository": {
     "type": "git",

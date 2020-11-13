@@ -85,6 +85,7 @@ const resolvers = {
     },
     signIn: async (root, { login, password }, { secret, models }) => {
       const user = await models.User.findByLogin(login);
+      console.log('user', user)
 
       if (!user) {
         throw new UserInputError(

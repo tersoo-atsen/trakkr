@@ -18,8 +18,13 @@ nav.navbar {
   a.button.round:hover {
     color: #fff;
   }
+  
   .button.transparent {
     color: rgb(0, 0, 0);
+  }
+
+  .button.transparent:hover {
+    color: #fc4548;
   }
 
   .user_name {
@@ -31,7 +36,7 @@ nav.navbar {
   background-color: transparent;
 
   .button.round:hover {
-    color: rgb(59, 59, 59);
+    color: rgb(243, 74, 74);
   }
 
   .user_name {
