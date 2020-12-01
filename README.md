@@ -21,3 +21,6 @@ See Frontend prototype built with Invision Studio [here](https://tersooatsen9910
 ## CI/CD
 - [Circle CI](https://circleci.com/)
 - [Heroku](https://heroku.com/)
+
+## Deployment
+Try the app [here](https://trakkr-app.herokuapp.com/).
