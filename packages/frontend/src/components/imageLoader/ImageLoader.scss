@@ -1,0 +1,27 @@
+@import "../../assets/styles/variables.scss";
+
+.image-loader-wrapper {
+  position: relative;
+  height: 0;
+  /* Formula is: (height / width * 100%) */
+  padding-top: calc(630 / 1008 * 100%);
+  margin: 6rem 0;
+}
+
+@media (max-width: 575.98px) {
+  .image-loader-wrapper {
+    margin: 1.5rem 0;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .image-loader-wrapper {
+    margin: 2rem 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .image-loader-wrapper {
+    margin: 3rem 0;
+  }
+}

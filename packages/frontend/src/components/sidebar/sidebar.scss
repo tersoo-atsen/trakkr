@@ -1,0 +1,74 @@
+.menu {
+  background-color: #2d3039;
+  height: 100%;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  -webkit-transition: 0.5s ease;
+  -moz-transition: 0.5s ease;
+  -o-transition: 0.5s ease;
+  transition: 0.5s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+
+  .logo-wrapper {
+    .logo-link {
+      display: block;
+
+      .trakkr-logo {
+        display: block;
+        margin: 0 auto;
+        padding: 20px 0;
+      }
+    }
+  }
+
+  .menu-list {
+    margin-top: 50px;
+
+    .menu-list-item {
+      margin-bottom: 5px;
+
+      a {
+        border-radius: 5px;
+        color: #ffffff;
+        display: block;
+        position: relative;
+        padding: 10px 20px;
+
+        .menu-list-item__icon {
+          height: 18px;
+          position: absolute;
+          top: 14px;
+        }
+
+        .menu-list-item__text {
+          margin-left: 25px;
+        }
+      }
+
+      a:hover {
+        background-color: #7e7d7d23;
+      }
+
+      a.active {
+        background-color: #7e7d7d23;
+      }
+    }
+  }
+}
+
+.menu.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media screen and (min-width: 769px) {
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+  }
+}

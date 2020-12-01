@@ -1,9 +1,6 @@
-.vscode
 .env
 .DS_Store
 .nyc_output
-__snapshots__
 build
 coverage
 node_modules
-lerna-debug.log

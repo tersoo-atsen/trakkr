@@ -1,0 +1,43 @@
+.buttons .button {
+  height: 40px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Lato", Vernada, sans-serif;
+  font-weight: 400;
+  width: 120px;
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+
+.button.buttons--white-text {
+  color: #fff;
+}
+
+.button.round {
+  border-radius: 50px;
+  background-color: #d70508;
+  border: none;
+}
+
+.button.round:hover {
+  background-color: #960002;
+}
+
+.button.transparent {
+  border: none;
+  background-color: transparent;
+}
+
+.button.transparent:hover {
+  color: #fc4548;
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) {
+  .buttons .button {
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+  }
+}

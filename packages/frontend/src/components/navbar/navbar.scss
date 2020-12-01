@@ -1,0 +1,52 @@
+nav.navbar {
+  transition: background-color 1000ms ease;
+  -webkit-transition: background-color 1000ms ease;
+  -moz-transition: background-color 1000ms linear;
+  -o-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+
+  .buttons .button,
+  .buttons:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.navbar.colored {
+  background-color: rgba(72, 72, 72, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
+
+  a.button.round:hover {
+    color: #fff;
+  }
+  
+  .button.transparent {
+    color: rgb(0, 0, 0);
+  }
+
+  .button.transparent:hover {
+    color: #fc4548;
+  }
+
+  .user_name {
+    color: rgb(0, 0, 0);
+  }
+}
+
+.navbar.transparent {
+  background-color: transparent;
+
+  .button.round:hover {
+    color: rgb(243, 74, 74);
+  }
+
+  .user_name {
+    color: #fff;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media screen and (min-width: 768px) {
+  nav.navbar {
+    padding: 0.5rem 3rem;
+  }
+}
