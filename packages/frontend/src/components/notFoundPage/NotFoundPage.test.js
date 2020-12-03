@@ -20,6 +20,6 @@ describe('Not Found Page Component', () => {
     expect(wrapper.find('.not-found__title-text').length).toBe(1);
     expect(wrapper.find('.not-found__sub-title-text').length).toBe(1);
     expect(wrapper.find('.not-found__desc-text').length).toBe(1);
-    expect(wrapper.find(Link).props().to).toBe('/');
+    expect(wrapper.find(Link).props().to).toBe('/dashboard');
   });
 });

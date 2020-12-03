@@ -8,11 +8,6 @@ export const singleItem = {
       description
       value
       imageUrl
-      user{
-        firstName
-        lastName
-        email
-      }
     }
   }`,
   variables: { id: 3 },
@@ -23,11 +18,6 @@ export const singleItem = {
         description: 'Sculpture of great value',
         value: 1020000,
         imageUrl: 'some/path/to/sculpture',
-        user: {
-          firstName: 'Jane',
-          lastName: 'Doe',
-          email: 'jane.doe@example.com',
-        },
       },
     },
   },
@@ -46,7 +36,12 @@ export const newItem = {
     }
   }`,
   variables: {
-    name: 'New Item', description: 'New important item', value: 1230000, imageUrl: 'some/image/path', location: 'Kaduna', quantity: 1,
+    name: 'New Item',
+    description: 'New important item',
+    value: 1230000,
+    imageUrl: 'some/image/path',
+    location: 'Kaduna',
+    quantity: 1,
   },
   expected: {
     data: {

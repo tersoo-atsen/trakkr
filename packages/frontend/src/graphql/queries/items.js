@@ -1,13 +1,24 @@
 import gql from 'graphql-tag';
 
 export const GET_USER_ITEMS = gql`
-  query UserItems($userId: Int!){
-    getUserItems(userId: $userId) {
-      id
-      description
-      name
+query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
+  getUserItems(userId: $userId, page: $page, perPage: $perPage) {
+      items{
+          id
+          description
+          imageUrl
+          name
+          value
+          quantity
+          location
+          createdAt 
+      }
+      pageInfo {
+        pages
+        hasNextPage
+        hasPrevPage
     }
   }
-`;
+}`;
 
 export const itmDummy = 'dummy';

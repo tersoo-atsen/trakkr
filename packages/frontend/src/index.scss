@@ -7,18 +7,8 @@ $page-bg: #f4f7fa;
 $navbar-breakpoint: 0;
 $input-placeholder-color: #5050509a;
 
-// Import only what you need from Bulma
-@import "../node_modules/bulma/sass/utilities/_all.sass";
-@import "../node_modules/bulma/sass/base/_all.sass";
-@import "../node_modules/bulma/sass/elements/button.sass";
-@import "../node_modules/bulma/sass/elements/container.sass";
-@import "../node_modules/bulma/sass/form/_all.sass";
-@import "../node_modules/bulma/sass/elements/title.sass";
-@import "../node_modules/bulma/sass/components/navbar.sass";
-@import "../node_modules/bulma/sass/layout/hero.sass";
-@import "../node_modules/bulma/sass/layout/section.sass";
-@import "../node_modules/bulma/sass/grid/columns.sass";
-@import "../node_modules/bulma/sass/components/card.sass";
+// Import Bulma
+@import "../node_modules/bulma/bulma.sass";
 
 .button:focus:not(:active),
 .button.is-focused:not(:active) {
@@ -36,7 +26,7 @@ html * {
 
 body {
   background-color: #f4f7fa;
-  font: 300 16px/1.6 "Lato", Verdana, sans-serif;
+  font: normal 16px/1.6 "Lato", Verdana, sans-serif;
   color: #505050;
   min-height: 100%;
 }
@@ -44,7 +34,7 @@ body {
 button,
 input,
 textarea {
-  font: 400 16px/1.6 "Lato", Verdana, sans-serif;
+  font: normal 16px/1.6 "Lato", Verdana, sans-serif;
 }
 
 img.footer__logo,

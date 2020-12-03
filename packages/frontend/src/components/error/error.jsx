@@ -9,13 +9,13 @@ const Error = (props) => {
   return (
     <div className="error-page-wrapper">
       <div className="error-page_inner">
-        <div className="content-wrapper is-centered">
+        <div className="content-wrapper">
           <h3 className="error-message">{message}</h3>
           <p className="error-description">
             Sorry the page you are looking is temporarily unavailable and
             we are working to fix the problem. We should be up and running shortly.
           </p>
-          <Link className="try-again" to="/">Go Home</Link>
+          <Link className="try-again" to="/dashboard">Go Home</Link>
         </div>
       </div>
     </div>

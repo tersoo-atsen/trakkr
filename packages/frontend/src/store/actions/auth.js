@@ -8,7 +8,10 @@ const login = (loginActionParams) => async (dispatch) => {
   );
   const failure = (error) => ({ type: authConstants.LOGIN_FAILURE, error });
   const {
-    loginMutation, email, password, history,
+    loginMutation,
+    email,
+    password,
+    history,
   } = loginActionParams;
   dispatch(request(true));
   const result = await userService.login(loginMutation, email, password);

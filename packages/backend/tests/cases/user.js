@@ -41,26 +41,39 @@ export const singleUser = {
 
 export const userItems = {
   id: 'user items',
-  query: `
-    query GetUserItems($userId: Int!){
-      getUserItems(userId: $userId) {
-        id
-        description
-        name
+  query: `query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
+    getUserItems(userId: $userId, page: $page, perPage: $perPage) {
+        items{
+            id
+            description
+            imageUrl
+            name
+        }
+        pageInfo {
+          pages
+          hasNextPage
+          hasPrevPage
       }
-    }`,
-
+    }
+  }`,
   variables: { userId: 2 },
-
   expected: {
     data: {
-      getUserItems: [
-        {
-          id: 3,
-          description: 'Sculpture of great value',
-          name: 'Sculpture',
+      getUserItems: {
+        items: [
+          {
+            id: 3,
+            description: 'Sculpture of great value',
+            name: 'Sculpture',
+            imageUrl: 'some/path/to/sculpture',
+          },
+        ],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
         },
-      ],
+      },
     },
   },
 };
