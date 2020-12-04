@@ -8,8 +8,6 @@ import wait from 'waait';
 import { act } from 'react-dom/test-utils';
 
 import ConnectedDashboard, { Dashboard } from './dashboard';
-import Sidebar from '../sidebar';
-import Usermenu from '../userMenu';
 import Loader from '../loader';
 import Error from '../error';
 import {
@@ -17,17 +15,12 @@ import {
 } from '../../../__mocks__/graphqlMocks';
 
 const mockStore = configureStore([]);
-const resizeWindow = (x, y) => {
-  window.innerWidth = x;
-  window.innerHeight = y;
-  window.dispatchEvent(new Event('resize'));
-};
+
 describe('Dashboard component', () => {
   let wrapper;
   let store;
   let props;
   let connectedDashbord;
-  let instance;
 
   beforeEach(() => {
     props = {
@@ -58,86 +51,7 @@ describe('Dashboard component', () => {
     wrapper.update();
     const dashboard = wrapper.find('.dashboard-wrapper');
     expect(wrapper.contains(dashboard)).toBeDefined();
-    expect(wrapper.find(Usermenu).length).toEqual(1);
-    expect(wrapper.find(Sidebar).length).toEqual(1);
     wrapper.unmount();
-  });
-  it('Should not render dashboard correctly on larger display', async () => {
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardMocks} addTypename={false}>
-          <Dashboard {...props} />
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => {
-      await wait();
-    });
-    instance = wrapper.find('Dashboard').instance();
-    wrapper.update();
-    instance.setState({ showSidebar: false });
-    wrapper.update();
-    expect(instance.state.showSidebar).toBe(false);
-    wrapper.unmount();
-  });
-  it('Should render dropdown menu when button is clicked', async () => {
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardMocks} addTypename={false}>
-          <Dashboard {...props} />
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => {
-      await wait();
-    });
-    wrapper.update();
-    instance = wrapper.find('Dashboard').instance();
-    expect(instance.state.showDropdown).toBe(false);
-    wrapper.find('.dropdown__button').simulate('click');
-    const dropdown = wrapper.find('.dropdown__content');
-    expect(instance.state.showDropdown).toBe(true);
-    expect(dropdown.exists()).toBeTruthy();
-  });
-  it('Should close dropdown menu when dashboard content area is clicked', async () => {
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardMocks} addTypename={false}>
-          <Dashboard {...props} />
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => {
-      await wait();
-    });
-    wrapper.update();
-    wrapper.find('.dropdown__button').simulate('click');
-    let dropdown = wrapper.find('.dropdown__content');
-    expect(dropdown.exists()).toBeTruthy();
-    wrapper.find('.dashboard-content').simulate('click');
-    global.document.dispatchEvent(new Event('mouseup'));
-    wrapper.update();
-    dropdown = wrapper.find('.dropdown__content');
-    expect(dropdown.exists()).toBeFalsy();
-  });
-  it('Should render sidebar when button is clicked', async () => {
-    wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardMocks} addTypename={false}>
-          <Dashboard {...props} />
-        </MockedProvider>
-      </MemoryRouter>,
-    );
-    await act(async () => {
-      await wait();
-    });
-    resizeWindow(768, 1024);
-    wrapper.update();
-    instance = wrapper.find('Dashboard').instance();
-    expect(wrapper.find(Sidebar).length).toEqual(0);
-    wrapper.find('.button.sidebar-trigger').simulate('click');
-    expect(wrapper.find(Sidebar).length).toEqual(1);
-    resizeWindow(1280, 950);
   });
   it('Should render error ', async () => {
     wrapper = mount(
@@ -182,7 +96,7 @@ describe('Dashboard component', () => {
     wrapper.update();
     expect(wrapper.find('Such empty')).toBeTruthy();
   });
-  it('Should render call the logout method ', async () => {
+  it('Should render activities', async () => {
     const authActions = { logout: jest.fn() };
     const handleLogout = jest.fn(() => {
       authActions.logout(props.dispatch, props.history);
@@ -200,10 +114,7 @@ describe('Dashboard component', () => {
       await wait();
     });
     connectedDashbord.update();
-    instance = connectedDashbord.find('Dashboard').instance();
-    const spy = jest.spyOn(instance, 'handleLogout');
-    connectedDashbord.find('.dropdown__button').simulate('click');
-    connectedDashbord.find('.dropdown__logout_button').simulate('click');
-    expect(spy).toHaveBeenCalled();
+    expect(connectedDashbord.find('Dashboard')).toBeTruthy();
+    expect(connectedDashbord.find('.activity-btn-wrapper')).toBeTruthy();
   });
 });
