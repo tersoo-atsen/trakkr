@@ -25,14 +25,20 @@ $input-placeholder-color: #5050509a;
   box-shadow: none;
 }
 
+html {
+  height: 100%;
+}
+
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
+  background-color: #f4f7fa;
   font: 300 16px/1.6 "Lato", Verdana, sans-serif;
   color: #505050;
+  min-height: 100%;
 }
 
 button,

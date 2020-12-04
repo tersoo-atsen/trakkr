@@ -3,6 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { isAuthenticated } from '../../utils';
+import MainLayout from '../mainLayout';
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -10,7 +11,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) => (
       isAuthenticated()
-        ? <Component {...props} />
+        ? (
+          <MainLayout>
+            <Component {...props} />
+          </MainLayout>
+        )
         : (
           <Redirect to={{
             pathname: '/login',
