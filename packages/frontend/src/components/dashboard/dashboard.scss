@@ -2,6 +2,20 @@
   background: #f4f7fa;
   position: relative;
 
+  .no-content {
+    margin-top: 10px;
+    text-align: center;
+    
+    .no-content_title {
+      color: #252525;
+      font-size: 18px;
+
+    }
+    .no-content_text{
+      color: #00000060;
+    }
+  }
+
   .dashboard-content {
     padding: 10px;
 
@@ -22,10 +36,10 @@
       }
 
       .activity {
-        border-radius: 5px;
+        border-radius: 10px;
         color: #000000;
         clear: both;
-        padding: 20px 6px;
+        padding: 20px 10px;
         transition: all ease 0.3s;
 
         .activity--left {
@@ -153,8 +167,6 @@
     min-height: 100%;
 
     .dashboard-content {
-      margin-left: 250px;
-
       .content-area {
         margin: 80px auto 0;
         max-width: 1024px;
@@ -170,7 +182,6 @@
       }
 
       .activity-btn-wrapper {
-
         .button.transparent {
           font-size: inherit;
         }
@@ -235,13 +246,13 @@
 
       .card-content {
         .icon-group {
-          width: 40px;
+          width: 30px;
           height: 30px;
 
           .icon-bg {
             position: absolute;
             height: 22px;
-            width: 40px;
+            width: 35px;
             top: 5px;
           }
 
@@ -255,7 +266,6 @@
         }
 
         .summary-description {
-          margin-left: 10px;
 
           .summary-description__title {
             font-size: 8px;

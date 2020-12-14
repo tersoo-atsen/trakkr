@@ -8,8 +8,16 @@ const NotFoundPage = () => (
     <div className="not-found__text-wrapper">
       <h1 className="not-found__title-text">404</h1>
       <p className="not-found__sub-title-text">We Sincerely apologize</p>
-      <p className="not-found__desc-text">The page you are looking for is no longer here, maybe it was never here in the first place. In any case, we are sorry you were sent on a wild goose chase and have already taken steps to get the person responsible fired.</p>
-      <Link className="no-found__home-link" to="/">Go home</Link>
+      <p className="not-found__desc-text">
+        The page you are looking for is no longer here,
+        <br />
+        maybe it was never here in the first place.
+        <br />
+        In any case, we are sorry you were sent on a wild goose chase
+        <br />
+        and have already taken steps to get the person responsible fired.
+      </p>
+      <Link className="no-found__home-link" to="/dashboard">Go home</Link>
     </div>
   </div>
 );

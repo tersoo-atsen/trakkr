@@ -4,12 +4,11 @@ import { MemoryRouter } from 'react-router-dom';
 import { MockedProvider } from '@apollo/react-testing';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { GraphQLError } from 'graphql';
 import wait from 'waait';
+import { act } from 'react-dom/test-utils';
 
 import ConnectedLogin, { Login } from './login';
-import { USER_LOGIN } from '../../graphql/mutations';
-import { login } from '../../../__mocks__/graphqlMocks';
+import { login as loginMocks, loginErrorMocks } from '../../../__mocks__/graphqlMocks';
 
 const mockStore = configureStore([]);
 
@@ -17,7 +16,6 @@ describe('Login component', () => {
   let wrapper;
   let component;
   let instance;
-  let loginMocks = login;
   let props;
   let store;
 
@@ -53,10 +51,8 @@ describe('Login component', () => {
   });
   it('should login user with correct credentials', () => {
     const spy = jest.spyOn(instance, 'handleSubmit');
-    wrapper.find('[name="email"]')
-      .simulate('change', { target: { name: 'email', value: 'jane.doe@example.com' } });
-    wrapper.find('[name="password"]')
-      .simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
+    wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'jane.doe@example.com' } });
+    wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
     wrapper.find('form').simulate('submit');
     expect(spy).toHaveBeenCalled();
     expect(instance.state.email).toBe('jane.doe@example.com');
@@ -68,46 +64,45 @@ describe('Login component', () => {
     expect(instance.state.password).toBe('');
   });
   it('should show error if email is invalid', () => {
-    wrapper.find('[name="email"]')
-      .simulate('change', { target: { name: 'email', value: 'jane.doe@example' } });
-    wrapper.find('[name="password"]')
-      .simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
+    wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'jane.doe@example' } });
+    wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
     wrapper.find('form').simulate('submit');
     expect(instance.state.formErrors.email).toBe('Email address is invalid');
   });
   it('should show required error if email/password is not present', () => {
-    wrapper.find('[name="email"]')
-      .simulate('change', { target: { name: 'email', value: '' } });
-    wrapper.find('[name="password"]')
-      .simulate('change', { target: { name: 'password', value: '' } });
+    wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: '' } });
+    wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: '' } });
     wrapper.find('form').simulate('submit');
     expect(instance.state.formErrors.email).toBe('Email is required');
     expect(instance.state.formErrors.password).toBe('Password is required');
   });
   it('should show error if password is too short', () => {
-    wrapper.find('[name="email"]')
-      .simulate('change', { target: { name: 'email', value: 'jane.doe@example.com' } });
-    wrapper.find('[name="password"]')
-      .simulate('change', { target: { name: 'password', value: 'short' } });
+    wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'jane.doe@example.com' } });
+    wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'short' } });
     wrapper.find('form').simulate('submit');
-    expect(instance.state.formErrors.password)
-      .toBe('Password should not less than 6 characters');
+    expect(instance.state.formErrors.password).toBe('Password should not less than 6 characters');
   });
   it('should not submit form with no email and password', () => {
     wrapper.find('form').simulate('submit');
     expect(instance.state.formErrors.email).toBe('Email is required');
     expect(instance.state.formErrors.password).toBe('Password is required');
   });
-  it('should show error UI', async () => {
-    loginMocks = {
-      request: {
-        query: USER_LOGIN,
-        variables: { email: 'jane.doe@example.com', password: 'applicationUser1' },
-      },
-      result: {
-        errors: [new GraphQLError('forced error')],
-      },
-    };
+  it('should loading indicator', async () => {
+    component = mount(
+      <MemoryRouter initialEntries={['/login']}>
+        <MockedProvider mocks={[]} addTypename={false}>
+          <Provider store={store}>
+            <ConnectedLogin {...props} />
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
+    );
+    component.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'ters@example.com' } });
+    component.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
+    component.find('form').simulate('submit');
+    // expect(wrapper.contains('.is-loading')).toBeTruthy();
+  });
+  it('should login user in successfully', async () => {
     component = mount(
       <MemoryRouter initialEntries={['/login']}>
         <MockedProvider mocks={[loginMocks]} addTypename={false}>
@@ -117,16 +112,31 @@ describe('Login component', () => {
         </MockedProvider>
       </MemoryRouter>,
     );
-    component.find('[name="email"]')
-      .simulate('change', { target: { name: 'email', value: 'ters@example.com' } });
-    component.find('[name="password"]')
-      .simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
+    component.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'ters@example.com' } });
+    component.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
     component.find('form').simulate('submit');
-
-    await wait(5); // wait for response
+    await act(async () => {
+      await wait();
+    });
     component.update();
-    // console.log(component.debug());
-    // const tree = component.toJSON();
-    // expect(tree.children).toContain('Error!');
+    const loginComponent = component.find('Login');
+  });
+  it('should show login error', async () => {
+    component = mount(
+      <MemoryRouter initialEntries={['/login']}>
+        <MockedProvider mocks={[loginErrorMocks]} addTypename={false}>
+          <Provider store={store}>
+            <ConnectedLogin {...props} />
+          </Provider>
+        </MockedProvider>
+      </MemoryRouter>,
+    );
+    component.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'ters@example.com' } });
+    component.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'applicationUser1' } });
+    component.find('form').simulate('submit');
+    await act(async () => {
+      await wait();
+    });
+    component.update();
   });
 });

@@ -9,7 +9,7 @@ import storeConfig from './store/store';
 import App from './components/app';
 import './index.scss';
 import { apolloClient } from './utils';
-
+import './utils/fontawesome';
 
 const app = (
   <ApolloProvider client={apolloClient}>

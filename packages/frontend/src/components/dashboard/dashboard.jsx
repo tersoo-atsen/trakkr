@@ -9,7 +9,6 @@ import Loader from '../loader';
 import Error from '../error';
 import { summaryList, summaryColumns, activtyList } from '../../utils';
 import { GET_USER_ACTIVITIES } from '../../graphql/queries';
-// import authActions from '../../store/actions';
 
 export const Dashboard = (props) => {
   const { currentUser } = props;
@@ -28,7 +27,6 @@ export const Dashboard = (props) => {
         const activities = data ? data.getUserActivities : [];
         if (loading) return <Loader />;
         if (error) return <Error message="An error occurred" />;
-        if (activities.length > 5) activities.length = 5;
 
         return (
           <div className="dashboard-wrapper">
@@ -41,7 +39,14 @@ export const Dashboard = (props) => {
                   </div>
                 </div>
                 <h2 className="content-area__title">Recent Activity</h2>
-                {activities.length === 0 ? <p>Such empty!</p> : content(activities)}
+                {activities.length < 1
+                  ? (
+                    <div className="no-content">
+                      <p className="no-content_title">Wow such empty</p>
+                      <p className="no-content_text">Add items to start seeing your activities</p>
+                    </div>
+                  )
+                  : content(activities)}
               </div>
             </div>
           </div>

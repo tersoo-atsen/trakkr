@@ -7,28 +7,23 @@ import { Provider } from 'react-redux';
 import wait from 'waait';
 import { act } from 'react-dom/test-utils';
 
-import ConnectedDashboard, { Dashboard } from './dashboard';
-import Loader from '../loader';
+import ConnectedItems, { Items } from './items';
+import NoContent from '../noContent';
 import Error from '../error';
-import {
-  dashboardMocks, dashboardErrorMocks, dashboardNoDataMocks,
-} from '../../../__mocks__/graphqlMocks';
+import Overflow from '../overflow';
+import Loader from '../loader';
+import { itemsMocks, itemsErrorMocks, itemsNoDataMocks } from '../../../__mocks__/graphqlMocks';
 
 const mockStore = configureStore([]);
 
-describe('Dashboard component', () => {
+describe('Items Component', () => {
   let wrapper;
-  let store;
   let props;
-  let connectedDashbord;
+  let store;
 
   beforeEach(() => {
     props = {
       currentUser: { id: 1 },
-      history: {
-        push: jest.fn(),
-      },
-      dispatch: jest.fn(),
     };
     store = mockStore({
       global: {
@@ -36,11 +31,11 @@ describe('Dashboard component', () => {
       },
     });
   });
-  it('Should render dashboard correctly', async () => {
+  it('Should render the items componet', async () => {
     wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardMocks} addTypename={false}>
-          <Dashboard {...props} />
+      <MemoryRouter initialEntries={['/items']}>
+        <MockedProvider mocks={itemsMocks} addTypename={false}>
+          <Items {...props} />
         </MockedProvider>
       </MemoryRouter>,
     );
@@ -49,15 +44,17 @@ describe('Dashboard component', () => {
       await wait();
     });
     wrapper.update();
-    const dashboard = wrapper.find('.dashboard-wrapper');
-    expect(wrapper.contains(dashboard)).toBeDefined();
-    wrapper.unmount();
+    const itemView = wrapper.find('.item-page_wrapper');
+    const pagination = wrapper.find('.pagination-wrapper');
+    expect(wrapper.contains(itemView)).toBeDefined();
+    expect(wrapper.contains(pagination)).toBeDefined();
+    expect(wrapper.contains(Overflow)).toBeDefined();
   });
   it('Should render error ', async () => {
     wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardErrorMocks} addTypename={false}>
-          <Dashboard {...props} />
+      <MemoryRouter initialEntries={['/items']}>
+        <MockedProvider mocks={itemsErrorMocks} addTypename={false}>
+          <Items {...props} />
         </MockedProvider>
       </MemoryRouter>,
     );
@@ -67,11 +64,11 @@ describe('Dashboard component', () => {
     wrapper.update();
     expect(wrapper.contains(<Error message="An error occurred" />)).toBeTruthy();
   });
-  it('Should render not data message ', async () => {
+  it('Should render no content component', async () => {
     wrapper = mount(
-      <MemoryRouter initialEntries={['/dashboard']}>
-        <MockedProvider mocks={dashboardNoDataMocks} addTypename={false}>
-          <Dashboard {...props} />
+      <MemoryRouter initialEntries={['/items']}>
+        <MockedProvider mocks={itemsNoDataMocks} addTypename={false}>
+          <Items {...props} />
         </MockedProvider>
       </MemoryRouter>,
     );
@@ -79,18 +76,19 @@ describe('Dashboard component', () => {
       await wait();
     });
     wrapper.update();
+    expect(wrapper.find(NoContent)).toHaveLength(1);
     expect(wrapper.find('Such empty')).toBeTruthy();
   });
-  it('Should render activities', async () => {
+  it('Should render one page of items', async () => {
     const authActions = { logout: jest.fn() };
     const handleLogout = jest.fn(() => {
       authActions.logout(props.dispatch, props.history);
     });
-    connectedDashbord = mount(
+    const connectedItems = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <Provider store={store}>
-          <MockedProvider mocks={dashboardMocks} addTypename={false}>
-            <ConnectedDashboard {...props} handleLogout={handleLogout} />
+          <MockedProvider mocks={itemsMocks} addTypename={false}>
+            <ConnectedItems {...props} handleLogout={handleLogout} />
           </MockedProvider>
         </Provider>
       </MemoryRouter>,
@@ -98,8 +96,10 @@ describe('Dashboard component', () => {
     await act(async () => {
       await wait();
     });
-    connectedDashbord.update();
-    expect(connectedDashbord.find('Dashboard')).toBeTruthy();
-    expect(connectedDashbord.find('.activity-btn-wrapper')).toBeTruthy();
+    connectedItems.update();
+    const instance = connectedItems.find('Items').instance();
+    instance.fetchItems(1);
+    expect(connectedItems.find(Overflow)).toHaveLength(5);
+    expect(connectedItems.find('.user-item')).toHaveLength(5);
   });
 });

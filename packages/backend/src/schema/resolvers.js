@@ -9,17 +9,13 @@ import { find } from '../utils/requests';
 import Date from './scalar/Date';
 
 const { Op } = Sequelize;
+
 const resolvers = {
   Date,
   Activity: {
     async item(item) {
       return item.getItem()
     },
-    async user(user) {
-      return user.getUser()
-    },
-  },
-  Item: {
     async user(user) {
       return user.getUser()
     },
@@ -36,8 +32,31 @@ const resolvers = {
     getUser: async (root, { id }, { models }) => {
       return models.User.findByPk(id)
     },
-    getUserItems: async (root, { userId }, { models }) => {
-      return find(models.Item, userId)
+    getUserItems: async (root, { userId, page = 0, perPage = 5 }, { models }) => {
+      const searchQuery = {
+        where: { userId },
+      };
+      const limit = perPage + 1;
+      const offset = (page - 1) < 1 ? 0 : ((page - 1) * perPage);
+      const { count, rows } = await models.Item.findAndCountAll({
+        order: [['createdAt', 'DESC']],
+        limit,
+        offset,
+        ...searchQuery,
+      });
+      const pages = Math.ceil(count / perPage);
+      const hasNextPage = rows.length > perPage;
+      const hasPrevPage = page > 1 && page <= pages;
+      const items = hasNextPage ? rows.slice(0, -1) : rows;
+
+      return {
+        items,
+        pageInfo: {
+          pages,
+          hasNextPage,
+          hasPrevPage,
+        },
+      };
     },
     getUserActivities: async (root, { userId }, { models }) => {
       return find(models.Activity, userId)
@@ -85,7 +104,6 @@ const resolvers = {
     },
     signIn: async (root, { login, password }, { secret, models }) => {
       const user = await models.User.findByLogin(login);
-      console.log('user', user)
 
       if (!user) {
         throw new UserInputError(

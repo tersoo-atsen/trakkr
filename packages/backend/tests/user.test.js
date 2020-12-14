@@ -5,7 +5,6 @@ import resolvers from '../src/schema/resolvers';
 import typeDefs from '../src/schema/typeDefs';
 import models from '../src/database/models';
 import {
-  invalidDate,
   today,
   singleUser,
   userItems,
@@ -32,7 +31,7 @@ describe('User Test Cases', () => {
   const schema = makeExecutableSchema({ typeDefs, resolvers });
   let context = { models, secret: process.env.JWT_SECRET };
   const testToken = process.env.TEST_TOKEN;
-  // running the test for each case in the cases array
+  // running the test for each case in the userCases array
   userCases.forEach((obj) => {
     const {
       id, query, variables, expected,
@@ -50,9 +49,7 @@ describe('User Test Cases', () => {
         }
       }
       const result = await graphql(schema, query, null, context, variables);
-      if (result.data.getItem && expected.id === 'user items invalid date') {
-        ;
-      }
+
       if (result.data.getUserActivities) {
         result.data.getUserActivities.map((activity) => (activity.updatedAt = today))
       }

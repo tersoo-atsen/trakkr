@@ -23,7 +23,6 @@ const typeDefs = gql`
       value: Int!
       quantity: Int!
       createdAt: Date!
-      user: User!
     }
 
     type Activity {
@@ -39,7 +38,7 @@ const typeDefs = gql`
       getItem(id: Int!): Item
       getUser(id: Int!): User
       getUserActivities(userId: Int!): [Activity]
-      getUserItems(userId: Int!): [Item]
+      getUserItems(userId: Int!, page: Int, perPage: Int): Items
       searchItems(search: String): [Item]!
     }
 
@@ -47,6 +46,17 @@ const typeDefs = gql`
       token: String!
       user: User!
     }
+
+    type Items {
+      items: [Item!]!
+      pageInfo: PageInfo
+    }
+    
+    type PageInfo {
+      pages: Int! 
+      hasNextPage: Boolean!
+      hasPrevPage: Boolean!
+    }    
 
     type Mutation {
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse

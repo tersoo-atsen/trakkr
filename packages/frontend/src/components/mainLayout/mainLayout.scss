@@ -139,3 +139,11 @@
     }
   }
 }
+
+@media screen and (min-width: 769px) {
+  .main-layout_wrapper {
+    .main-content {
+      margin-left: 250px;
+    }
+  }
+}
