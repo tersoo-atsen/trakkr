@@ -15,9 +15,7 @@ const LandingPage = () => (
     <div className="page-header is-flex is-horizontal-center">
       <div className="page-header__text-wrapper">
         <h3 className="page-header__title-text">
-          Your Complete
-          <br />
-          Collection Tracking Solution
+          Your Complete Tracking Solution
         </h3>
         <h5 className="page-header__sub-text">All of your stuff. All in one place.</h5>
       </div>
@@ -52,7 +50,7 @@ const LandingPage = () => (
       </div>
     </div>
     <div className="product-features">
-      <div className="">
+      <div className="product-feature_wrapper">
         <p className="section-title">Intuitive features</p>
         <div className="container">
           <div className="columns is-tablet is-marginless">
@@ -61,10 +59,9 @@ const LandingPage = () => (
         </div>
       </div>
     </div>
-    <div className="page-call-to-action">
-      <div className="page-call-to-action-wrapper">
-        <p className="cta-title">Experience inventory management at its finest.</p>
-        <p className="cta-sub-text">Get sorted today!</p>
+    <div className="call-to-action">
+      <div className="call-to-action-wrapper">
+        <p className="cta-title">Get sorted today, experience inventory management at its finest.</p>
         <Button path="/signup" label="Get started" type="round" />
       </div>
     </div>
