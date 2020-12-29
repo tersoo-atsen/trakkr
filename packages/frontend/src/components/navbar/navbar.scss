@@ -12,13 +12,13 @@ nav.navbar {
 }
 
 .navbar.colored {
-  background-color: rgba(72, 72, 72, 0.8);
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #ffffff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
 
   a.button.round:hover {
-    color: #fff;
+    color: #ffffff;
   }
-  
+
   .button.transparent {
     color: rgb(0, 0, 0);
   }
@@ -26,9 +26,19 @@ nav.navbar {
   .button.transparent:hover {
     color: #fc4548;
   }
+  
+  .profile-menu {
+    .user_name {
+      color: rgb(0, 0, 0);
+    }
 
-  .user_name {
-    color: rgb(0, 0, 0);
+    .dropdown {
+      button.dropdown__button {
+        .dropdown__expand_arrow {
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
   }
 }
 
@@ -39,8 +49,10 @@ nav.navbar {
     color: rgb(243, 74, 74);
   }
 
-  .user_name {
-    color: #fff;
+  .profile-menu {
+    .user_name {
+      color: #fff;
+    }
   }
 }
 

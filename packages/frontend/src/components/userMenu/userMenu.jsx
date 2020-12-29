@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './userMenu.scss';
 import ProfilePhoto from '../../assets/images/user.png';
-import ExpandArrow from '../../assets/images/expand-arrow.png';
 
 const UserMenu = (props) => {
   const {
     currentUser, openDropdown, showDropdown, handleLogout,
   } = props;
   return (
-    <>
+    <div className="profile-menu">
       <p className="user_name">
         {currentUser.firstName}
         &nbsp;
@@ -20,7 +20,7 @@ const UserMenu = (props) => {
       <img className="avatar" src={ProfilePhoto} alt="user profile" />
       <div className="dropdown">
         <button className="dropdown__button" onClick={openDropdown}>
-          <img src={ExpandArrow} alt="expand arrow" className="dropdown__expand_arrow" />
+          <FontAwesomeIcon className="dropdown__expand_arrow" icon="angle-down" />
         </button>
         {
           showDropdown ? (
@@ -32,7 +32,7 @@ const UserMenu = (props) => {
           ) : null
         }
       </div>
-    </>
+    </div>
   );
 };
 UserMenu.propTypes = {

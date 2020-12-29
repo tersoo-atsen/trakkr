@@ -14,18 +14,18 @@ export const featuresList = [
     desc: 'Manage your inventory on any computer, tablet or phone.',
   },
   {
+    id: 'reports',
+    iconSrc: reports,
+    altText: 'Reports tracker',
+    title: 'Generate reports',
+    desc: 'Filter & sort your data to generate CSV and PDF reports.',
+  },
+  {
     id: 'secure',
     iconSrc: secure,
     altText: 'Activity tracker',
     title: 'Track changes',
     desc: 'Remain secure by always knowing what’s been changed, when and by whom.',
-  },
-  {
-    id: 'reports',
-    iconSrc: reports,
-    altText: 'Reports tracker',
-    title: 'Generate',
-    desc: 'Filter & sort your data to generate CSV and PDF reports.',
   },
 ];
 
