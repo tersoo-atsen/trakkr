@@ -52,34 +52,41 @@ export const dashboardMocks = [{
   },
   result: {
     data: {
-      getUserActivities: [
-        {
-          id: 1,
-          name: 'Created',
-          updatedAt: '2020-07-01T16:15:26.058Z',
-          fields: null,
-          user: {
-            firstName: 'John',
+      getUserActivities: {
+        results: [
+          {
+            id: 1,
+            name: 'Created',
+            createdAt: '2020-07-01T16:15:26.058Z',
+            fields: null,
+            user: {
+              firstName: 'John',
+            },
+            item: {
+              name: 'Statue',
+              value: 1000000,
+            },
           },
-          item: {
-            name: 'Statue',
-            value: 1000000,
+          {
+            id: 2,
+            name: 'Updated',
+            createdAt: '2020-07-05T17:51:13.068Z',
+            fields: ['location', 'value'],
+            user: {
+              firstName: 'John',
+            },
+            item: {
+              name: 'Painting',
+              value: 50000,
+            },
           },
+        ],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
         },
-        {
-          id: 2,
-          name: 'Updated',
-          updatedAt: '2020-07-05T17:51:13.068Z',
-          fields: ['location', 'value'],
-          user: {
-            firstName: 'John',
-          },
-          item: {
-            name: 'Painting',
-            value: 50000,
-          },
-        },
-      ],
+      },
     },
   },
 }];
@@ -93,11 +100,18 @@ export const dashboardErrorMocks = [{
 export const dashboardNoDataMocks = [{
   request: {
     query: GET_USER_ACTIVITIES,
-    variables: { userId: 1 },
+    variables: { userId: 1, page: 1 },
   },
   result: {
     data: {
-      getUserActivities: [],
+      getUserActivities: {
+        results: [],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      },
     },
   },
 }];
@@ -109,7 +123,7 @@ export const itemsMocks = [{
   result: {
     data: {
       getUserItems: {
-        items: [
+        results: [
           {
             id: 16,
             description: 'Statue of great value',
@@ -185,9 +199,82 @@ export const itemsNoDataMocks = [{
   result: {
     data: {
       getUserItems: {
-        items: [],
+        results: [],
         pageInfo: {
           pages: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      },
+    },
+  },
+}];
+
+export const activityMocks = [{
+  request: {
+    query: GET_USER_ACTIVITIES,
+    variables: { userId: 1 },
+  },
+  result: {
+    data: {
+      getUserActivities: {
+        results: [
+          {
+            id: 1,
+            name: 'Created',
+            createdAt: '2020-07-05T17:51:13.068Z',
+            fields: null,
+            user: {
+              firstName: 'John',
+            },
+            item: {
+              name: 'Statue',
+              value: 1000000,
+            },
+          },
+          {
+            id: 2,
+            name: 'Created',
+            createdAt: '2020-07-05T17:51:13.068Z',
+            fields: null,
+            user: {
+              firstName: 'John',
+            },
+            item: {
+              name: 'Painting',
+              value: 50000,
+            },
+          },
+        ],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      },
+    },
+  },
+}];
+
+export const activityErrorMocks = [{
+  request: {
+    query: GET_USER_ACTIVITIES,
+    variables: { userId: 1 },
+  },
+  error: new Error('aw shucks!'),
+}];
+
+export const activityNoDataMocks = [{
+  request: {
+    query: GET_USER_ACTIVITIES,
+    variables: { userId: 1 },
+  },
+  result: {
+    data: {
+      getUserActivities: {
+        results: [],
+        pageInfo: {
+          pages: 1,
           hasNextPage: false,
           hasPrevPage: false,
         },

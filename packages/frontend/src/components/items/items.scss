@@ -1,16 +1,42 @@
 .item-page_wrapper {
   padding: 10px;
 
-  .button-area {
+  .item-page-top {
     display: flex;
-    justify-content: flex-end;
+    margin-bottom: 50px;
+    justify-content: space-between;
+    align-content: center;
 
-    .new-item-btn {
-      background-color: #019514;
-      border: none;
-      color: #ffffff;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.25);
+    .item-area__title {
+      display: flex;
+      align-items: center;
+      
+      .title-main {
+        margin-right: 10px;
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .title-sub {
+        color: #6a6a6ab0;
+      }
+    }
+    .button-area {
+      display: flex;
+      align-items: center;
+
+      .button-area__text {
+        margin-right: 20px;
+        font-weight: 900;
+        color: #6a6a6ab0;
+      }
+
+      .new-item-btn {
+        background-color: #019514;
+        border: none;
+        color: #ffffff;
+        box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.25);
+      }
     }
   }
 
@@ -35,12 +61,9 @@
       color: #6a6a6ab0;
 
       tr.user-item {
-        transition: all ease 0.3s;
-        background-color: #fff;
-        border-radius: 4px;
-        border: 1px solid #fa080c;
-
         td {
+          transition: all ease 0.3s;
+          background-color: #fff;
           border: none;
           vertical-align: middle;
 
@@ -50,11 +73,12 @@
             align-items: center;
 
             .item-thumbnail {
+              display: flex;
+              align-items: center;
               height: 60px;
-              text-align: center;
 
               img {
-                height: 50px;
+                width: 50px;
                 margin: 0 auto;
               }
             }
@@ -69,8 +93,16 @@
             }
           }
         }
+        td:first-child {
+          border-radius: 10px 0 0 10px;
+        }
+
         td:not(:first-child) {
           text-align: center;
+        }
+
+        td:last-child {
+          border-radius: 0 10px 10px 0;
         }
       }
       tr.user-item:hover {

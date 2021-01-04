@@ -4,6 +4,7 @@ const ROUTES = {
   signup: '/signup',
   dashboard: '/dashboard',
   items: '/items',
+  activity: '/activity',
 };
 
 export default ROUTES;

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export const GET_USER_ITEMS = gql`
 query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
   getUserItems(userId: $userId, page: $page, perPage: $perPage) {
-      items{
+      results{
           id
           description
           imageUrl
