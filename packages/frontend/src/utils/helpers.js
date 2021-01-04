@@ -8,10 +8,13 @@ export const generateUsername = (firstName, lastName) => {
   return userName;
 };
 
-export const formatDate = (dateString) => {
-  const event = new Date(dateString)
-    .toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  return event;
+export const formatTime = (isoDate) => {
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
+  return new Date(isoDate).toLocaleString('en-US', options);
 };
 
 export const saveToLocalStorage = (key, value) => {
@@ -86,7 +89,7 @@ export const activtyList = (activity, idx) => (
     </div>
     <div className="activity--right">
       <span className="activity__user">{activity.user.firstName}</span>
-      <span className="activity__time">{formatDate(activity.updatedAt)}</span>
+      <span className="activity__time">{formatTime(activity.createdAt)}</span>
     </div>
   </div>
 );

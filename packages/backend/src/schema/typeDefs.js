@@ -31,13 +31,13 @@ const typeDefs = gql`
       user: User!
       item: Item!
       fields: [String]
-      updatedAt: Date!
+      createdAt: Date!
     }
 
     type Query {
       getItem(id: Int!): Item
       getUser(id: Int!): User
-      getUserActivities(userId: Int!): [Activity]
+      getUserActivities(userId: Int!, page: Int, perPage: Int): Activities
       getUserItems(userId: Int!, page: Int, perPage: Int): Items
       searchItems(search: String): [Item]!
     }
@@ -47,8 +47,13 @@ const typeDefs = gql`
       user: User!
     }
 
+    type Activities {
+      results: [Activity!]!
+      pageInfo: PageInfo
+    }
+
     type Items {
-      items: [Item!]!
+      results: [Item!]!
       pageInfo: PageInfo
     }
     

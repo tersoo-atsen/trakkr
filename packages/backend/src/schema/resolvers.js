@@ -33,33 +33,10 @@ const resolvers = {
       return models.User.findByPk(id)
     },
     getUserItems: async (root, { userId, page = 0, perPage = 5 }, { models }) => {
-      const searchQuery = {
-        where: { userId },
-      };
-      const limit = perPage + 1;
-      const offset = (page - 1) < 1 ? 0 : ((page - 1) * perPage);
-      const { count, rows } = await models.Item.findAndCountAll({
-        order: [['createdAt', 'DESC']],
-        limit,
-        offset,
-        ...searchQuery,
-      });
-      const pages = Math.ceil(count / perPage);
-      const hasNextPage = rows.length > perPage;
-      const hasPrevPage = page > 1 && page <= pages;
-      const items = hasNextPage ? rows.slice(0, -1) : rows;
-
-      return {
-        items,
-        pageInfo: {
-          pages,
-          hasNextPage,
-          hasPrevPage,
-        },
-      };
+      return find(models.Item, userId, page, perPage);
     },
-    getUserActivities: async (root, { userId }, { models }) => {
-      return find(models.Activity, userId)
+    getUserActivities: async (root, { userId, page = 0, perPage = 5 }, { models }) => {
+      return find(models.Activity, userId, page, perPage);
     },
     searchItems: async (root, { search }, { models }) => {
       return models.Item.findAll({

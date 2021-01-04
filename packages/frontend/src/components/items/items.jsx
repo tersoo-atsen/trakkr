@@ -56,21 +56,24 @@ export class Items extends Component {
 
     return (
       <Query query={GET_USER_ITEMS} variables={{ userId: currentUser.id, page }}>
-        {({
-          loading,
-          error,
-          data,
-        }) => {
-          const { items, pageInfo } = data ? data.getUserItems : [];
+        {({ loading, error, data }) => {
+          const { results, pageInfo } = data ? data.getUserItems : {};
           if (loading) return <Loader />;
           if (error) return <Error message="An error occurred" />;
 
           return (
             <div className="item-page_wrapper">
-              <div className="button-area">
-                <a href="#top" className="button new-item-btn">Add New Item</a>
+              <div className="item-page-top">
+                <div className="item-area__title">
+                  <span className="title-main">My Items</span>
+                  <span className="title-sub">List of items</span>
+                </div>
+                <div className="button-area">
+                  <span className="button-area__text">Create New</span>
+                  <a href="#top" className="button new-item-btn">+</a>
+                </div>
               </div>
-              {items.length < 1
+              {results.length < 1
                 ? <NoContent />
                 : (
                   <>
@@ -85,17 +88,19 @@ export class Items extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {renderContent(items)}
+                        {renderContent(results)}
                       </tbody>
                     </table>
-                    <Pagination
-                      totalPages={pageInfo.pages}
-                      hasNext={pageInfo.hasNextPage}
-                      handleData={this.fetchItems}
-                      hasPrevious={pageInfo.hasPrevPage}
-                      isFetching={loading}
-                      currentPage={page}
-                    />
+                    <div className="pagination-area">
+                      <Pagination
+                        totalPages={pageInfo.pages}
+                        hasNext={pageInfo.hasNextPage}
+                        handleData={this.fetchItems}
+                        hasPrevious={pageInfo.hasPrevPage}
+                        isFetching={loading}
+                        currentPage={page}
+                      />
+                    </div>
                   </>
                 )}
             </div>

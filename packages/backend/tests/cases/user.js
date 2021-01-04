@@ -43,16 +43,16 @@ export const userItems = {
   id: 'user items',
   query: `query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
     getUserItems(userId: $userId, page: $page, perPage: $perPage) {
-        items{
-            id
-            description
-            imageUrl
-            name
-        }
-        pageInfo {
-          pages
-          hasNextPage
-          hasPrevPage
+      results {
+        id
+        description
+        imageUrl
+        name
+      }
+      pageInfo {
+        pages
+        hasNextPage
+        hasPrevPage
       }
     }
   }`,
@@ -60,12 +60,12 @@ export const userItems = {
   expected: {
     data: {
       getUserItems: {
-        items: [
+        results: [
           {
             id: 3,
             description: 'Sculpture of great value',
-            name: 'Sculpture',
             imageUrl: 'some/path/to/sculpture',
+            name: 'Sculpture',
           },
         ],
         pageInfo: {
@@ -94,14 +94,21 @@ export const userItemsInvalidDate = {
 
   expected: {
     data: {
-      getUserItems: [
-        {
-          id: 3,
-          description: 'Sculpture of great value',
-          name: 'Sculpture',
-          createdAt: today,
+      getUserItems: {
+        results: [
+          {
+            id: 3,
+            description: 'Sculpture of great value',
+            name: 'Sculpture',
+            createdAt: today,
+          },
+        ],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
         },
-      ],
+      },
     },
   },
 };
@@ -109,11 +116,12 @@ export const userItemsInvalidDate = {
 export const userActivities = {
   id: 'user activities',
   query: `
-    query getUserActivities($userId: Int!) {
-      getUserActivities(userId: $userId) {
+  query GetUserActivities($userId: Int!, $page: Int, $perPage: Int) {
+    getUserActivities(userId: $userId, page: $page, perPage: $perPage) {
+      results {
         id
         name
-        updatedAt
+        createdAt
         user {
           id
           firstName
@@ -122,34 +130,47 @@ export const userActivities = {
         }
         item {
           name
-          description
           value
+          description
         }
       }
-    }`,
+      pageInfo {
+        pages
+        hasNextPage
+        hasPrevPage
+      }
+    }
+  }`,
 
   variables: { userId: 2 },
 
   expected: {
     data: {
-      getUserActivities: [
-        {
-          id: 3,
-          name: 'Created',
-          updatedAt: today,
-          user: {
-            id: 2,
-            firstName: 'Jane',
-            lastName: 'Doe',
-            email: 'jane.doe@example.com',
+      getUserActivities: {
+        results: [
+          {
+            id: 3,
+            name: 'Created',
+            createdAt: today,
+            user: {
+              id: 2,
+              firstName: 'Jane',
+              lastName: 'Doe',
+              email: 'jane.doe@example.com',
+            },
+            item: {
+              name: 'Sculpture',
+              description: 'Sculpture of great value',
+              value: 1020000,
+            },
           },
-          item: {
-            name: 'Sculpture',
-            description: 'Sculpture of great value',
-            value: 1020000,
-          },
+        ],
+        pageInfo: {
+          pages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
         },
-      ],
+      },
     },
   },
 };

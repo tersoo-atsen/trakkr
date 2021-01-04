@@ -48,7 +48,6 @@ img.trakkr_logo,
   box-shadow: none;
   border: 1px solid transparent;
   color: #3b3b3b;
-  font: 300 16px "Lato", Verdana, sans-serif;
   padding: 1.4rem;
 }
 
@@ -80,6 +79,22 @@ img.trakkr_logo,
 .is-horizontal-center {
   justify-content: center;
   align-items: center;
+}
+
+table {
+  .thead {
+    tr {
+      font-size: 10px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .pagination-area {
+    position: fixed;
+    top: calc(100% - 100px);
+    left: 50%;
+  }
 }
 
 // Small devices (landscape phones, less than 768px)

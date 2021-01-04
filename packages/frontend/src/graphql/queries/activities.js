@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
 
 export const GET_USER_ACTIVITIES = gql`
-  query GetUserActivities($userId: Int!) {
-    getUserActivities(userId: $userId) {
+query GetUserActivities($userId: Int!, $page: Int, $perPage: Int) {
+  getUserActivities(userId: $userId, page: $page, perPage: $perPage) {
+    results {
       id
       name
-      updatedAt
+      createdAt
       fields
       user {
         firstName
@@ -15,7 +16,12 @@ export const GET_USER_ACTIVITIES = gql`
         value
       }
     }
+    pageInfo {
+      pages
+      hasNextPage
+      hasPrevPage
+    }
   }
-`;
+}`;
 
 export const actDummy = 'dummy';

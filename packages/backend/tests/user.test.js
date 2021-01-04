@@ -51,7 +51,11 @@ describe('User Test Cases', () => {
       const result = await graphql(schema, query, null, context, variables);
 
       if (result.data.getUserActivities) {
-        result.data.getUserActivities.map((activity) => (activity.updatedAt = today))
+        result.data.getUserActivities.results.map(
+          (activity) => (activity.createdAt = today),
+        );
+        console.log(result.data.getUserActivities.results);
+        console.log(expected.data.getUserActivities.results);
       }
       if (result.data.signUp) {
         result.data.signUp.token = testToken;

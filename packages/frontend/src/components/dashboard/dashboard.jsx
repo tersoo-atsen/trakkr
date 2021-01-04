@@ -24,7 +24,7 @@ export const Dashboard = (props) => {
   return (
     <Query query={GET_USER_ACTIVITIES} variables={{ userId: currentUser.id }}>
       {({ loading, error, data }) => {
-        const activities = data ? data.getUserActivities : [];
+        const { results } = data ? data.getUserActivities : [];
         if (loading) return <Loader />;
         if (error) return <Error message="An error occurred" />;
 
@@ -39,14 +39,14 @@ export const Dashboard = (props) => {
                   </div>
                 </div>
                 <h2 className="content-area__title">Recent Activity</h2>
-                {activities.length < 1
+                {results.length < 1
                   ? (
                     <div className="no-content">
                       <p className="no-content_title">Wow such empty</p>
                       <p className="no-content_text">Add items to start seeing your activities</p>
                     </div>
                   )
-                  : content(activities)}
+                  : content(results)}
               </div>
             </div>
           </div>
