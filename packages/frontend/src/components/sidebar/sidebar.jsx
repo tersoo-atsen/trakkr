@@ -9,7 +9,7 @@ import listIcon from '../../assets/images/list-icon.png';
 import activityIcon from '../../assets/images/activity-icon.png';
 
 function Sidebar(props) {
-  const { showSidebar } = props;
+  const { showSidebar, toggleSidebar } = props;
   const classNames = showSidebar ? 'menu show' : 'menu';
 
   return (
@@ -21,19 +21,19 @@ function Sidebar(props) {
       </div>
       <ul className="menu-list">
         <li className="menu-list-item">
-          <NavLink to="/dashboard">
+          <NavLink to="/dashboard" onClick={toggleSidebar}>
             <img className="menu-list-item__icon" src={dashboardIcon} alt="Dash icon" />
             <span className="menu-list-item__text">Home</span>
           </NavLink>
         </li>
         <li className="menu-list-item">
-          <NavLink to="/items">
+          <NavLink to="/items" onClick={toggleSidebar}>
             <img className="menu-list-item__icon" src={listIcon} alt="List" />
             <span className="menu-list-item__text">Items</span>
           </NavLink>
         </li>
         <li className="menu-list-item">
-          <NavLink to="/activity">
+          <NavLink to="/activity" onClick={toggleSidebar}>
             <img className="menu-list-item__icon" src={activityIcon} alt="Activity" />
             <span className="menu-list-item__text">Activity</span>
           </NavLink>
@@ -44,5 +44,6 @@ function Sidebar(props) {
 }
 Sidebar.propTypes = {
   showSidebar: PropTypes.bool.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 export default Sidebar;

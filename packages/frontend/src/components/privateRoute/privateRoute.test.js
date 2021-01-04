@@ -8,7 +8,7 @@ import PrivateRoute from './privateRoute';
 
 const mockStore = configureStore([]);
 
-describe('56730186', () => {
+describe('Private Route', () => {
   it('should render component if user has been authenticated', () => {
     const userObj = {
       id: 2,
