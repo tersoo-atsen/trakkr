@@ -78,8 +78,13 @@ export class MainLayout extends Component {
 
     return (
       <div className="main-layout_wrapper">
-        {(isMobile && showSidebar && (<Sidebar showSidebar={showSidebar} />))
-          || (!isMobile && <Sidebar showSidebar={showSidebar} />)}
+        {
+          (isMobile && showSidebar
+            && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />))
+          || (!isMobile
+            && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
+          )
+        }
 
         { isMobile && this.renderToggler(classes)}
 

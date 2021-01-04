@@ -54,8 +54,6 @@ describe('User Test Cases', () => {
         result.data.getUserActivities.results.map(
           (activity) => (activity.createdAt = today),
         );
-        console.log(result.data.getUserActivities.results);
-        console.log(expected.data.getUserActivities.results);
       }
       if (result.data.signUp) {
         result.data.signUp.token = testToken;
