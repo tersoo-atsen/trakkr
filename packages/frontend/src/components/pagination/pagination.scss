@@ -1,0 +1,86 @@
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 14px;
+
+    .page-number {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        -webkit-transition: all ease 0.3s;
+        -moz-transition: all ease 0.3s;
+        transition: all ease 0.3s;
+
+        &:not(:first-child) {
+            margin-left: 5px;
+        }
+
+        &:hover {
+            background-color: #ff000015;
+            cursor: pointer;
+        }
+
+        &.active {
+            background-color: #ff0000;
+            color: #fff;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+
+    #previous-button.button,
+    #next-button.button {
+        color: #6a6a6a;
+        font-size: 14px;
+        -webkit-transition: all ease 0.3s;
+        -moz-transition: all ease 0.3s;
+        transition: all ease 0.3s;
+        border-radius: 5px;
+        background-color: transparent;
+        border: none;
+        height: 1.5rem;
+        margin: 0 5px;
+        line-height: 1rem;
+        padding: 0 5px;
+
+        &:hover {
+            background-color: #ff000015;
+        }
+        &:focus {
+            outline: none;
+        }
+        &[disabled]:hover {
+            background: transparent;
+        }
+
+        .previous-arrow,
+        .next-arrow {
+            color: #ff0000;
+            font-size: 12px;
+            -webkit-transition: all ease 0.3s;
+            -moz-transition: all ease 0.3s;
+            transition: all ease 0.3s;
+        }
+        .next-arrow {
+            margin-left: 5px;
+        }
+
+        .previous-arrow {
+            margin-right: 5px;
+        }
+
+        &[disabled] {
+            .next-arrow,
+            .previous-arrow {
+                color: #00000030;
+            }
+        }
+    }
+}

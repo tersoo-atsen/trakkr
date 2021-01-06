@@ -1,0 +1,64 @@
+nav.navbar {
+  transition: background-color 1000ms ease;
+  -webkit-transition: background-color 1000ms ease;
+  -moz-transition: background-color 1000ms linear;
+  -o-transition: background-color 1000ms linear;
+  -ms-transition: background-color 1000ms linear;
+
+  .buttons .button,
+  .buttons:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.navbar.colored {
+  background-color: #ffffff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+
+  a.button.round:hover {
+    color: #ffffff;
+  }
+
+  .button.transparent {
+    color: rgb(0, 0, 0);
+  }
+
+  .button.transparent:hover {
+    color: #fc4548;
+  }
+  
+  .profile-menu {
+    .user_name {
+      color: rgb(0, 0, 0);
+    }
+
+    .dropdown {
+      button.dropdown__button {
+        .dropdown__expand_arrow {
+          color: rgb(0, 0, 0);
+        }
+      }
+    }
+  }
+}
+
+.navbar.transparent {
+  background-color: transparent;
+
+  .button.round:hover {
+    color: rgb(243, 74, 74);
+  }
+
+  .profile-menu {
+    .user_name {
+      color: #fff;
+    }
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media screen and (min-width: 768px) {
+  nav.navbar {
+    padding: 0.5rem 3rem;
+  }
+}
