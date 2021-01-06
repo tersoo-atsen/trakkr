@@ -67,8 +67,8 @@ export class MainLayout extends Component {
   );
 
   toggleSidebar = () => {
-    const { showSidebar } = this.state;
-    this.setState({ showSidebar: !showSidebar });
+    const { showSidebar, isMobile } = this.state;
+    if (isMobile) this.setState({ showSidebar: !showSidebar });
   };
 
   render() {
@@ -79,8 +79,10 @@ export class MainLayout extends Component {
     return (
       <div className="main-layout_wrapper">
         {
-          (isMobile && showSidebar
-            && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />))
+          (isMobile
+            && showSidebar
+            && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
+          )
           || (!isMobile
             && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
           )

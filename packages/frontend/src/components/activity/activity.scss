@@ -3,13 +3,13 @@
 
   .activity-area__title {
     margin-bottom: 50px;
-    
+
     .title-main {
       font-size: 20px;
       font-weight: 900;
       margin-right: 10px;
     }
-    
+
     .title-sub {
       color: #6a6a6ab0;
     }
@@ -83,6 +83,25 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .activity-page-wrapper {
+    .activity-area__title {
+      margin-bottom: 20px;
+      
+      .title-main {
+        font-size: 16px;
+      }
+      .title-sub {
+        font-size: 12px;
+      }
+    }
+
+    .table {
+      font-size: 12px;
     }
   }
 }
