@@ -10,7 +10,7 @@
     .item-area__title {
       display: flex;
       align-items: center;
-      
+
       .title-main {
         margin-right: 10px;
         font-size: 20px;
@@ -120,11 +120,24 @@
 
 @media screen and (max-width: 540px) {
   .item-page_wrapper {
-    .button-area {
-      .new-item-btn {
-        font-size: 10px;
+    .item-page-top {
+      margin-bottom: 20px;
+      .item-area__title {
+        .title-main {
+          font-size: 16px;
+        }
+
+        .title-sub {
+          font-size: 12px;
+        }
+      }
+      .button-area {
+        .button-area__text {
+          font-size: 16px;
+        }
       }
     }
+
     .table {
       font-size: 12px;
 
@@ -136,6 +149,8 @@
                 display: none;
               }
               .item_meta {
+                margin-left: 0;
+
                 .item-description {
                   font-size: 10px;
                 }
