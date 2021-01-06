@@ -70,7 +70,7 @@ jobs: # a collection of steps
   upload-coverage:
     <<: *defaults
     environment:
-      - CC_TEST_REPORTER_ID: e1fff4931027681693d680f6ce3aebf03095ee61ccd99d60d589fc97e5cea485
+      - CC_TEST_REPORTER_ID: c674d73359b2db709076d81495fe6b9b67ae44233b64521af070d4c1a4227371
     steps:
       - checkout
       - attach_workspace:
