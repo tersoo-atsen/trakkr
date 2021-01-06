@@ -9,7 +9,6 @@ import { find } from '../utils/requests';
 import Date from './scalar/Date';
 
 const { Op } = Sequelize;
-
 const resolvers = {
   Date,
   Activity: {
