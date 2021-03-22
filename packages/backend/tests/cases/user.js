@@ -1,7 +1,7 @@
 export const today = new Date().toISOString();
 export const invalidDate = 242345215;
 export const singleUser = {
-  id: 'single user',
+  id: 'Should return single user',
   query: `
     query GetUser($id: Int!){
       getUser(id: $id) {
@@ -40,7 +40,7 @@ export const singleUser = {
 };
 
 export const userItems = {
-  id: 'user items',
+  id: 'Should return user items',
   query: `query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
     getUserItems(userId: $userId, page: $page, perPage: $perPage) {
       results {
@@ -64,7 +64,7 @@ export const userItems = {
           {
             id: 3,
             description: 'Sculpture of great value',
-            imageUrl: 'some/path/to/sculpture',
+            imageUrl: 'trakkr/statue02',
             name: 'Sculpture',
           },
         ],
@@ -79,7 +79,7 @@ export const userItems = {
 };
 
 export const userItemsInvalidDate = {
-  id: 'user items invalid date',
+  id: 'Should not return user items with invalid date',
   query: `
     query GetUserItems($userId: Int!){
       getUserItems(userId: $userId) {
@@ -114,7 +114,7 @@ export const userItemsInvalidDate = {
 };
 
 export const userActivities = {
-  id: 'user activities',
+  id: 'Should return user activities',
   query: `
   query GetUserActivities($userId: Int!, $page: Int, $perPage: Int) {
     getUserActivities(userId: $userId, page: $page, perPage: $perPage) {
@@ -176,7 +176,7 @@ export const userActivities = {
 };
 
 export const signUp = {
-  id: 'user sign up',
+  id: 'Should return complete user sign up',
   query: `mutation signUp($firstName: String!, $lastName: String!, $email: String!, $password: String!, $userName: String){
     signUp(firstName: $firstName, lastName: $lastName, email: $email, password: $password, userName: $userName){
       user {
@@ -205,7 +205,7 @@ export const signUp = {
 };
 
 export const signIn = {
-  id: 'user sign in',
+  id: 'Should return complete user sign in',
   query: `mutation signIn($login: String!, $password: String!){
     signIn(login: $login, password: $password){
       token
@@ -236,7 +236,7 @@ export const signIn = {
 };
 
 export const signInUserNotFound = {
-  id: 'user sign in',
+  id: 'Should not complete sign in if user is not found',
   query: `mutation signIn($login: String!, $password: String!){
     signIn(login: $login, password: $password){
       token
@@ -254,7 +254,7 @@ export const signInUserNotFound = {
 };
 
 export const signInInvalidPassword = {
-  id: 'user sign in fail',
+  id: 'Should not complete sign in if user password is incorrect',
   query: `mutation signIn($login: String!, $password: String!){
     signIn(login: $login, password: $password){
       token
@@ -272,7 +272,7 @@ export const signInInvalidPassword = {
 }
 
 export const updateUser = {
-  id: 'update user',
+  id: 'Should complete user update',
   query: `mutation updateUser($firstName: String, $lastName: String, $userName: String){
     updateUser(firstName: $firstName, lastName: $lastName, userName: $userName){
       id

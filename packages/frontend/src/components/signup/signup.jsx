@@ -9,7 +9,7 @@ import './signup.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
 import { USER_SIGNUP } from '../../graphql/mutations';
 import { validateFields, formValid, generateUsername } from '../../utils';
-import authActions from '../../store/actions';
+import { signup } from '../../store/actions';
 
 export class Signup extends Component {
   state = {
@@ -53,7 +53,7 @@ export class Signup extends Component {
       const signupActionArgs = {
         signupMutation, email, firstName, lastName, password, userName, history,
       };
-      dispatch(authActions.signup(signupActionArgs));
+      dispatch(signup(signupActionArgs));
     } else {
       this.setState({
         formErrors: {
@@ -79,7 +79,7 @@ export class Signup extends Component {
     } = this.state;
 
     return (
-      <Mutation mutation={USER_SIGNUP} varaibales={{}}>
+      <Mutation mutation={USER_SIGNUP} variables={{}}>
         {(signupMutation, { loading, error }) => (
           <div className="signup_page">
             <div className="signup_page__content container">

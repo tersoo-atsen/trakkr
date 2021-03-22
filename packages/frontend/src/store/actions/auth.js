@@ -1,7 +1,7 @@
 import { authConstants } from '../constants';
 import userService from '../../services';
 
-const login = (loginActionParams) => async (dispatch) => {
+export const login = (loginActionParams) => async (dispatch) => {
   const request = (loggingIn) => ({ type: authConstants.LOGIN_REQUEST, loggingIn });
   const success = (loggedIn, currentUser) => (
     { type: authConstants.LOGIN_SUCCESS, loggedIn, currentUser }
@@ -28,7 +28,7 @@ const login = (loginActionParams) => async (dispatch) => {
   return token;
 };
 
-const signup = (signupActionParams) => async (dispatch) => {
+export const signup = (signupActionParams) => async (dispatch) => {
   const request = (registering) => ({ type: authConstants.REGISTER_REQUEST, registering });
   const success = (registering, user) => (
     { type: authConstants.REGISTER_SUCCESS, registering, user }
@@ -53,16 +53,8 @@ const signup = (signupActionParams) => async (dispatch) => {
   return token;
 };
 
-const logout = (dispatch, history) => {
+export const logout = (dispatch, history) => {
   userService.logout();
   dispatch({ type: authConstants.LOGOUT });
   history.push('/');
 };
-
-const authActions = {
-  login,
-  logout,
-  signup,
-};
-
-export default authActions;

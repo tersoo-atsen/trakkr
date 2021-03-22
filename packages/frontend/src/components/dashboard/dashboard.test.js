@@ -36,7 +36,7 @@ describe('Dashboard component', () => {
       },
     });
   });
-  it('Should render dashboard correctly', async () => {
+  it('should render dashboard correctly', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MockedProvider mocks={dashboardMocks} addTypename={false}>
@@ -47,13 +47,13 @@ describe('Dashboard component', () => {
     expect(wrapper.contains(<Loader />)).toBeTruthy();
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     const dashboard = wrapper.find('.dashboard-wrapper');
     expect(wrapper.contains(dashboard)).toBeDefined();
     wrapper.unmount();
   });
-  it('Should render error ', async () => {
+  it('should render error ', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MockedProvider mocks={dashboardErrorMocks} addTypename={false}>
@@ -63,11 +63,11 @@ describe('Dashboard component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.contains(<Error message="An error occurred" />)).toBeTruthy();
   });
-  it('Should render not data message ', async () => {
+  it('should render not data message ', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MockedProvider mocks={dashboardNoDataMocks} addTypename={false}>
@@ -77,11 +77,11 @@ describe('Dashboard component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.find('Such empty')).toBeTruthy();
   });
-  it('Should render activities', async () => {
+  it('should render activities', async () => {
     const authActions = { logout: jest.fn() };
     const handleLogout = jest.fn(() => {
       authActions.logout(props.dispatch, props.history);
@@ -97,8 +97,8 @@ describe('Dashboard component', () => {
     );
     await act(async () => {
       await wait();
+      connectedDashbord.update();
     });
-    connectedDashbord.update();
     expect(connectedDashbord.find('Dashboard')).toBeTruthy();
     expect(connectedDashbord.find('.activity-btn-wrapper')).toBeTruthy();
   });

@@ -54,14 +54,14 @@ describe('Navbar component', () => {
     wrapper.unmount();
   });
 
-  it('Should render correctly', () => {
+  it('should render correctly', () => {
     const navbar = wrapper.find('.navbar.is-fixed-top.transparent');
     expect(wrapper.children().length).toEqual(1);
     expect(wrapper.contains(navbar)).toBeDefined();
     expect(wrapper.find(NavItems).length).toEqual(1);
   });
 
-  it('Should not change navbar color on scroll', () => {
+  it('should not change navbar color on scroll', () => {
     global.scrollY = 30;
     global.document.dispatchEvent(new Event('scroll'));
 
@@ -72,7 +72,7 @@ describe('Navbar component', () => {
     expect(navbar.length).toEqual(1);
   });
 
-  it('Should change navbar color on scroll', () => {
+  it('should change navbar color on scroll', () => {
     global.scrollY = 200;
     global.document.dispatchEvent(new Event('scroll'));
 

@@ -9,7 +9,8 @@ import Signup from '../signup';
 import ConnectedDashboard from '../dashboard';
 import ConnectedItems from '../items';
 import PrivateRoute from '../privateRoute';
-import Activity from '../activity';
+import ConnectedActivity from '../activity';
+import ConnectedUserProfile from '../userProfile';
 
 const App = () => (
   <Switch>
@@ -18,7 +19,8 @@ const App = () => (
     <Route path={Routes.signup} component={Signup} />
     <PrivateRoute path={Routes.dashboard} component={ConnectedDashboard} />
     <PrivateRoute path={Routes.items} component={ConnectedItems} />
-    <PrivateRoute path={Routes.activity} component={Activity} />
+    <PrivateRoute path={Routes.activity} component={ConnectedActivity} />
+    <PrivateRoute path={Routes.profile} component={ConnectedUserProfile} />
     <Route component={NotFoundPage} />
   </Switch>
 );

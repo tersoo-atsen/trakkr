@@ -11,6 +11,7 @@ export const formValid = ({ formErrors, ...rest }) => {
       isValid = true;
     }
   });
+
   Object.values(rest).forEach((val) => {
     if (!val) {
       isValid = false;
@@ -18,6 +19,13 @@ export const formValid = ({ formErrors, ...rest }) => {
       isValid = true;
     }
   });
+
+  if (isValid) {
+    Object.keys(rest).forEach((key) => {
+      if (key === 'selectedImagePath' || key === 'imageFile') isValid = true;
+    });
+  }
+
   return isValid;
 };
 
@@ -33,6 +41,11 @@ export const validateFields = (name, value, formErrors, password, confirmPasswor
       case 'lastName':
         updatedFormErrors = {
           lastName: 'Last name is required',
+        };
+        break;
+      case 'userName':
+        updatedFormErrors = {
+          userName: 'Username is required',
         };
         break;
       default:

@@ -31,7 +31,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '<rootDir>/src/database/',
-    '<rootDir>/src/schema/index.js',
+    'index.js',
     '<rootDir>/src/server.js',
   ],
 

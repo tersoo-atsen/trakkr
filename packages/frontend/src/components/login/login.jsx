@@ -9,7 +9,7 @@ import './login.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
 import { USER_LOGIN } from '../../graphql/mutations';
 import { validateFields, formValid } from '../../utils';
-import authActions from '../../store/actions';
+import { login } from '../../store/actions';
 
 export class Login extends Component {
   state = {
@@ -44,7 +44,7 @@ export class Login extends Component {
       const loginActionArgs = {
         loginMutation, email, password, history,
       };
-      dispatch(authActions.login(loginActionArgs));
+      dispatch(login(loginActionArgs));
     } else {
       this.setState({
         formErrors: {

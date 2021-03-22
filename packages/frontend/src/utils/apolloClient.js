@@ -3,15 +3,20 @@ import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'unfetch';
 
+import { getToken } from './helpers';
+
 const BASE_URL = process.env.TRAKKR_API_URL;
-const cache = new InMemoryCache();
+const token = getToken();
 const httpLink = new HttpLink({
   uri: BASE_URL,
+  headers: {
+    authorization: token ? `Bearer ${token}` : '',
+  },
   fetch,
 });
 const apolloClient = new ApolloClient({
-  cache,
   link: httpLink,
+  cache: new InMemoryCache(),
 });
 
 export default apolloClient;

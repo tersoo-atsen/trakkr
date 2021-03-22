@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import authActions from './auth';
+import { login, signup } from './auth';
 import { testToken } from '../../../__mocks__/graphqlMocks';
 
 let mutation = jest.fn();
@@ -51,7 +51,7 @@ describe('login action creators', () => {
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_SUCCESS', loggedIn: true, currentUser: { firstName: 'John', lastName: 'Doe', token: testToken } },
     ];
-    await store.dispatch(authActions.login(loginActionParams));
+    await store.dispatch(login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch login fail if token is not returned', async () => {
@@ -71,22 +71,21 @@ describe('login action creators', () => {
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
-    await store.dispatch(authActions.login(loginActionParams));
+    await store.dispatch(login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch login fail if token is not saved', async () => {
     const repeat = (str, x) => new Array(x + 1).join(str);
     const token = repeat('x', (1000 * 500 * 1000) / 2); // each JS character is 2 bytes
-    mutation = jest.fn()
-      .mockImplementation(() => new Promise((resolve) => resolve({
-        loading: false,
-        error: null,
-        data: {
-          signIn: {
-            token,
-          },
+    mutation = jest.fn().mockImplementation(() => new Promise((resolve) => resolve({
+      loading: false,
+      error: null,
+      data: {
+        signIn: {
+          token,
         },
-      })));
+      },
+    })));
     loginActionParams = {
       loginMutation: mutation, email, password, history,
     };
@@ -94,7 +93,7 @@ describe('login action creators', () => {
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
-    await store.dispatch(authActions.login(loginActionParams));
+    await store.dispatch(login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch login fail on mutation fail', async () => {
@@ -108,7 +107,7 @@ describe('login action creators', () => {
       { type: 'LOGIN_REQUEST', loggingIn: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
-    await store.dispatch(authActions.login(loginActionParams));
+    await store.dispatch(login(loginActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
@@ -150,7 +149,7 @@ describe('signup action creators', () => {
     signupActionParams = {
       signupMutation: mutation, email, firstName, lastName, password, userName, history,
     };
-    await store.dispatch(authActions.signup(signupActionParams));
+    await store.dispatch(signup(signupActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch sign up fail if token is not returned', async () => {
@@ -170,7 +169,7 @@ describe('signup action creators', () => {
     signupActionParams = {
       signupMutation: mutation, email, firstName, lastName, password, userName, history,
     };
-    await store.dispatch(authActions.signup(signupActionParams));
+    await store.dispatch(signup(signupActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
   it('should dispatch signup fail on mutation fail', async () => {
@@ -184,7 +183,7 @@ describe('signup action creators', () => {
       { type: 'REGISTER_REQUEST', registering: true },
       { type: 'REGISTER_FAILURE', error: ['Registration failed. Please try again.'] },
     ];
-    await store.dispatch(authActions.signup(signupActionParams));
+    await store.dispatch(signup(signupActionParams));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

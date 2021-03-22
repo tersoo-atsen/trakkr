@@ -40,7 +40,7 @@ describe('MainLayout component', () => {
       },
     });
   });
-  it('Should render sidebar layout correctly', async () => {
+  it('should render sidebar layout correctly', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MainLayout {...props} />
@@ -53,23 +53,26 @@ describe('MainLayout component', () => {
     expect(wrapper.find(Sidebar).length).toEqual(1);
     wrapper.unmount();
   });
-  it('Should render dashboard on larger display', async () => {
+  it('should render dashboard on larger display', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MainLayout {...props} />
       </MemoryRouter>,
     );
+    instance = wrapper.find('MainLayout').instance();
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    instance = wrapper.find('MainLayout').instance();
-    wrapper.update();
     instance.setState({ showSidebar: false });
-    wrapper.update();
+    await act(async () => {
+      await wait();
+      wrapper.update();
+    });
     expect(instance.state.showSidebar).toBe(false);
     wrapper.unmount();
   });
-  it('Should render dropdown menu when button is clicked', async () => {
+  it('should render dropdown menu when button is clicked', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MainLayout {...props} />
@@ -77,8 +80,8 @@ describe('MainLayout component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     instance = wrapper.find('MainLayout').instance();
     expect(instance.state.showDropdown).toBe(false);
     wrapper.find('.dropdown__button').simulate('click');
@@ -86,7 +89,7 @@ describe('MainLayout component', () => {
     expect(instance.state.showDropdown).toBe(true);
     expect(dropdown.exists()).toBeTruthy();
   });
-  it('Should close dropdown menu when dashboard content area is clicked', async () => {
+  it('should close dropdown menu when dashboard content area is clicked', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MainLayout {...props} />
@@ -94,8 +97,8 @@ describe('MainLayout component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     wrapper.find('.dropdown__button').simulate('click');
     let dropdown = wrapper.find('.dropdown__content');
     expect(dropdown.exists()).toBeTruthy();
@@ -105,24 +108,24 @@ describe('MainLayout component', () => {
     dropdown = wrapper.find('.dropdown__content');
     expect(dropdown.exists()).toBeFalsy();
   });
-  it('Should render sidebar when button is clicked', async () => {
+  it('should render sidebar when button is clicked', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MainLayout {...props} />
       </MemoryRouter>,
     );
+    resizeWindow(768, 1024);
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    resizeWindow(768, 1024);
-    wrapper.update();
     instance = wrapper.find('MainLayout').instance();
     expect(wrapper.find(Sidebar).length).toEqual(0);
     wrapper.find('.button.sidebar-trigger').simulate('click');
     expect(wrapper.find(Sidebar).length).toEqual(1);
     resizeWindow(1280, 950);
   });
-  it('Should render call the logout method ', async () => {
+  it('should render call the logout method ', async () => {
     const authActions = { logout: jest.fn() };
     const handleLogout = jest.fn(() => {
       authActions.logout(props.dispatch, props.history);
@@ -136,8 +139,8 @@ describe('MainLayout component', () => {
     );
     await act(async () => {
       await wait();
+      connectedMainLayout.update();
     });
-    connectedMainLayout.update();
     instance = connectedMainLayout.find('MainLayout').instance();
     const spy = jest.spyOn(instance, 'handleLogout');
     connectedMainLayout.find('.dropdown__button').simulate('click');

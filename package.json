@@ -29,6 +29,7 @@
   "author": "Tersoo Atsen",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^1.25.0",
     "lerna": "^3.18.4"
   }
 }

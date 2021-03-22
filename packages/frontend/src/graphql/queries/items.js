@@ -21,4 +21,4 @@ query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
   }
 }`;
 
-export const itmDummy = 'dummy';
+export const itemDummy = 'dummy';

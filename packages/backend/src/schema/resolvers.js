@@ -1,15 +1,15 @@
 import { AuthenticationError, UserInputError } from 'apollo-server';
 import { combineResolvers } from 'graphql-resolvers';
 import Sequelize from 'sequelize';
+import cloudinary from 'cloudinary';
 
-import { createToken } from '../utils/token';
-import { validatePassword } from '../utils/password';
+import {
+  createToken, validatePassword, find, getDate,
+} from '../utils';
 import { isAuthenticated, isItemOwner } from './authorization';
-import { find } from '../utils/requests';
 import Date from './scalar/Date';
 
 const { Op } = Sequelize;
-
 const resolvers = {
   Date,
   Activity: {
@@ -61,6 +61,18 @@ const resolvers = {
         },
       });
     },
+    getSignature: async (root, { publicId }) => {
+      const timestamp = Math.round(getDate() / 1000);
+      const signature = cloudinary.v2.utils.api_sign_request({
+        folder: process.env.CLOUDINARY_FOLDER,
+        public_id: publicId,
+        upload_preset: process.env.CLOUDINARY_UPLOAD_PRESET,
+        timestamp,
+        invalidate: true,
+      }, process.env.CLOUDINARY_API_SECRET);
+
+      return { signature, timestamp }
+    },
   },
   Mutation: {
     signUp: async (
@@ -77,7 +89,7 @@ const resolvers = {
         password,
       })
 
-      return { token: createToken(user, secret, '1h'), user };
+      return { token: createToken(user, secret, '240h'), user };
     },
     signIn: async (root, { login, password }, { secret, models }) => {
       const user = await models.User.findByLogin(login);
@@ -93,13 +105,17 @@ const resolvers = {
       if (!isValid) {
         throw new AuthenticationError('Login failed. Please try again.');
       }
-      return { token: createToken(user, secret, '1h'), user };
+      return { token: createToken(user, secret, '240h'), user };
     },
     updateUser: combineResolvers(
       isAuthenticated,
-      async (root, { firstName, lastName, userName }, { models, me }) => {
+      async (root, {
+        firstName, lastName, userName, avatarUrl,
+      }, { models, me }) => {
         const user = await models.User.findByPk(me.id);
-        return user.update({ userName, firstName, lastName });
+        return user.update({
+          userName, firstName, lastName, avatarUrl,
+        });
       },
     ),
     createItem: combineResolvers(

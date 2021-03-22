@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Image, Transformation } from 'cloudinary-react';
 
 import './userMenu.scss';
-import ProfilePhoto from '../../assets/images/user.png';
+// import ProfilePhoto from '../../assets/images/user.png';
 
 const UserMenu = (props) => {
   const {
@@ -17,7 +18,17 @@ const UserMenu = (props) => {
         &nbsp;
         {currentUser.lastName}
       </p>
-      <img className="avatar" src={ProfilePhoto} alt="user profile" />
+      <Image
+        className="avatar"
+        alt="user profile"
+        cloudName="tersoo"
+        publicId={currentUser.avatarUrl}
+        width="19"
+        height="19"
+        crop="fit"
+      >
+        <Transformation radius="100" quality="80" fetchFormat="auto" />
+      </Image>
       <div className="dropdown">
         <button className="dropdown__button" onClick={openDropdown}>
           <FontAwesomeIcon className="dropdown__expand_arrow" icon="angle-down" />

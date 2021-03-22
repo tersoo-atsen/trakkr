@@ -5,6 +5,7 @@ const ROUTES = {
   dashboard: '/dashboard',
   items: '/items',
   activity: '/activity',
+  profile: '/profile',
 };
 
 export default ROUTES;

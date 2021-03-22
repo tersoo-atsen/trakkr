@@ -9,6 +9,7 @@ const typeDefs = gql`
       lastName: String!
       userName: String
       email: String
+      avatarUrl: String!
       password: String!
       createdAt: Date!
       items: [Item!]!
@@ -40,6 +41,7 @@ const typeDefs = gql`
       getUserActivities(userId: Int!, page: Int, perPage: Int): Activities
       getUserItems(userId: Int!, page: Int, perPage: Int): Items
       searchItems(search: String): [Item]!
+      getSignature(publicId: String!): GetSignatureResponse
     }
 
     type AuthResponse {
@@ -61,12 +63,17 @@ const typeDefs = gql`
       pages: Int! 
       hasNextPage: Boolean!
       hasPrevPage: Boolean!
-    }    
+    }
+
+    type GetSignatureResponse {
+      signature: String!
+      timestamp: Int!
+    }
 
     type Mutation {
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
       signIn(login: String!, password: String!): AuthResponse
-      updateUser(firstName: String, lastName: String, userName: String): User
+      updateUser(firstName: String, lastName: String, userName: String, avatarUrl: String): User
       createItem(name: String!, description: String!, value: Int!, imageUrl: String!, location: String!, quantity: Int!): Item!
       updateItem(id: Int!, name: String, description: String, value: Int, quantity: Int, location: String): Item
       deleteItem(id: Int!): Boolean!

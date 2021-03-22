@@ -1,6 +1,6 @@
 
 export const singleItem = {
-  id: 'single item',
+  id: 'Should return single item',
   query: `
   query GetItem($id: Int!){
     getItem(id: $id){
@@ -17,14 +17,14 @@ export const singleItem = {
         name: 'Sculpture',
         description: 'Sculpture of great value',
         value: 1020000,
-        imageUrl: 'some/path/to/sculpture',
+        imageUrl: 'trakkr/statue02',
       },
     },
   },
 }
 
 export const newItem = {
-  id: 'new item',
+  id: 'Should add a new item',
   query: `mutation createItem($name: String!, $description: String!, $value: Int!,$quantity: Int!, $imageUrl: String!, $location: String!){
     createItem(name: $name, description: $description, value: $value, quantity: $quantity, imageUrl: $imageUrl, location: $location){
       id
@@ -58,7 +58,7 @@ export const newItem = {
 };
 
 export const deleteItem = {
-  id: 'remove item',
+  id: 'Should remove item by id',
   query: `mutation deleteItem($id: Int!) {
     deleteItem(id: $id)
   }`,
@@ -71,7 +71,7 @@ export const deleteItem = {
 }
 
 export const deleteNonexistentItem = {
-  id: 'remove non-existent item',
+  id: 'Should not remove non-existent item',
   query: `mutation deleteItem($id: Int!) {
     deleteItem(id: $id)
   }`,
@@ -79,7 +79,7 @@ export const deleteNonexistentItem = {
 }
 
 export const updateItem = {
-  id: 'update item',
+  id: 'Should update item',
   query: `mutation updateItem($id: Int!,$name: String, $description: String){
     updateItem(id: $id, name: $name, description: $description){
       id
@@ -96,7 +96,7 @@ export const updateItem = {
 }
 
 export const updateNonexistentItem = {
-  id: 'update non-existent item',
+  id: 'Should not update non-existent item',
   query: `mutation updateItem($id: Int!,$name: String, $description: String){
     updateItem(id: $id, name: $name, description: $description){
       id
