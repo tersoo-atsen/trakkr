@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import './navbar.scss';
 import trakkrLogo from '../../assets/images/trakkr_logo.png';
 import NavItems from '../navItems';
-import authActions from '../../store/actions';
+import { logout } from '../../store/actions';
 
 export class Navbar extends Component {
   container = React.createRef();
@@ -54,7 +54,7 @@ export class Navbar extends Component {
 
   handleLogout = () => {
     const { dispatch, history } = this.props;
-    authActions.logout(dispatch, history);
+    logout(dispatch, history);
   }
 
   render() {

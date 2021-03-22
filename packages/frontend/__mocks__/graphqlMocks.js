@@ -1,5 +1,5 @@
-import { GET_USER_ACTIVITIES, GET_USER_ITEMS } from '../src/graphql/queries';
-import { USER_LOGIN, USER_SIGNUP } from '../src/graphql/mutations';
+import { GET_USER_ACTIVITIES, GET_USER_ITEMS, GET_USER } from '../src/graphql/queries';
+import { USER_LOGIN, USER_SIGNUP, UPDATE_USER } from '../src/graphql/mutations';
 
 export const testToken = 'add get token method';
 export const signup = {
@@ -282,3 +282,55 @@ export const activityNoDataMocks = [{
     },
   },
 }];
+
+export const userProfileMocks = {
+  request: {
+    query: GET_USER,
+    variables: { id: 1 },
+  },
+  result: {
+    data: {
+      getUser: {
+        firstName: 'John',
+        lastName: 'Doe',
+        avatarUrl: 'trakkr/john-doe',
+        email: 'john.doe@example.com',
+        userName: 'demoUser01',
+      },
+    },
+  },
+};
+
+export const userProfileErrorMocks = {
+  request: {
+    query: GET_USER,
+    variables: { userId: 1 },
+  },
+  error: new Error('aw shucks!'),
+};
+
+export const updateUserMocks = {
+  request: {
+    query: UPDATE_USER,
+    variables: {},
+  },
+  result: {
+    data: {
+      updateUser: {
+        firstName: 'John',
+        lastName: 'Doe',
+        userName: 'demoUser01',
+        avatarUrl: 'trakkr/john-doe',
+      },
+    },
+  },
+};
+
+export const sigResponse = {
+  data: {
+    getSignature: {
+      signature: 'f8f98e5b0ed4ce7cc34d971e69851bafcec42e15',
+      timestamp: 1615568237,
+    },
+  },
+};

@@ -19,7 +19,7 @@ describe('getMe function unit test', () => {
     testToken = token;
   })
 
-  test('', async (done) => {
+  test('should accept a valid token', async (done) => {
     const query = {
       query: `{
         getUser(id: 1) {
@@ -40,14 +40,14 @@ describe('getMe function unit test', () => {
     request(app)
       .post('/graphql')
       .send(query)
-      .set('x-token', testToken)
+      .set('authorization', `Bearer ${testToken}`)
       .end((err, res) => {
         expect(res.statusCode).toEqual(200);
         done();
       })
   });
 
-  test('', async (done) => {
+  test('should reject an invalid token', async (done) => {
     const query = {
       query: `{
         getUser(id: 1) {
@@ -68,7 +68,7 @@ describe('getMe function unit test', () => {
     request(app)
       .post('/graphql')
       .send(query)
-      .set('x-token', `${testToken}ss`)
+      .set('authorization', `Bearer ${testToken}ss`)
       .end((err, res) => {
         expect(res.statusCode).toEqual(400);
         expect(res.body.errors[0].message).toEqual('Context creation failed: Your session has expired. Sign in again.');

@@ -35,7 +35,7 @@ describe('App component', () => {
     );
   });
 
-  it('Should render correctly', () => {
+  it('should render correctly', () => {
     const navbar = wrapper.find('.navbar');
 
     expect(navbar).toBeDefined();
@@ -43,7 +43,7 @@ describe('App component', () => {
     expect(wrapper.find(NotFoundPage).length).toBe(0);
   });
 
-  it('Should render 404 page if component is not found', () => {
+  it('should render 404 page if component is not found', () => {
     wrapper = mount(
       <MockedProvider>
         <MemoryRouter initialEntries={['/test']}>

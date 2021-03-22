@@ -10,13 +10,13 @@ describe('Overflow Component', () => {
   beforeEach(() => {
     wrapper = mount(<Overflow />);
   });
-  it('Should render overflow component', () => {
+  it('should render overflow component', () => {
     expect(wrapper.instance().state.showMenu).toEqual(false);
     expect(wrapper.find('.overflow-menu').length).toBe(1);
     expect(wrapper.find('.trigger').length).toBe(1);
     expect(wrapper.find('.drop-menu').length).toBe(0);
   });
-  it('Should toggle dropdown menu on click', () => {
+  it('should toggle dropdown menu on click', () => {
     wrapper.instance().showMenu(e);
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(true);
@@ -27,7 +27,7 @@ describe('Overflow Component', () => {
     expect(wrapper.find('.drop-menu').length).toBe(0);
     expect(wrapper.find('.menu-item').length).toBe(0);
   });
-  it('Should toggle dropdown menu on click', () => {
+  it('should toggle dropdown menu on click', () => {
     wrapper.instance().showMenu(e);
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(true);

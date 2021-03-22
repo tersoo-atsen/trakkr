@@ -101,3 +101,11 @@ export const isAuthenticated = () => {
   }
   return false;
 };
+
+export const getToken = () => {
+  const user = getFromLocalStorage('user');
+  if (!user) return null;
+  console.log('file: helpers.js - line 107 - user', user);
+  const { token } = user;
+  return token;
+};

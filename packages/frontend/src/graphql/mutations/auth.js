@@ -8,6 +8,7 @@ export const USER_LOGIN = gql`
         id
         firstName
         lastName
+        avatarUrl
       }
     }
   }

@@ -14,7 +14,7 @@ describe('Footer component', () => {
     );
   });
 
-  it('Should render correctly', () => {
+  it('should render correctly', () => {
     const footer = component.find('.footer');
     expect(component.children().length).toEqual(1);
     expect(component.contains(footer)).toBeDefined();

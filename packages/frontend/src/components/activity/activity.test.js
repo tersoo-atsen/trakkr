@@ -31,7 +31,7 @@ describe('Activity Component', () => {
     });
   });
 
-  it('Should render the activity componet', async () => {
+  it('should render the activity componet', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/activity']}>
         <MockedProvider mocks={activityMocks} addTypename={false}>
@@ -42,14 +42,14 @@ describe('Activity Component', () => {
     expect(wrapper.contains(<Loader />)).toBeTruthy();
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     const activityView = wrapper.find('.activity-page_wrapper');
     const pagination = wrapper.find('.pagination-wrapper');
     expect(wrapper.contains(activityView)).toBeDefined();
     expect(wrapper.contains(pagination)).toBeDefined();
   });
-  it('Should render error ', async () => {
+  it('should render error ', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/activity']}>
         <MockedProvider mocks={activityErrorMocks} addTypename={false}>
@@ -59,11 +59,11 @@ describe('Activity Component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.contains(<Error message="An error occurred" />)).toBeTruthy();
   });
-  it('Should render no content component', async () => {
+  it('should render no content component', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/activity']}>
         <MockedProvider mocks={activityNoDataMocks} addTypename={false}>
@@ -73,12 +73,12 @@ describe('Activity Component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.find(NoContent)).toHaveLength(1);
     expect(wrapper.find('Such empty')).toBeTruthy();
   });
-  it('Should render one page of activities', async () => {
+  it('should render one page of activities', async () => {
     const connectedActivity = mount(
       <MemoryRouter initialEntries={['/']}>
         <Provider store={store}>
@@ -90,8 +90,8 @@ describe('Activity Component', () => {
     );
     await act(async () => {
       await wait();
+      connectedActivity.update();
     });
-    connectedActivity.update();
     const instance = connectedActivity.find('Activity').instance();
     instance.setPageNumber(1);
     // expect(connectedItems.find(Overflow)).toHaveLength(5);

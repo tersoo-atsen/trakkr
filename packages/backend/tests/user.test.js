@@ -39,7 +39,7 @@ describe('User Test Cases', () => {
 
     test(`${id}`, async () => {
       let me;
-      if (id === 'update user') {
+      if (id === 'Should complete user update') {
         const signResult = await graphql(schema, signIn.query, null, context, signIn.variables);
         const { data: { signIn: { user } } } = signResult;
         me = user;

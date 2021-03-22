@@ -9,6 +9,7 @@
     "lint": "npx eslint --fix src/**/*.js*",
     "test:dev": "jest --watch",
     "test": "jest --config jest.config.js --coverage -u",
+    "jest-watch": "jest --config jest.config.js --coverage -u --watch",
     "test:coverage": "jest --config jest.config.js --coverage -u --colors"
   },
   "keywords": [
@@ -59,6 +60,7 @@
     "apollo-client": "^2.6.8",
     "apollo-link-http": "^1.5.16",
     "bulma": "^0.8.2",
+    "cloudinary-core": "^2.11.3",
     "cloudinary-react": "^1.2.1",
     "graphql": "^14.6.0",
     "graphql-tag": "^2.10.1",

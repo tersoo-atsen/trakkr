@@ -31,7 +31,7 @@ describe('Landing page component', () => {
     );
   });
 
-  it('Should render correctly', () => {
+  it('should render correctly', () => {
     const navbar = wrapper.find('nav');
     const buttons = wrapper.find(Button);
 

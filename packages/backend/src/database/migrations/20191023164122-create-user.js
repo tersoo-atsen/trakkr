@@ -23,6 +23,9 @@ export default {
       userName: {
         type: Sequelize.STRING,
       },
+      avatarUrl: {
+        type: Sequelize.STRING,
+      },
       password: {
         allowNull: false,
         type: Sequelize.STRING,

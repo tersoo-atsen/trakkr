@@ -22,17 +22,17 @@ describe('Item Test Cases', () => {
 
     test(`${id}`, async () => {
       let me;
-      if (id === 'new item' || id === 'remove item' || id === 'remove non-existent item') {
+      if (id === 'Should add a new item' || id === 'Should remove item by id' || id === 'Should not remove non-existent item') {
         const context = { models, secret: process.env.JWT_SECRET };
         const result = await graphql(schema, signIn.query, null, context, signIn.variables);
         const { data: { signIn: { user } } } = result;
         me = user;
       }
       const result = await graphql(schema, query, null, { models, me }, variables);
-      if (id === 'remove non-existent item') {
+      if (id === 'Should not remove non-existent item') {
         return expect(result.errors[0].message).toEqual('Item not found!');
       }
-      if (id === 'update non-existent item') {
+      if (id === 'Should not update non-existent item') {
         return expect(result.errors[0].message).toEqual('Item not found!');
       }
       return expect(result).toEqual(expected);

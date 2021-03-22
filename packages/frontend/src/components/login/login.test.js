@@ -117,9 +117,8 @@ describe('Login component', () => {
     component.find('form').simulate('submit');
     await act(async () => {
       await wait();
+      component.update();
     });
-    component.update();
-    const loginComponent = component.find('Login');
   });
   it('should show login error', async () => {
     component = mount(
@@ -136,7 +135,7 @@ describe('Login component', () => {
     component.find('form').simulate('submit');
     await act(async () => {
       await wait();
+      component.update();
     });
-    component.update();
   });
 });

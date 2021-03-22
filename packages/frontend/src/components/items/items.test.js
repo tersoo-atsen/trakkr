@@ -31,7 +31,7 @@ describe('Items Component', () => {
       },
     });
   });
-  it('Should render the items componet', async () => {
+  it('should render the items componet', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/items']}>
         <MockedProvider mocks={itemsMocks} addTypename={false}>
@@ -42,15 +42,15 @@ describe('Items Component', () => {
     expect(wrapper.contains(<Loader />)).toBeTruthy();
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     const itemView = wrapper.find('.item-page_wrapper');
     const pagination = wrapper.find('.pagination-wrapper');
     expect(wrapper.contains(itemView)).toBeDefined();
     expect(wrapper.contains(pagination)).toBeDefined();
     expect(wrapper.contains(Overflow)).toBeDefined();
   });
-  it('Should render error ', async () => {
+  it('should render error ', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/items']}>
         <MockedProvider mocks={itemsErrorMocks} addTypename={false}>
@@ -60,11 +60,11 @@ describe('Items Component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.contains(<Error message="An error occurred" />)).toBeTruthy();
   });
-  it('Should render no content component', async () => {
+  it('should render no content component', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/items']}>
         <MockedProvider mocks={itemsNoDataMocks} addTypename={false}>
@@ -74,12 +74,12 @@ describe('Items Component', () => {
     );
     await act(async () => {
       await wait();
+      wrapper.update();
     });
-    wrapper.update();
     expect(wrapper.find(NoContent)).toHaveLength(1);
     expect(wrapper.find('Such empty')).toBeTruthy();
   });
-  it('Should render one page of items', async () => {
+  it('should render one page of items', async () => {
     const authActions = { logout: jest.fn() };
     const handleLogout = jest.fn(() => {
       authActions.logout(props.dispatch, props.history);
@@ -95,8 +95,8 @@ describe('Items Component', () => {
     );
     await act(async () => {
       await wait();
+      connectedItems.update();
     });
-    connectedItems.update();
     const instance = connectedItems.find('Items').instance();
     instance.fetchItems(1);
     expect(connectedItems.find(Overflow)).toHaveLength(5);

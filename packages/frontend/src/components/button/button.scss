@@ -3,7 +3,7 @@
   color: #fff;
   font-size: 14px;
   font-family: "Lato", Vernada, sans-serif;
-  font-weight: 400;
+  font-weight: bold;
   width: 120px;
   -webkit-transition: all ease-in-out 0.3s;
   -moz-transition: all ease-in-out 0.3s;
@@ -18,10 +18,6 @@
   border-radius: 50px;
   background-color: #d70508;
   border: none;
-}
-
-.button.round:hover {
-  background-color: #960002;
 }
 
 .button.transparent {

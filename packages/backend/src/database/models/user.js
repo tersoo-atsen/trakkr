@@ -53,6 +53,15 @@ const user = (sequelize, DataTypes) => {
         },
       },
     },
+    avatarUrl: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Avatar Url cannot be empty',
+        },
+      },
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

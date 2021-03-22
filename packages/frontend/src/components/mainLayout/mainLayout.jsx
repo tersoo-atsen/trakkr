@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import './mainLayout.scss';
 import Sidebar from '../sidebar';
 import Usermenu from '../userMenu';
-import authActions from '../../store/actions';
+import { logout } from '../../store/actions';
 
 export class MainLayout extends Component {
   container = React.createRef();
@@ -52,7 +52,7 @@ export class MainLayout extends Component {
 
   handleLogout = () => {
     const { dispatch, history } = this.props;
-    authActions.logout(dispatch, history);
+    logout(dispatch, history);
   }
 
   renderToggler = (classes) => (

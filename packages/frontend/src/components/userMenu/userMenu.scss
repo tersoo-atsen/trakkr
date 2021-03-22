@@ -4,7 +4,8 @@
   align-items: center;
 
   .avatar {
-    max-height: 1.2rem;
+    height: 19px;
+    width: 19px;
   }
 
   p.user_name {
@@ -21,17 +22,17 @@
       border-color: transparent;
       padding: 0;
       width: 30px;
-      
+
       &:focus .dropdown__expand_arrow {
         cursor: pointer;
       }
-      
+
       &:hover,
       &:hover .dropdown__expand_arrow {
         color: #ff0000;
         cursor: pointer;
       }
-      
+
       .dropdown__expand_arrow {
         color: #ffffff;
         max-height: 1.2rem;

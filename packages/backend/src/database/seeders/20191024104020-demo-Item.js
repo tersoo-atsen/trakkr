@@ -3,7 +3,7 @@ export default {
     return queryInterface.bulkInsert('Items', [{
       name: 'Statue',
       description: 'Statue of great value',
-      imageUrl: 'some/path/to/image',
+      imageUrl: 'trakkr/painting01',
       value: 1000000,
       quantity: 2,
       location: 'Lagos',
@@ -14,7 +14,7 @@ export default {
     {
       name: 'Painting',
       description: 'Painting of great value',
-      imageUrl: 'some/path/to/painting',
+      imageUrl: 'trakkr/statue01',
       value: 50000,
       quantity: 1,
       location: 'Sokoto',
@@ -25,7 +25,7 @@ export default {
     {
       name: 'Sculpture',
       description: 'Sculpture of great value',
-      imageUrl: 'some/path/to/sculpture',
+      imageUrl: 'trakkr/statue02',
       value: 1020000,
       quantity: 1,
       location: 'Ibadan',
