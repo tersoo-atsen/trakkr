@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image, Transformation } from 'cloudinary-react';
 
 import './userMenu.scss';
-// import ProfilePhoto from '../../assets/images/user.png';
 
 const UserMenu = (props) => {
   const {
@@ -27,7 +26,7 @@ const UserMenu = (props) => {
         height="19"
         crop="fit"
       >
-        <Transformation radius="100" quality="80" fetchFormat="auto" />
+        <Transformation quality="80" fetchFormat="auto" />
       </Image>
       <div className="dropdown">
         <button className="dropdown__button" onClick={openDropdown}>

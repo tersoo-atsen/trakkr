@@ -22,7 +22,7 @@ describe('Login component', () => {
   beforeEach(() => {
     store = mockStore({
       global: {
-        loggingIn: false,
+        loading: false,
         loggedIn: false,
         error: [],
         currentUser: {},
@@ -80,9 +80,11 @@ describe('Login component', () => {
     wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: 'jane.doe@example.com' } });
     wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: 'short' } });
     wrapper.find('form').simulate('submit');
-    expect(instance.state.formErrors.password).toBe('Password should not less than 6 characters');
+    expect(instance.state.formErrors.password).toBe('Password should be greater than 6 characters');
   });
   it('should not submit form with no email and password', () => {
+    wrapper.find('[name="email"]').simulate('change', { target: { name: 'email', value: '' } });
+    wrapper.find('[name="password"]').simulate('change', { target: { name: 'password', value: '' } });
     wrapper.find('form').simulate('submit');
     expect(instance.state.formErrors.email).toBe('Email is required');
     expect(instance.state.formErrors.password).toBe('Password is required');

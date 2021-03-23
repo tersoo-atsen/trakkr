@@ -34,7 +34,7 @@ describe('Navbar component', () => {
 
     store = mockStore({
       global: {
-        loggingIn: false,
+        loading: false,
         loggedIn: true,
         error: [],
         currentUser: { firstName: 'John', lastName: 'Doe' },

@@ -18,7 +18,6 @@ describe('Helpers File', () => {
 
     it('should get token', () => {
       const result = getToken();
-      console.log('file: helpers.test.js - line 21 - result', result);
 
       expect(result).toBe('token');
     });

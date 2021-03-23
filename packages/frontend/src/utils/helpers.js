@@ -96,16 +96,12 @@ export const activtyList = (activity, idx) => (
 
 export const isAuthenticated = () => {
   const user = getFromLocalStorage('user');
-  if (user !== null) {
-    return true;
-  }
-  return false;
+  return !!user;
 };
 
 export const getToken = () => {
   const user = getFromLocalStorage('user');
-  if (!user) return null;
-  console.log('file: helpers.js - line 107 - user', user);
-  const { token } = user;
-  return token;
+  // if (!user) return null;
+  // const { token } = user;
+  return !user ? null : user.token;
 };

@@ -2,7 +2,7 @@ import { authConstants } from '../constants';
 import userService from '../../services';
 
 export const login = (loginActionParams) => async (dispatch) => {
-  const request = (loggingIn) => ({ type: authConstants.LOGIN_REQUEST, loggingIn });
+  const request = (loading) => ({ type: authConstants.LOGIN_REQUEST, loading });
   const success = (loggedIn, currentUser) => (
     { type: authConstants.LOGIN_SUCCESS, loggedIn, currentUser }
   );

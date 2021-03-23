@@ -16,7 +16,7 @@ describe('Landing page component', () => {
   beforeEach(() => {
     store = mockStore({
       global: {
-        loggingIn: false,
+        loading: false,
         loggedIn: false,
         error: [],
         currentUser: {},

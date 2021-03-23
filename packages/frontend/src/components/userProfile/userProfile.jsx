@@ -89,13 +89,19 @@ export class UserProfile extends Component {
       firstName,
       lastName,
       userName,
-      avatarUrl,
       imageFile,
       formErrors,
     } = this.state;
+
+    let { avatarUrl } = this.state;
+
     const { dispatch } = this.props;
 
     if (imageFile) {
+      avatarUrl = (avatarUrl === 'trakkr/default-avatar')
+        ? `trakkr/${firstName.toLowerCase()}-${lastName.toLowerCase()}`
+        : avatarUrl;
+      this.setState({ avatarUrl });
       await this.uploadImage(imageFile, avatarUrl);
     }
     if (formValid(this.state)) {

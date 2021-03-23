@@ -8,6 +8,8 @@ export const USER_LOGIN = gql`
         id
         firstName
         lastName
+        userName
+        email
         avatarUrl
       }
     }
@@ -21,7 +23,9 @@ export const USER_SIGNUP = gql`
         id
         lastName
         firstName
+        userName
         email
+        avatarUrl
       }
       token
     }

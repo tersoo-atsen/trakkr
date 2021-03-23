@@ -18,7 +18,7 @@ describe('App component', () => {
   beforeEach(() => {
     store = mockStore({
       global: {
-        loggingIn: false,
+        loading: false,
         loggedIn: false,
         currentUser: {},
         error: [],

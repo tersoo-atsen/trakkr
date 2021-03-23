@@ -1,8 +1,8 @@
-import { authConstants } from '../constants';
+import { authConstants, userConstants } from '../constants';
 
 const initialState = {
   loggedIn: false,
-  loggingIn: false,
+  loading: false,
   currentUser: {},
   error: [],
 };
@@ -12,30 +12,44 @@ const globalReducer = (state = initialState, action) => {
     case authConstants.LOGIN_REQUEST:
       return {
         ...state,
-        loggingIn: action.loggingIn,
+        loading: action.loading,
       };
-    case authConstants.LOGIN_SUCCESS: {
+    case authConstants.LOGIN_SUCCESS:
       return {
         ...state,
         loggedIn: action.loggedIn,
         currentUser: action.currentUser,
-        loggingIn: false,
+        loading: false,
+        error: [],
       };
-    }
-    case authConstants.LOGIN_FAILURE: {
+    case authConstants.LOGIN_FAILURE:
       return {
         ...state,
-        loggingIn: false,
+        loading: false,
         error: action.error,
       };
-    }
-    case authConstants.LOGOUT: {
+    case authConstants.LOGOUT:
       return {
         ...state,
         currentUser: {},
         loggedIn: false,
+        error: [],
       };
-    }
+    case userConstants.UPDATE_USER_REQUEST:
+      return {
+        ...state,
+      };
+    case userConstants.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.user,
+        error: [],
+      };
+    case userConstants.UPDATE_USER_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return state;
   }

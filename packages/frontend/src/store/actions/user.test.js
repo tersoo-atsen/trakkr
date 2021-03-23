@@ -13,6 +13,13 @@ let userName;
 let avatarUrl;
 let updateUserParams;
 const mockStore = configureMockStore([thunk]);
+const user = {
+  id: 1,
+  avatarUrl: 'trakr/john-doe',
+  firstName: 'John',
+  lastName: 'Doe',
+  userName: 'john-doe',
+};
 
 describe('user action creators', () => {
   firstName = 'John';
@@ -33,6 +40,7 @@ describe('user action creators', () => {
       error: null,
       data: {
         updateUser: {
+          id: 1,
           firstName: 'John',
           lastName: 'Doe',
           userName: 'john-doe',
@@ -45,7 +53,7 @@ describe('user action creators', () => {
     };
     expectedActions = [
       { type: userConstants.UPDATE_USER_REQUEST },
-      { type: userConstants.UPDATE_USER_SUCCESS },
+      { type: userConstants.UPDATE_USER_SUCCESS, user },
     ];
     await store.dispatch(updateUserInfo(updateUserParams));
     expect(store.getActions()).toEqual(expectedActions);
