@@ -24,7 +24,7 @@ describe('login action creators', () => {
     mutation.mockReset();
     const initialState = {
       loggedIn: false,
-      loggingIn: false,
+      loading: false,
       error: [],
       currentUser: {},
     };
@@ -48,7 +48,7 @@ describe('login action creators', () => {
       loginMutation: mutation, email, password, history,
     };
     expectedActions = [
-      { type: 'LOGIN_REQUEST', loggingIn: true },
+      { type: 'LOGIN_REQUEST', loading: true },
       { type: 'LOGIN_SUCCESS', loggedIn: true, currentUser: { firstName: 'John', lastName: 'Doe', token: testToken } },
     ];
     await store.dispatch(login(loginActionParams));
@@ -68,7 +68,7 @@ describe('login action creators', () => {
       loginMutation: mutation, email, password, history,
     };
     expectedActions = [
-      { type: 'LOGIN_REQUEST', loggingIn: true },
+      { type: 'LOGIN_REQUEST', loading: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(login(loginActionParams));
@@ -90,7 +90,7 @@ describe('login action creators', () => {
       loginMutation: mutation, email, password, history,
     };
     expectedActions = [
-      { type: 'LOGIN_REQUEST', loggingIn: true },
+      { type: 'LOGIN_REQUEST', loading: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(login(loginActionParams));
@@ -104,7 +104,7 @@ describe('login action creators', () => {
       loginMutation: mutation, email, password, history,
     };
     expectedActions = [
-      { type: 'LOGIN_REQUEST', loggingIn: true },
+      { type: 'LOGIN_REQUEST', loading: true },
       { type: 'LOGIN_FAILURE', error: ['Login failed. Please try again.'] },
     ];
     await store.dispatch(login(loginActionParams));

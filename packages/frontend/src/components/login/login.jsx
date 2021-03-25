@@ -182,10 +182,9 @@ Login.propTypes = {
 };
 
 function mapStateToProps(state) {
-  const { loggingIn, error } = state.global;
+  const { loading } = state.global;
   return {
-    loading: loggingIn,
-    loginError: error,
+    loading,
   };
 }
 

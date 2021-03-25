@@ -87,6 +87,7 @@ const resolvers = {
         userName,
         email,
         password,
+        avatarUrl: 'trakkr/default-avatar',
       })
 
       return { token: createToken(user, secret, '240h'), user };

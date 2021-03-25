@@ -42,13 +42,13 @@ describe('Signup component', () => {
         </MockedProvider>
       </MemoryRouter>,
     );
-    instance = wrapper.find('Signup').instance();
   });
   it('should render signup component', () => {
     expect(wrapper.find('.signup_page')).toBeDefined();
     expect(wrapper.find('button.button.signup_form_submit_button').text()).toBe('Submit');
   });
   it('should register user with correct credentials', () => {
+    instance = wrapper.find('Signup').instance();
     const spy = jest.spyOn(instance, 'handleSubmit');
     wrapper.find('[name="email"]')
       .simulate('change', { target: { name: 'email', value: 'xian.doe@example.com' } });
@@ -61,6 +61,7 @@ describe('Signup component', () => {
     wrapper.find('[name="confirmPassword"]')
       .simulate('change', { target: { name: 'confirmPassword', value: 'DemoUser1' } });
     wrapper.find('form').simulate('submit');
+    instance = wrapper.find('Signup').instance();
     expect(spy).toHaveBeenCalled();
     expect(instance.state.firstName).toBe('Xian');
     expect(instance.state.lastName).toBe('Doe');
@@ -79,6 +80,7 @@ describe('Signup component', () => {
     wrapper.find('[name="confirmPassword"]')
       .simulate('change', { target: { name: 'confirmPassword', value: '' } });
     wrapper.find('form').simulate('submit');
+    instance = wrapper.find('Signup').instance();
     expect(instance.state.formErrors.email).toBe('Email is required');
     expect(instance.state.formErrors.firstName).toBe('First name is required');
     expect(instance.state.formErrors.lastName).toBe('Last name is required');
@@ -93,11 +95,12 @@ describe('Signup component', () => {
     wrapper.find('[name="firstName"]')
       .simulate('change', { target: { name: 'firstName', value: 'Xi' } });
     wrapper.find('[name="lastName"]')
-      .simulate('change', { target: { name: 'lastName', value: 'D' } });
+      .simulate('change', { target: { name: 'lastName', value: 'Da' } });
     wrapper.find('[name="confirmPassword"]')
-      .simulate('change', { target: { name: 'confirmPassword', value: 'D' } });
+      .simulate('change', { target: { name: 'confirmPassword', value: 'short' } });
     wrapper.find('form').simulate('submit');
-    expect(instance.state.formErrors.password).toBe('Password should not less than 6 characters');
+    instance = wrapper.find('Signup').instance();
+    expect(instance.state.formErrors.password).toBe('Password should be greater than 6 characters');
     expect(instance.state.formErrors.firstName).toBe('First name should be 3 characters or more');
     expect(instance.state.formErrors.lastName).toBe('Last name should not less than 3 characters');
     expect(instance.state.formErrors.email).toBe('Email address is invalid');
@@ -114,14 +117,18 @@ describe('Signup component', () => {
     wrapper.find('[name="confirmPassword"]')
       .simulate('change', { target: { name: 'confirmPassword', value: 'DemoUser122' } });
     wrapper.find('form').simulate('submit');
+    instance = wrapper.find('Signup').instance();
     expect(instance.state.formErrors.confirmPassword).toBe('Password and confirmation do not match');
   });
   it('should not submit form with no email and password', () => {
+    wrapper.find('[name="email"]')
+      .simulate('change', { target: { name: 'email', value: '' } });
+    wrapper.find('[name="password"]')
+      .simulate('change', { target: { name: 'password', value: '' } });
     wrapper.find('form').simulate('submit');
-    expect(instance.state.formErrors.email)
-      .toBe('Email is required');
-    expect(instance.state.formErrors.password)
-      .toBe('Password is required');
+    instance = wrapper.find('Signup').instance();
+    expect(instance.state.formErrors.email).toBe('Email is required');
+    expect(instance.state.formErrors.password).toBe('Password is required');
   });
   it('should show error UI', async () => {
     signupMocks = {

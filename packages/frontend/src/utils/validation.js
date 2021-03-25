@@ -4,28 +4,13 @@ export const emailRegExp = RegExp(
   // eslint-disable-next-line no-useless-escape
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 );
-export const formValid = ({ formErrors, ...rest }) => {
+export const formValid = ({ formErrors }) => {
   let isValid = false;
   Object.values(formErrors).forEach((val) => {
     if (val.length < 1) {
       isValid = true;
     }
   });
-
-  Object.values(rest).forEach((val) => {
-    if (!val) {
-      isValid = false;
-    } else {
-      isValid = true;
-    }
-  });
-
-  if (isValid) {
-    Object.keys(rest).forEach((key) => {
-      if (key === 'selectedImagePath' || key === 'imageFile') isValid = true;
-    });
-  }
-
   return isValid;
 };
 
@@ -64,7 +49,7 @@ export const validateFields = (name, value, formErrors, password, confirmPasswor
         : 'Email address is invalid';
       break;
     case 'password':
-      updatedFormErrors.password = value && value.length < 6 ? 'Password should not less than 6 characters' : '';
+      updatedFormErrors.password = value && value.length < 6 ? 'Password should be greater than 6 characters' : '';
       break;
     case 'confirmPassword':
       updatedFormErrors.confirmPassword = (password && confirmPassword) && password !== confirmPassword ? 'Password and confirmation do not match' : '';
