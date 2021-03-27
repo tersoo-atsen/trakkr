@@ -14,6 +14,7 @@ import {
   signInUserNotFound,
   signInInvalidPassword,
   updateUser,
+  userStats,
 } from './cases/user';
 
 describe('User Test Cases', () => {
@@ -65,9 +66,7 @@ describe('User Test Cases', () => {
     });
   });
 
-  const {
-    id, query, variables,
-  } = signInUserNotFound;
+  const { id, query, variables } = signInUserNotFound;
 
   test(`${id}`, async () => {
     const result = await graphql(schema, query, null, context, variables);
@@ -79,5 +78,12 @@ describe('User Test Cases', () => {
       schema, signInInvalidPassword.query, null, context, signInInvalidPassword.variables,
     );
     expect(result.errors[0].message).toEqual('Login failed. Please try again.');
+  });
+
+  test(`${userStats.id}`, async () => {
+    const result = await graphql(
+      schema, userStats.query, null, context, null,
+    );
+    return expect(result).toEqual(userStats.expected);
   });
 });

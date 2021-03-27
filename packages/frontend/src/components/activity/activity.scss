@@ -46,9 +46,10 @@
             color: #fa080c;
           }
         }
-
+        
         td:first-child {
           border-radius: 10px 0 0 10px;
+          padding-left: 20px;
         }
 
         td:not(:first-child) {
@@ -91,7 +92,7 @@
   .activity-page-wrapper {
     .activity-area__title {
       margin-bottom: 20px;
-      
+
       .title-main {
         font-size: 16px;
       }

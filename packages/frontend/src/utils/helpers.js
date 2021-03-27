@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { summaryList } from './cardBuilder';
+
 export const capitalizeAllWords = (sentence) => sentence.split(' ')
   .map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
@@ -50,26 +52,29 @@ export const featureColumns = (feature) => {
   );
 };
 
-export const summaryColumns = (item) => {
-  const classNames = `summary-icon-wrapper ${item.id}`;
-  return (
+export const summaryColumns = (userStats) => {
+  summaryList[0].value = userStats.itemCount;
+  summaryList[1].value = userStats.totalQuantity;
+  summaryList[2].value = `$${userStats.totalValue}.00`;
+
+  return summaryList.map((item) => (
     <div key={item.id} className="column">
       <div className="card">
         <div className="card-content">
           <div className="icon-group">
             <div className={`icon-bg ${item.id}`} />
-            <div className={classNames}>
+            <div className={`summary-icon-wrapper ${item.id}`}>
               <img className="summary-icon responsive" src={item.iconSrc} alt={item.altText} />
             </div>
           </div>
           <div className="summary-description">
-            <p className="summary-description__title">{item.title}</p>
             <p className="summary-description__sub-text">{item.value}</p>
+            <p className="summary-description__title">{item.title}</p>
           </div>
         </div>
       </div>
     </div>
-  );
+  ));
 };
 
 export const activtyList = (activity, idx) => (
@@ -101,7 +106,5 @@ export const isAuthenticated = () => {
 
 export const getToken = () => {
   const user = getFromLocalStorage('user');
-  // if (!user) return null;
-  // const { token } = user;
   return !user ? null : user.token;
 };

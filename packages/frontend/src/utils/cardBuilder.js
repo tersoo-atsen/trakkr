@@ -35,20 +35,17 @@ export const summaryList = [
     iconSrc: itemCount,
     altText: 'Items',
     title: 'Items',
-    value: 26,
   },
   {
     id: 'total',
     iconSrc: total,
     altText: 'Total',
     title: 'Total',
-    value: 42,
   },
   {
     id: 'value',
     iconSrc: value,
     altText: 'Value',
     title: 'Total Value',
-    value: '$14.2K',
   },
 ];
