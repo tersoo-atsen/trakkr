@@ -11,10 +11,12 @@ import ConnectedDashboard, { Dashboard } from './dashboard';
 import Loader from '../loader';
 import Error from '../error';
 import {
-  dashboardMocks, dashboardErrorMocks, dashboardNoDataMocks,
+  dashboardMocks, dashboardErrorMocks, dashboardNoDataMocks, userStatsMock,
 } from '../../../__mocks__/graphqlMocks';
+import apolloClient from '../../utils/apolloClient';
 
 const mockStore = configureStore([]);
+jest.mock('../../utils/apolloClient');
 
 describe('Dashboard component', () => {
   let wrapper;
@@ -37,6 +39,8 @@ describe('Dashboard component', () => {
     });
   });
   it('should render dashboard correctly', async () => {
+    const response = userStatsMock;
+    apolloClient.query.mockImplementation(() => Promise.resolve(response));
     wrapper = mount(
       <MemoryRouter initialEntries={['/dashboard']}>
         <MockedProvider mocks={dashboardMocks} addTypename={false}>

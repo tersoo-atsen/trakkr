@@ -297,3 +297,23 @@ export const updateUser = {
     },
   },
 }
+
+export const userStats = {
+  id: 'Should get user stats',
+  query: `query getUserStats {
+    getUserStats {
+      itemCount
+      totalQuantity
+      totalValue
+    }
+  }`,
+  expected: {
+    data: {
+      getUserStats: {
+        itemCount: 2,
+        totalQuantity: 3,
+        totalValue: 1050000,
+      },
+    },
+  },
+}

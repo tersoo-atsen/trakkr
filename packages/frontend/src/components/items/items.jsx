@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
+import { Image, Transformation } from 'cloudinary-react';
 
 import './items.scss';
 import { GET_USER_ITEMS } from '../../graphql/queries';
@@ -32,7 +33,15 @@ export class Items extends Component {
           <td>
             <div className="item_wrapper">
               <div className="item-thumbnail">
-                <img src={item.imageUrl} alt="" />
+                <Image
+                  cloudName="tersoo"
+                  publicId={item.imageUrl}
+                  className="profile-pic"
+                  crop="fit"
+                >
+                  <Transformation quality="80" fetchFormat="auto" />
+                  <Transformation width="50" height="50" gravity="face" />
+                </Image>
               </div>
               <div className="item_meta">
                 <span>{item.name}</span>

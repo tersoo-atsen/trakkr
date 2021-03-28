@@ -73,6 +73,24 @@ const resolvers = {
 
       return { signature, timestamp }
     },
+    getUserStats: async (root, args, { models, me }) => {
+      const items = await models.Item.findAll({
+        where: { userId: me.id },
+        attributes: [
+          [Sequelize.fn('sum', Sequelize.col('value')), 'totalValue'],
+          [Sequelize.fn('sum', Sequelize.col('quantity')), 'totalQuantity'],
+          [Sequelize.fn('count', Sequelize.col('name')), 'itemCount']],
+        group: ['userId'],
+        raw: true,
+      });
+      const hasItems = items.length > 0;
+
+      return {
+        itemCount: hasItems ? items[0].itemCount : 0,
+        totalQuantity: hasItems ? items[0].totalQuantity : 0,
+        totalValue: hasItems ? items[0].totalValue : 0,
+      };
+    },
   },
   Mutation: {
     signUp: async (

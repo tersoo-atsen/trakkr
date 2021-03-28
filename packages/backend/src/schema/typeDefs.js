@@ -41,7 +41,8 @@ const typeDefs = gql`
       getUserActivities(userId: Int!, page: Int, perPage: Int): Activities
       getUserItems(userId: Int!, page: Int, perPage: Int): Items
       searchItems(search: String): [Item]!
-      getSignature(publicId: String!): GetSignatureResponse
+      getSignature(publicId: String!): Signature
+      getUserStats: Stats
     }
 
     type AuthResponse {
@@ -65,9 +66,15 @@ const typeDefs = gql`
       hasPrevPage: Boolean!
     }
 
-    type GetSignatureResponse {
+    type Signature {
       signature: String!
       timestamp: Int!
+    }
+    
+    type Stats {
+      itemCount: Int!
+      totalQuantity: Int!
+      totalValue: Int!
     }
 
     type Mutation {

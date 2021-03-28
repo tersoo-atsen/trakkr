@@ -139,6 +139,7 @@ export class UserProfile extends Component {
       avatarUrl,
       selectedImagePath,
     } = this.state;
+
     const { currentUser } = this.props;
 
     return (

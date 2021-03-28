@@ -334,3 +334,13 @@ export const sigResponse = {
     },
   },
 };
+
+export const userStatsMock = {
+  data: {
+    getUserStats: {
+      itemCount: 0,
+      totalQuantity: 0,
+      totalValue: 0,
+    },
+  },
+};
