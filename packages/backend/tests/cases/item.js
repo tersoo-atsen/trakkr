@@ -25,8 +25,8 @@ export const singleItem = {
 
 export const newItem = {
   id: 'Should add a new item',
-  query: `mutation createItem($name: String!, $description: String!, $value: Int!,$quantity: Int!, $imageUrl: String!, $location: String!){
-    createItem(name: $name, description: $description, value: $value, quantity: $quantity, imageUrl: $imageUrl, location: $location){
+  query: `mutation createItem($id: Int!, $name: String!, $description: String!, $value: Int!,$quantity: Int!, $imageUrl: String!, $location: String!){
+    createItem(id: $id, name: $name, description: $description, value: $value, quantity: $quantity, imageUrl: $imageUrl, location: $location){
       id
       name
       description
@@ -36,6 +36,7 @@ export const newItem = {
     }
   }`,
   variables: {
+    id: 1,
     name: 'New Item',
     description: 'New important item',
     value: 1230000,

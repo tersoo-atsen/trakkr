@@ -1,5 +1,9 @@
-import { GET_USER_ACTIVITIES, GET_USER_ITEMS, GET_USER } from '../src/graphql/queries';
-import { USER_LOGIN, USER_SIGNUP, UPDATE_USER } from '../src/graphql/mutations';
+import {
+  GET_USER_ACTIVITIES, GET_USER_ITEMS, GET_USER,
+} from '../src/graphql/queries';
+import {
+  USER_LOGIN, USER_SIGNUP, UPDATE_USER, ADD_ITEM,
+} from '../src/graphql/mutations';
 
 export const testToken = 'add get token method';
 export const signup = {
@@ -344,3 +348,19 @@ export const userStatsMock = {
     },
   },
 };
+
+export const addItemMocks = [{
+  request: {
+    query: ADD_ITEM,
+    variables: { id: 1 },
+  },
+  result: {
+    data: {
+      id: 5,
+      name: 'Item5',
+      description: 'description5',
+      value: 1200,
+      quantity: 1,
+    },
+  },
+}];

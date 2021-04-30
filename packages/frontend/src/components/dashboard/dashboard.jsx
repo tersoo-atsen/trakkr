@@ -24,8 +24,10 @@ export class Dashboard extends Component {
   }
 
   getUserStats = async () => {
+    const { currentUser } = this.props;
     const response = await apolloClient.query({
       query: GET_USER_STATS,
+      variables: { id: currentUser.id },
     });
     const { itemCount, totalQuantity, totalValue } = response.data.getUserStats;
     this.setState({

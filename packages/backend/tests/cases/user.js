@@ -300,13 +300,16 @@ export const updateUser = {
 
 export const userStats = {
   id: 'Should get user stats',
-  query: `query getUserStats {
-    getUserStats {
+  query: `query getUserStats($id: Int!) {
+    getUserStats(id: $id) {
       itemCount
       totalQuantity
       totalValue
     }
   }`,
+  variables: {
+    id: 1,
+  },
   expected: {
     data: {
       getUserStats: {

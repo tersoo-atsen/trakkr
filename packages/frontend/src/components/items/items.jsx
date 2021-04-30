@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Image, Transformation } from 'cloudinary-react';
+import { Link } from 'react-router-dom';
 
 import './items.scss';
 import { GET_USER_ITEMS } from '../../graphql/queries';
@@ -79,7 +80,7 @@ export class Items extends Component {
                 </div>
                 <div className="button-area">
                   <span className="button-area__text">Create New</span>
-                  <a href="#top" className="button new-item-btn">+</a>
+                  <Link className="button new-item-btn" to="/add-item">+</Link>
                 </div>
               </div>
               {results.length < 1
@@ -126,9 +127,12 @@ Items.propTypes = {
     PropTypes.number,
   ])).isRequired,
 };
+
 const mapStateToProps = (state) => {
   const { currentUser } = state.global;
   return { currentUser };
 };
+
 const ConnectedItems = connect(mapStateToProps)(Items);
+
 export default ConnectedItems;

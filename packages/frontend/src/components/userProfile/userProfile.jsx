@@ -92,9 +92,7 @@ export class UserProfile extends Component {
       imageFile,
       formErrors,
     } = this.state;
-
     let { avatarUrl } = this.state;
-
     const { dispatch } = this.props;
 
     if (imageFile) {
@@ -106,7 +104,11 @@ export class UserProfile extends Component {
     }
     if (formValid(this.state)) {
       const updateUserArgs = {
-        updateUserMutation, firstName, lastName, avatarUrl, userName,
+        updateUserMutation,
+        firstName,
+        lastName,
+        avatarUrl,
+        userName,
       };
       dispatch(updateUserInfo(updateUserArgs));
     } else {
@@ -285,9 +287,11 @@ UserProfile.propTypes = {
     PropTypes.number,
   ])).isRequired,
 };
+
 const mapStateToProps = (state) => {
   const { currentUser } = state.global;
   return { currentUser };
 };
+
 const ConnectedUserProfile = connect(mapStateToProps)(UserProfile);
 export default ConnectedUserProfile;

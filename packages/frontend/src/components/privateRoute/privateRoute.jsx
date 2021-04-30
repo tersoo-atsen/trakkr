@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { isAuthenticated } from '../../utils';
 import MainLayout from '../mainLayout';
 
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
@@ -17,18 +16,14 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
           </MainLayout>
         )
         : (
-          <Redirect to={{
-            pathname: '/login',
-          }}
-          />
+          <Redirect to={{ pathname: '/login' }} />
         )
     )}
   />
 );
+
 PrivateRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-};
-PrivateRoute.defaultProps = {
 };
 
 export default PrivateRoute;

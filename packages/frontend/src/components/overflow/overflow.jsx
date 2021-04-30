@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './oveflow.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,18 +29,15 @@ class Overflow extends Component {
     return (
       <div className="overflow-wrapper">
         <div className="overflow-menu">
-          <button
-            className="trigger"
-            onClick={this.showMenu}
-          >
+          <button className="trigger" onClick={this.showMenu}>
             <FontAwesomeIcon icon="ellipsis-h" />
           </button>
           {
             showMenu
               ? (
                 <div className="drop-menu">
-                  <div className="menu-item">Edit</div>
-                  <div className="menu-item">Delete</div>
+                  <Link className="menu-item" to="/edit-item">Edit</Link>
+                  <Link className="menu-item" to="/delete-item">Delete</Link>
                 </div>
               )
               : (null)

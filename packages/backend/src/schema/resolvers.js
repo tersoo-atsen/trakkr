@@ -73,9 +73,9 @@ const resolvers = {
 
       return { signature, timestamp }
     },
-    getUserStats: async (root, args, { models, me }) => {
+    getUserStats: async (root, { id }, { models }) => {
       const items = await models.Item.findAll({
-        where: { userId: me.id },
+        where: { userId: id },
         attributes: [
           [Sequelize.fn('sum', Sequelize.col('value')), 'totalValue'],
           [Sequelize.fn('sum', Sequelize.col('quantity')), 'totalQuantity'],
@@ -140,15 +140,16 @@ const resolvers = {
     createItem: combineResolvers(
       isAuthenticated,
       async (root, {
+        id,
         name,
         description,
         value,
         imageUrl,
         location,
         quantity,
-      }, { models, me }) => {
+      }, { models }) => {
         return models.Item.create({
-          userId: me.id,
+          userId: id,
           name,
           description,
           value,

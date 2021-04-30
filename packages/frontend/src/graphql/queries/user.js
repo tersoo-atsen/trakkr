@@ -20,8 +20,8 @@ export const GET_SIGNATURE = gql`
   }`;
 
 export const GET_USER_STATS = gql`
-  query getUserStats {
-    getUserStats {
+  query getUserStats($id: Int!) {
+    getUserStats(id: $id) {
       itemCount
       totalQuantity
       totalValue

@@ -52,8 +52,6 @@ export class Login extends Component {
           email: 'Email is required',
           password: 'Password is required',
         },
-        email: '',
-        password: '',
       });
     }
   }

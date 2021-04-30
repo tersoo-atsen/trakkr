@@ -7,15 +7,15 @@ export const emailRegExp = RegExp(
 export const formValid = ({ formErrors }) => {
   let isValid = false;
   Object.values(formErrors).forEach((val) => {
-    if (val.length < 1) {
-      isValid = true;
-    }
+    if (val.length < 1) isValid = true;
   });
   return isValid;
 };
 
 export const validateFields = (name, value, formErrors, password, confirmPassword) => {
   let updatedFormErrors = { ...formErrors };
+  // eslint-disable-next-line no-param-reassign
+  if (typeof value === 'string') value = value.trim();
   if (!value) {
     switch (name) {
       case 'firstName':
@@ -41,7 +41,6 @@ export const validateFields = (name, value, formErrors, password, confirmPasswor
     }
     return updatedFormErrors;
   }
-
   switch (name) {
     case 'email':
       updatedFormErrors.email = value && emailRegExp.test(value)
@@ -61,6 +60,9 @@ export const validateFields = (name, value, formErrors, password, confirmPasswor
       updatedFormErrors.lastName = value && value.length < 3 ? 'Last name should not less than 3 characters' : '';
       break;
     default:
+      updatedFormErrors = {
+        [name]: '',
+      };
       break;
   }
   return updatedFormErrors;

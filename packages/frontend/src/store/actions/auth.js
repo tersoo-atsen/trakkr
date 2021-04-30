@@ -1,5 +1,5 @@
 import { authConstants } from '../constants';
-import userService from '../../services';
+import { userService } from '../../services';
 
 export const login = (loginActionParams) => async (dispatch) => {
   const request = (loading) => ({ type: authConstants.LOGIN_REQUEST, loading });
