@@ -29,15 +29,17 @@
             text-align: left;
             box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.25);
             padding: 0;
-            border-radius: 4px;
             z-index: 1;
             border: solid 1px #00000020;
 
+            button.menu-item,
             a.menu-item {
                 font-size: 14px;
                 padding: 5px 10px;
                 display: block;
                 color: inherit;
+                border: none;
+                background-color: #ffffff;
 
                 &:hover {
                     background-color: #ff000015;

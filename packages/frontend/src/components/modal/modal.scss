@@ -1,0 +1,19 @@
+div.modal {
+  display: block;
+}
+
+div.modal-card {
+  margin: 50px auto;
+  width: 500px;
+}
+
+div.modal-card-body {
+  .buttons.is-grouped {
+    margin-top: 20px;
+    justify-content: flex-end;
+
+    .cancel-button {
+      background-color: #ff0000;
+    }
+  }
+}

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './oveflow.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Overflow extends Component {
-  state = { showMenu: false };
+  state = {
+    showMenu: false,
+  };
 
   showMenu = (event) => {
     event.preventDefault();
@@ -25,6 +28,7 @@ class Overflow extends Component {
 
   render() {
     const { showMenu } = this.state;
+    const { id, toggleModal } = this.props;
 
     return (
       <div className="overflow-wrapper">
@@ -36,8 +40,8 @@ class Overflow extends Component {
             showMenu
               ? (
                 <div className="drop-menu">
-                  <Link className="menu-item" to="/edit-item">Edit</Link>
-                  <Link className="menu-item" to="/delete-item">Delete</Link>
+                  <Link className="menu-item" to={`/edit-item/${id}`}>Edit</Link>
+                  <button className="menu-item" onClick={toggleModal}>Delete</button>
                 </div>
               )
               : (null)
@@ -47,4 +51,10 @@ class Overflow extends Component {
     );
   }
 }
+
+Overflow.propTypes = {
+  id: PropTypes.number.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
+
 export default Overflow;

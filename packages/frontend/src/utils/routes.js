@@ -7,8 +7,8 @@ const ROUTES = {
   activity: '/activity',
   profile: '/profile',
   addItem: '/add-item',
-  editItem: '/edit-item',
-  deleteItem: '/delete-item',
+  editItem: '/edit-item/:id',
+  deleteItem: '/delete-item/:id',
 };
 
 export default ROUTES;

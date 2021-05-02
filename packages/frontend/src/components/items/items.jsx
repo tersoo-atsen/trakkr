@@ -12,10 +12,12 @@ import Loader from '../loader';
 import Error from '../error';
 import NoContent from '../noContent';
 import Overflow from '../overflow';
+import Modal from '../modal';
 
 export class Items extends Component {
   state = {
     page: 1,
+    showModal: true,
   }
 
   fetchItems = (pageNumber) => {
@@ -24,9 +26,21 @@ export class Items extends Component {
     });
   };
 
+  handleDelete = (id) => { }
+
+  toggleModal = () => {
+    const { showModal } = this.state;
+
+    this.setState({ showModal: !showModal });
+  }
+
+  closeModal = () => {
+    this.setState({ showModal: false });
+  }
+
   render() {
     const { currentUser } = this.props;
-    const { page } = this.state;
+    const { page, showModal } = this.state;
 
     const renderContent = (items) => (
       items.map((item) => (
@@ -58,7 +72,11 @@ export class Items extends Component {
           <td>{item.quantity}</td>
           <td>{item.location}</td>
           <td>
-            <Overflow />
+            <Overflow
+              id={item.id}
+              toggleModal={this.toggleModal}
+              handleDelete={this.handleDelete}
+            />
           </td>
         </tr>
       ))
@@ -73,6 +91,7 @@ export class Items extends Component {
 
           return (
             <div className="item-page_wrapper">
+              {showModal ? <Modal closeModal={this.closeModal} /> : null}
               <div className="item-page-top">
                 <div className="item-area__title">
                   <span className="title-main">My Items</span>
