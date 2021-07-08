@@ -2,6 +2,9 @@ import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import fetch from 'unfetch';
+import { split } from 'apollo-link';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 
 import { getToken } from './helpers';
 
@@ -14,8 +17,26 @@ const httpLink = new HttpLink({
   },
   fetch,
 });
+
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:5000/graphql',
+  options: {
+    reconnect: true,
+  },
+});
+
+const link = split(
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === 'OperationDefinition' && operation === 'subscription';
+  },
+  wsLink,
+  httpLink,
+);
+
 const apolloClient = new ApolloClient({
-  link: httpLink,
+  connectToDevTools: true,
+  link,
   cache: new InMemoryCache(),
 });
 

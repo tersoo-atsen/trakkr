@@ -9,7 +9,7 @@ const NavItems = (Props) => {
     loggedIn,
     currentUser,
     buttonClass,
-    openDropdown,
+    toggleDropdown,
     showDropdown,
     handleLogout,
   } = Props;
@@ -25,7 +25,7 @@ const NavItems = (Props) => {
       : (
         <UserMenu
           currentUser={currentUser}
-          openDropdown={openDropdown}
+          toggleDropdown={toggleDropdown}
           showDropdown={showDropdown}
           handleLogout={handleLogout}
         />

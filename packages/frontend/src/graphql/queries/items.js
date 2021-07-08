@@ -21,4 +21,17 @@ query GetUserItems($userId: Int!, $page: Int, $perPage: Int) {
   }
 }`;
 
+export const GET_ITEM = gql`
+  query GetItem($id: Int!) {
+    getItem(id: $id) {
+      id
+      name
+      description
+      value
+      quantity
+      imageUrl
+      location
+    }
+  }`;
+
 export const itemDummy = 'dummy';

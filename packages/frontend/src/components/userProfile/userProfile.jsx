@@ -6,9 +6,14 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './userProfile.scss';
-import { GET_USER, GET_SIGNATURE } from '../../graphql/queries';
+import { GET_USER } from '../../graphql/queries';
 import { UPDATE_USER } from '../../graphql/mutations';
-import { validateFields, formValid, apolloClient } from '../../utils';
+import {
+  validateFields,
+  formValid,
+  uploadImage,
+  apolloClient,
+} from '../../utils';
 import Loader from '../loader';
 import Error from '../error';
 import { updateUserInfo } from '../../store/actions';
@@ -51,37 +56,6 @@ export class UserProfile extends Component {
     });
   }
 
-  uploadImage = async (file, avatarUrl) => {
-    const publicId = avatarUrl.split('/')[1];
-    const sigResponse = await apolloClient.query({
-      query: GET_SIGNATURE,
-      variables: { publicId },
-    });
-    const { signature, timestamp } = sigResponse.data.getSignature;
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('invalidate', true);
-    formData.append('folder', process.env.CLOUDINARY_FOLDER);
-    formData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
-    formData.append('api_key', process.env.CLOUDINARY_API_KEY);
-    formData.append('public_id', publicId);
-    formData.append('timestamp', timestamp);
-    formData.append('signature', signature);
-
-    const options = {
-      method: 'POST',
-      body: formData,
-    };
-
-    try {
-      await fetch(`${process.env.CLOUDINARY_URL}`, options);
-    } catch (e) {
-      this.setState({ uploadStatus: 'Failure' });
-      return null;
-    }
-    return null;
-  }
-
   handleSubmit = async (event, updateUserMutation) => {
     event.preventDefault();
 
@@ -100,7 +74,8 @@ export class UserProfile extends Component {
         ? `trakkr/${firstName.toLowerCase()}-${lastName.toLowerCase()}`
         : avatarUrl;
       this.setState({ avatarUrl });
-      await this.uploadImage(imageFile, avatarUrl);
+      const res = await uploadImage(imageFile, avatarUrl, apolloClient);
+      if (res === null) this.setState({ uploadStatus: 'Failure' });
     }
     if (formValid(this.state)) {
       const updateUserArgs = {
@@ -269,7 +244,7 @@ export class UserProfile extends Component {
                       </div>
                     </div>
                   </form>
-                  {mutationError && <p>Error :( Please try again</p>}
+                  {mutationError && <p>Error: Please try again</p>}
                 </div>
               )}
             </Mutation>

@@ -57,7 +57,7 @@ describe('AddItem component', () => {
     instance = wrapper.instance();
     const spy = jest.spyOn(instance, 'handleSubmit');
 
-    wrapper.find('[name="name"]').simulate('change', { target: { name: 'name', value: '' } });
+    wrapper.find('[name="itemName"]').simulate('change', { target: { name: 'itemName', value: '' } });
     wrapper.find('[name="location"]').simulate('change', { target: { name: 'location', value: '' } });
     wrapper.find('[name="description"]')
       .simulate('change', { target: { name: 'description', value: '' } });
@@ -70,7 +70,7 @@ describe('AddItem component', () => {
     instance = wrapper.instance();
 
     expect(spy).toHaveBeenCalled();
-    expect(instance.state.formErrors.name).toBe('Name is required');
+    expect(instance.state.formErrors.itemName).toBe('Item name is required');
     expect(instance.state.formErrors.description).toBe('Description is required');
     expect(instance.state.formErrors.location).toBe('Location is required');
   });
@@ -97,7 +97,7 @@ describe('AddItem component', () => {
       wrapper.update();
     });
 
-    statefulWrapper.find('[name="name"]').simulate('change', { target: { name: 'name', value: 'New item' } });
+    statefulWrapper.find('[name="itemName"]').simulate('change', { target: { name: 'itemName', value: 'New item' } });
     statefulWrapper.find('[name="location"]').simulate('change', { target: { name: 'location', value: 'Benue' } });
     statefulWrapper.find('[name="description"]')
       .simulate('change', { target: { name: 'description', value: 'Nice item' } });
@@ -133,17 +133,13 @@ describe('AddItem component', () => {
     const spy = jest.spyOn(instance, 'handleSubmit');
     apolloClient.query.mockImplementation(() => Promise.resolve(sigResponse));
     global.URL.createObjectURL = jest.fn(() => 'blob:http://localhost:5000/9a9a3978-84bf-42df-b4b4-b0a8be5e4d77');
-    // global.fetch = jest.fn(() => Promise.resolve({
-    //   json: () => Promise.resolve(),
-    // }));
     global.fetch.mockImplementationOnce(() => Promise.resolve({
       json: () => Promise.resolve(),
     }));
 
-    statefulWrapper.find('[name="name"]').simulate('change', { target: { name: 'name', value: 'New item' } });
+    statefulWrapper.find('[name="itemName"]').simulate('change', { target: { name: 'itemName', value: 'New item' } });
     statefulWrapper.find('[name="location"]').simulate('change', { target: { name: 'location', value: 'Benue' } });
-    statefulWrapper.find('[name="description"]')
-      .simulate('change', { target: { name: 'description', value: 'Nice item' } });
+    statefulWrapper.find('[name="description"]').simulate('change', { target: { name: 'description', value: 'Nice item' } });
     statefulWrapper.find('[name="quantity"]').simulate('change', { target: { name: 'quantity', value: 2 } });
     statefulWrapper.find('[name="value"]').simulate('change', { target: { name: 'value', value: 200000 } });
     statefulWrapper.find('[name="file"]').simulate('change', { target: { name: 'file', files: [file] } });

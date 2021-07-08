@@ -39,7 +39,7 @@ export class Navbar extends Component {
     });
   }
 
-  openDropdown = (event) => {
+  toggleDropdown = (event) => {
     event.preventDefault();
     const { showDropdown } = this.state;
     this.setState({ showDropdown: !showDropdown });
@@ -76,7 +76,7 @@ export class Navbar extends Component {
                 loggedIn={loggedIn}
                 currentUser={currentUser}
                 buttonClass={buttonClass}
-                openDropdown={this.openDropdown}
+                toggleDropdown={this.toggleDropdown}
                 showDropdown={showDropdown}
                 handleLogout={this.handleLogout}
               />

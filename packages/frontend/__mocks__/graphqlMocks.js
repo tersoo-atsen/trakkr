@@ -1,8 +1,15 @@
 import {
-  GET_USER_ACTIVITIES, GET_USER_ITEMS, GET_USER,
+  GET_USER_ACTIVITIES,
+  GET_USER_ITEMS,
+  GET_USER,
+  GET_ITEM,
 } from '../src/graphql/queries';
 import {
-  USER_LOGIN, USER_SIGNUP, UPDATE_USER, ADD_ITEM,
+  USER_LOGIN,
+  USER_SIGNUP,
+  UPDATE_USER,
+  ADD_ITEM,
+  EDIT_ITEM,
 } from '../src/graphql/mutations';
 
 export const testToken = 'add get token method';
@@ -10,7 +17,11 @@ export const signup = {
   request: {
     query: USER_SIGNUP,
     variables: {
-      email: 'jonathan@example.com', firstName: 'jonathan', lastName: 'doe', password: 'Pasword1234', userName: 'jonathanDoe',
+      email: 'jonathan@example.com',
+      firstName: 'jonathan',
+      lastName: 'doe',
+      password: 'Pasword1234',
+      userName: 'jonathanDoe',
     },
   },
   result: {
@@ -195,7 +206,7 @@ export const itemsErrorMocks = [{
   },
   error: new Error('aw shucks!'),
 }];
-export const itemsNoDataMocks = [{
+export const itemsNoResultsMocks = [{
   request: {
     query: GET_USER_ITEMS,
     variables: { userId: 1, page: 1 },
@@ -217,7 +228,7 @@ export const itemsNoDataMocks = [{
 export const activityMocks = [{
   request: {
     query: GET_USER_ACTIVITIES,
-    variables: { userId: 1 },
+    variables: { userId: 1, page: 1 },
   },
   result: {
     data: {
@@ -263,7 +274,7 @@ export const activityMocks = [{
 export const activityErrorMocks = [{
   request: {
     query: GET_USER_ACTIVITIES,
-    variables: { userId: 1 },
+    variables: { userId: 1, page: 1 },
   },
   error: new Error('aw shucks!'),
 }];
@@ -271,7 +282,7 @@ export const activityErrorMocks = [{
 export const activityNoDataMocks = [{
   request: {
     query: GET_USER_ACTIVITIES,
-    variables: { userId: 1 },
+    variables: { userId: 1, page: 1 },
   },
   result: {
     data: {
@@ -364,3 +375,77 @@ export const addItemMocks = [{
     },
   },
 }];
+export const editItemMocks = [
+  {
+    request: {
+      query: GET_ITEM,
+      variables: { id: 30 },
+    },
+    result: {
+      data: {
+        getItem: {
+          id: 30,
+          name: 'Bronze carving-2',
+          description: 'A really nice statue',
+          value: 120000,
+          quantity: 3,
+          imageUrl: 'trakkr/default-item-image',
+          location: 'Borno',
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: EDIT_ITEM,
+      variables: { id: 30 },
+    },
+    result: {
+      data: {
+        updateItem: {
+          id: 30,
+          name: 'Bronze carving-2',
+          description: 'A really nice statue :):)',
+          value: 120000,
+          quantity: 3,
+          imageUrl: 'trakkr/default-item-image',
+          location: 'Borno',
+        },
+      },
+    },
+  }];
+export const editItemErrorMocks = [{
+  request: {
+    query: GET_ITEM,
+    variables: { id: 30 },
+  },
+  error: new Error('aw shucks!'),
+}];
+export const editItemSubmitErrorMocks = [
+  {
+    request: {
+      query: GET_ITEM,
+      variables: { id: 30 },
+    },
+    result: {
+      data: {
+        getItem: {
+          id: 30,
+          name: 'Bronze carving-2',
+          description: 'A really nice statue',
+          value: 120000,
+          quantity: 3,
+          imageUrl: 'trakkr/default-item-image',
+          location: 'Borno',
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: EDIT_ITEM,
+      variables: { id: 30 },
+    },
+    error: new Error('aw shucks!'),
+  },
+];

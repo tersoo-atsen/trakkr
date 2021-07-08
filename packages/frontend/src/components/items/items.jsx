@@ -4,34 +4,53 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { Image, Transformation } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import './items.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import { GET_USER_ITEMS } from '../../graphql/queries';
+import { DELETE_ITEM } from '../../graphql/mutations';
+import { ITEM_ADDED } from '../../graphql/subscriptions';
 import Pagination from '../pagination';
 import Loader from '../loader';
 import Error from '../error';
-import NoContent from '../noContent';
 import Overflow from '../overflow';
 import Modal from '../modal';
+import { apolloClient } from '../../utils';
 
 export class Items extends Component {
   state = {
     page: 1,
-    showModal: true,
+    showModal: false,
+    itemId: null,
   }
 
   fetchItems = (pageNumber) => {
-    this.setState({
-      page: pageNumber,
-    });
+    this.setState({ page: pageNumber });
   };
 
-  handleDelete = (id) => { }
+  handleDelete = async () => {
+    const { itemId } = this.state;
+    const notifySuccess = () => toast('Item successfully deleted.');
+    const notifyFailure = () => toast('Something went wrong, please try again.');
+    try {
+      await apolloClient.mutate({
+        mutation: DELETE_ITEM,
+        variables: { id: itemId },
+      });
+      notifySuccess();
+      this.closeModal();
+    } catch (e) {
+      notifyFailure();
+    }
+  };
 
-  toggleModal = () => {
+  toggleModal = (id) => {
     const { showModal } = this.state;
-
-    this.setState({ showModal: !showModal });
+    this.setState({
+      showModal: !showModal,
+      itemId: id,
+    });
   }
 
   closeModal = () => {
@@ -41,7 +60,7 @@ export class Items extends Component {
   render() {
     const { currentUser } = this.props;
     const { page, showModal } = this.state;
-
+    let unsubscribe = null;
     const renderContent = (items) => (
       items.map((item) => (
         <tr className="user-item" key={item.id}>
@@ -75,7 +94,6 @@ export class Items extends Component {
             <Overflow
               id={item.id}
               toggleModal={this.toggleModal}
-              handleDelete={this.handleDelete}
             />
           </td>
         </tr>
@@ -84,14 +102,45 @@ export class Items extends Component {
 
     return (
       <Query query={GET_USER_ITEMS} variables={{ userId: currentUser.id, page }}>
-        {({ loading, error, data }) => {
-          const { results, pageInfo } = data ? data.getUserItems : {};
+        {({
+          loading, error, data, subscribeToMore,
+        }) => {
           if (loading) return <Loader />;
           if (error) return <Error message="An error occurred" />;
+          const { results, pageInfo } = data ? data.getUserItems : {};
+
+          if (!unsubscribe) {
+            unsubscribe = subscribeToMore({
+              document: ITEM_ADDED,
+              updateQuery: (previousResult, { subscriptionData }) => {
+                if (!subscriptionData.data) return previousResult;
+                const { itemCreated } = subscriptionData.data;
+                return {
+                  ...previousResult,
+                  getUserItems: {
+                    ...previousResult.getUserItems,
+                    results: [
+                      itemCreated.item,
+                      ...previousResult.getUserItems.results,
+                    ],
+                  },
+                };
+              },
+            });
+          }
 
           return (
             <div className="item-page_wrapper">
-              {showModal ? <Modal closeModal={this.closeModal} /> : null}
+              {
+                showModal
+                  ? (
+                    <Modal
+                      closeModal={this.closeModal}
+                      handleDelete={this.handleDelete}
+                    />
+                  )
+                  : null
+              }
               <div className="item-page-top">
                 <div className="item-area__title">
                   <span className="title-main">My Items</span>
@@ -102,36 +151,43 @@ export class Items extends Component {
                   <Link className="button new-item-btn" to="/add-item">+</Link>
                 </div>
               </div>
-              {results.length < 1
-                ? <NoContent />
-                : (
-                  <>
-                    <table className="table is-fullwidth">
-                      <thead>
-                        <tr>
-                          <th>Item</th>
-                          <th>Value</th>
-                          <th>Quantity</th>
-                          <th>Location</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {renderContent(results)}
-                      </tbody>
-                    </table>
-                    <div className="pagination-area">
-                      <Pagination
-                        totalPages={pageInfo.pages}
-                        hasNext={pageInfo.hasNextPage}
-                        handleData={this.fetchItems}
-                        hasPrevious={pageInfo.hasPrevPage}
-                        isFetching={loading}
-                        currentPage={page}
-                      />
-                    </div>
-                  </>
-                )}
+              {
+                data.getUserItems.results.length
+                  ? (
+                    <>
+                      <div className="table-wrap">
+                        <table className="table is-fullwidth">
+                          <thead>
+                            <tr>
+                              <th>Item</th>
+                              <th>Value</th>
+                              <th>Quantity</th>
+                              <th>Location</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {renderContent(results, subscribeToMore)}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="pagination-area">
+                        <Pagination
+                          handleData={this.fetchItems}
+                          pageInfo={pageInfo}
+                          isFetching={loading}
+                          currentPage={page}
+                        />
+                      </div>
+                    </>
+                  )
+                  : (
+                    <p className="has-text-grey is-size-6 has-text-centered">
+                      Click &quot;Create New&quot; to start adding items
+                    </p>
+                  )
+              }
+
             </div>
           );
         }}
@@ -146,12 +202,9 @@ Items.propTypes = {
     PropTypes.number,
   ])).isRequired,
 };
-
 const mapStateToProps = (state) => {
   const { currentUser } = state.global;
   return { currentUser };
 };
-
 const ConnectedItems = connect(mapStateToProps)(Items);
-
 export default ConnectedItems;

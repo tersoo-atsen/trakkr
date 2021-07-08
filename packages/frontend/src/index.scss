@@ -26,7 +26,7 @@ html * {
 
 body {
   background-color: #f4f7fa;
-  font: normal 16px/1.6 "Lato", Verdana, sans-serif;
+  font: normal 14px/1.6 "Lato", Verdana, sans-serif;
   color: #505050;
   min-height: 100%;
 }
@@ -34,7 +34,7 @@ body {
 button,
 input,
 textarea {
-  font: normal 16px/1.6 "Lato", Verdana, sans-serif;
+  font: normal 14px/1.6 "Lato", Verdana, sans-serif;
 }
 
 img.footer__logo,
@@ -89,12 +89,8 @@ table {
   }
 }
 
-@media screen and (min-width: 768px) {
-  .pagination-area {
-    position: fixed;
-    top: calc(100% - 100px);
-    left: 50%;
-  }
+.pagination-area {
+  margin-top: 20px;
 }
 
 // Small devices (landscape phones, less than 768px)

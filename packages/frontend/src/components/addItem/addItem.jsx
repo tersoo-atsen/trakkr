@@ -7,14 +7,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './addItem.scss';
-import { validateFields, formValid, apolloClient } from '../../utils';
+import {
+  validateFields, formValid, uploadImage, apolloClient,
+} from '../../utils';
 import { ADD_ITEM } from '../../graphql/mutations';
-import { GET_SIGNATURE } from '../../graphql/queries';
 import { addItem } from '../../store/actions';
 
 export class AddItem extends Component {
   state = {
-    name: '',
+    itemName: '',
     location: '',
     description: '',
     value: 0,
@@ -23,25 +24,26 @@ export class AddItem extends Component {
     selectedImagePath: '',
     imageFile: '',
     formErrors: {
-      name: '',
+      itemName: '',
       description: '',
       location: '',
     },
+    uploadStatus: '',
   };
 
   handleChange = (event) => {
     const { value, name, files } = event.target;
-    const { formErrors } = this.state;
+    const { itemName, formErrors } = this.state;
     const updatedErrors = validateFields(name, value, formErrors);
-
     if (files && files[0]) {
+      const publicId = itemName.replace(/\s+/g, '-').toLowerCase();
       const imageFile = files[0];
       this.setState({
         imageFile,
         selectedImagePath: URL.createObjectURL(imageFile),
+        imageUrl: `trakkr/${publicId}`,
       });
     }
-
     this.setState({
       formErrors: {
         ...formErrors,
@@ -51,43 +53,12 @@ export class AddItem extends Component {
     });
   }
 
-  uploadImage = async (file, imageUrl) => {
-    const publicId = imageUrl.split('/')[1];
-    const sigResponse = await apolloClient.query({
-      query: GET_SIGNATURE,
-      variables: { publicId },
-    });
-    const { signature, timestamp } = sigResponse.data.getSignature;
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('invalidate', true);
-    formData.append('folder', process.env.CLOUDINARY_FOLDER);
-    formData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
-    formData.append('api_key', process.env.CLOUDINARY_API_KEY);
-    formData.append('public_id', publicId);
-    formData.append('timestamp', timestamp);
-    formData.append('signature', signature);
-
-    const options = {
-      method: 'POST',
-      body: formData,
-    };
-
-    try {
-      await fetch(`${process.env.CLOUDINARY_URL}`, options);
-    } catch (e) {
-      this.setState({ uploadStatus: 'Failure' });
-      return null;
-    }
-    return null;
-  }
-
-
   handleSubmit = async (event, addItemMutation) => {
     event.preventDefault();
+    let res;
     const {
       formErrors,
-      name,
+      itemName,
       location,
       description,
       value,
@@ -95,26 +66,26 @@ export class AddItem extends Component {
       imageUrl,
       imageFile,
     } = this.state;
-    const { dispatch } = this.props;
-
-    if (imageFile) await this.uploadImage(imageFile, imageUrl);
-
+    const { dispatch, history } = this.props;
     if (formValid(this.state)) {
       const addItemArgs = {
+        history,
         addItemMutation,
-        name,
+        name: itemName,
         location,
         description,
         value,
         quantity,
         imageUrl,
       };
+      if (imageFile) res = await uploadImage(imageFile, imageUrl, apolloClient);
+      if (res === null) this.setState({ uploadStatus: 'Failure' });
       dispatch(addItem(addItemArgs));
     } else {
       this.setState({
         formErrors: {
           ...formErrors,
-          name: 'Name is required',
+          itemName: 'Item name is required',
           description: 'Description is required',
           location: 'Location is required',
         },
@@ -124,7 +95,7 @@ export class AddItem extends Component {
 
   render() {
     const {
-      name,
+      itemName,
       location,
       description,
       value,
@@ -139,7 +110,7 @@ export class AddItem extends Component {
       <Mutation
         mutation={ADD_ITEM}
         variables={{
-          id: currentUser.id, name, description, value, location, quantity, imageUrl,
+          id: currentUser.id, name: itemName, description, value, location, quantity, imageUrl,
         }}
       >
         {(addItemMutation, { loading, error }) => (
@@ -160,7 +131,7 @@ export class AddItem extends Component {
               <form className="add-item_form" onSubmit={(e) => this.handleSubmit(e, addItemMutation)} noValidate>
                 <div className="add-item_form_wrapper">
                   <div className="columns">
-                    <div className="column is-one-third">
+                    <div className="column is-one-quarter">
                       <div className="item-pic-wrapper">
                         {selectedImagePath
                           ? <img className="preview-image" src={selectedImagePath} alt="preview" />
@@ -198,16 +169,16 @@ export class AddItem extends Component {
                           <div className="field">
                             <div className="control">
                               <input
-                                className={formErrors.name.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
-                                name="name"
+                                className={formErrors.itemName.length > 0 ? 'is_invalid input form_input' : 'input form_input'}
+                                name="itemName"
                                 type="text"
                                 placeholder="Name"
-                                value={name}
+                                value={itemName}
                                 onChange={this.handleChange}
                                 required
                               />
                               <div className="error-message form_error">
-                                <span>{formErrors.name}</span>
+                                <span>{formErrors.itemName}</span>
                               </div>
                             </div>
                           </div>
@@ -241,6 +212,7 @@ export class AddItem extends Component {
                         <div className="field-body">
                           <div className="field">
                             <div className="field">
+                              <label htmlFor="value" className="label">Value</label>
                               <div className="control">
                                 <input
                                   className="input value form_input"
@@ -257,6 +229,7 @@ export class AddItem extends Component {
                           </div>
 
                           <div className="field">
+                            <label htmlFor="quantity" className="label">Quantity</label>
                             <div className="control is-expanded">
                               <input
                                 className="input quantity form_input"
@@ -300,7 +273,7 @@ export class AddItem extends Component {
                     </div>
                   </div>
 
-                  <div className="field is-grouped is-grouped-centered">
+                  <div className="field is-grouped is-grouped-right">
                     <p className="control">
                       <button className={loading ? 'button add-item_form_submit_button is-loading' : 'button add-item_form_submit_button'}>
                         Submit
@@ -327,6 +300,9 @@ AddItem.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ])).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 const mapStateToProps = (state) => {
   const { currentUser } = state.global;

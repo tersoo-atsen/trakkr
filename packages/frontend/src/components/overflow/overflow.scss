@@ -1,0 +1,63 @@
+.overflow-wrapper {
+    width: 40px;
+    margin: 0 auto;
+
+    .overflow-menu {
+        position: relative;
+
+        .trigger {
+            border: none;
+            background-color: transparent;
+            color: #00000060;
+            font-size: 12px;
+            height: 40px;
+            padding: 0;
+            width: 40px;
+
+            &:focus {
+                outline: none;
+                background-color: #ff000015;
+            }
+
+            &:hover {
+                background-color: #ff000015;
+            }
+        }
+
+        .drop-menu {
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            width: 80px;
+            z-index: 1;
+
+            button.menu-item {
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+            a.menu-item {
+                border-top-right-radius: 4px;
+                border-top-left-radius: 4px;
+            }
+            button.menu-item,
+            a.menu-item {
+                background-color: #ffffff;
+                border: none;
+                color: inherit;
+                display: block;
+                font-size: 14px;
+                padding: 10px;
+                text-align: left;
+                width: 100%;
+
+                &:hover {
+                    background-color: #ff000015;
+                }
+            }
+        }
+    }
+}

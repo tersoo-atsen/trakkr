@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { summaryList } from './cardBuilder';
+import { GET_SIGNATURE } from '../graphql/queries';
 
 export const capitalizeAllWords = (sentence) => sentence.split(' ')
   .map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
@@ -81,7 +82,7 @@ export const activtyList = (activity, idx) => (
   <div key={idx} className="activity">
     <div className="activity--left">
       <span className="activity__name">{activity.name}</span>
-      <span className="activity__item">{activity.item.name}</span>
+      <span className="activity__item">{activity.item?.name}</span>
       <span>
         {activity.fields !== null ? (
           <span className="activity__attr">
@@ -107,4 +108,32 @@ export const isAuthenticated = () => {
 export const getToken = () => {
   const user = getFromLocalStorage('user');
   return !user ? null : user.token;
+};
+
+export const uploadImage = async (file, imageUrl, apolloClient) => {
+  const publicId = imageUrl.split('/')[1];
+  const sigResponse = await apolloClient.query({
+    query: GET_SIGNATURE,
+    variables: { publicId },
+  });
+  const { signature, timestamp } = sigResponse.data.getSignature;
+  const formData = new FormData();
+  formData.append('file', file);
+  formData.append('invalidate', true);
+  formData.append('folder', process.env.CLOUDINARY_FOLDER);
+  formData.append('upload_preset', process.env.CLOUDINARY_UPLOAD_PRESET);
+  formData.append('api_key', process.env.CLOUDINARY_API_KEY);
+  formData.append('public_id', publicId);
+  formData.append('timestamp', timestamp);
+  formData.append('signature', signature);
+  const options = {
+    method: 'POST',
+    body: formData,
+  };
+  try {
+    await fetch(`${process.env.CLOUDINARY_URL}`, options);
+  } catch (e) {
+    return null;
+  }
+  return 'Done';
 };

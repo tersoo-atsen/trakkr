@@ -6,44 +6,39 @@ import Overflow from './overflow';
 
 describe('Overflow Component', () => {
   let wrapper;
+  let component;
   const e = { preventDefault: jest.fn() };
-
+  const props = {
+    id: 20,
+    toggleModal: jest.fn(),
+  };
   beforeEach(() => {
-    wrapper = mount(
+    component = mount(
       <MemoryRouter>
-        <Overflow />
+        <Overflow {...props} />
       </MemoryRouter>,
     );
-    wrapper = wrapper.find('Overflow');
+    wrapper = component.find('Overflow');
   });
   it('should render overflow component', () => {
     expect(wrapper.instance().state.showMenu).toEqual(false);
     expect(wrapper.find('.overflow-menu').length).toBe(1);
     expect(wrapper.find('.trigger').length).toBe(1);
     expect(wrapper.find('.drop-menu').length).toBe(0);
+    component.unmount();
   });
   it('should toggle dropdown menu on click', () => {
     wrapper.instance().showMenu(e);
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(true);
-    // expect(wrapper.find('.drop-menu').length).toBe(1);
-    // expect(wrapper.find('.menu-item').length).toBe(2);
     wrapper.instance().showMenu(e);
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(false);
-    // expect(wrapper.find('.drop-menu').length).toBe(0);
-    // expect(wrapper.find('.menu-item').length).toBe(0);
-  });
-  it('should toggle dropdown menu on click', () => {
     wrapper.instance().showMenu(e);
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(true);
-    // expect(wrapper.find('.drop-menu').length).toBe(1);
-    // expect(wrapper.find('.menu-item').length).toBe(2);
     wrapper.instance().closeMenu();
     wrapper.update();
     expect(wrapper.instance().state.showMenu).toEqual(false);
-    // expect(wrapper.find('.drop-menu').length).toBe(0);
-    // expect(wrapper.find('.menu-item').length).toBe(0);
   });
 });

@@ -12,11 +12,13 @@ import Loader from '../loader';
 import Error from '../error';
 import apolloClient from '../../utils/apolloClient';
 import {
-  userProfileMocks, userProfileErrorMocks, updateUserMocks, sigResponse,
+  userProfileMocks,
+  userProfileErrorMocks,
+  updateUserMocks,
+  sigResponse,
 } from '../../../__mocks__/graphqlMocks';
 
 jest.mock('../../utils/apolloClient');
-
 const mockStore = configureStore([]);
 
 describe('UserProfile component', () => {

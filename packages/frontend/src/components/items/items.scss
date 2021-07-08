@@ -1,5 +1,7 @@
 .item-page_wrapper {
   padding: 10px;
+  position: relative;
+  min-height: calc(100vh - 106px);
 
   .item-page-top {
     display: flex;
@@ -30,7 +32,7 @@
         font-weight: 900;
         color: #6a6a6ab0;
       }
-      
+
       .new-item-btn {
         background-color: #29ab87;
         border: none;
@@ -41,7 +43,9 @@
       }
     }
   }
-
+  .table-wrap {
+    min-height: 480px;
+  } 
   .table {
     background-color: transparent;
     border-collapse: separate;
@@ -117,6 +121,8 @@
 @media screen and (min-width: 768px) {
   .item-page_wrapper {
     padding: 50px;
+    position: relative;
+    min-height: 80vh;
   }
 }
 

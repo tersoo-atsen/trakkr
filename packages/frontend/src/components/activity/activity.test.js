@@ -31,7 +31,7 @@ describe('Activity Component', () => {
     });
   });
 
-  it('should render the activity componet', async () => {
+  it('should render the activity component', async () => {
     wrapper = mount(
       <MemoryRouter initialEntries={['/activity']}>
         <MockedProvider mocks={activityMocks} addTypename={false}>
@@ -93,7 +93,7 @@ describe('Activity Component', () => {
       connectedActivity.update();
     });
     const instance = connectedActivity.find('Activity').instance();
-    instance.setPageNumber(1);
+    instance.fetchActivity(1);
     // expect(connectedItems.find(Overflow)).toHaveLength(5);
     // expect(connectedItems.find('.user-item')).toHaveLength(5);
   });

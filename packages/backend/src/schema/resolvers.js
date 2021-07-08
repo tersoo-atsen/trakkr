@@ -8,6 +8,7 @@ import {
 } from '../utils';
 import { isAuthenticated, isItemOwner } from './authorization';
 import Date from './scalar/Date';
+import pubsub, { EVENTS } from '../Subscription/subscription';
 
 const { Op } = Sequelize;
 const resolvers = {
@@ -148,7 +149,7 @@ const resolvers = {
         location,
         quantity,
       }, { models }) => {
-        return models.Item.create({
+        const item = models.Item.create({
           userId: id,
           name,
           description,
@@ -156,7 +157,13 @@ const resolvers = {
           imageUrl,
           location,
           quantity,
-        })
+        });
+
+        pubsub.publish(EVENTS.ITEM.CREATED, {
+          itemCreated: { item },
+        });
+
+        return item;
       },
     ),
     deleteItem: combineResolvers(
@@ -167,7 +174,7 @@ const resolvers = {
       },
     ),
     updateItem: async (root, {
-      id, name, description, quantity, value, location,
+      id, name, description, quantity, value, location, imageUrl,
     }, { models }) => {
       const item = await models.Item.findByPk(id);
       if (!item) {
@@ -175,9 +182,14 @@ const resolvers = {
       }
       return item.update(
         {
-          name, description, quantity, value, location,
+          name, description, quantity, value, location, imageUrl,
         },
       );
+    },
+  },
+  Subscription: {
+    itemCreated: {
+      subscribe: () => pubsub.asyncIterator(EVENTS.ITEM.CREATED),
     },
   },
 };

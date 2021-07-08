@@ -33,6 +33,11 @@ export const validateFields = (name, value, formErrors, password, confirmPasswor
           userName: 'Username is required',
         };
         break;
+      case 'itemName':
+        updatedFormErrors = {
+          itemName: 'Item name is required',
+        };
+        break;
       default:
         updatedFormErrors = {
           [name]: `${capitalizeAllWords(name)} is required`,

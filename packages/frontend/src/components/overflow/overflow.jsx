@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import './oveflow.scss';
+import './overflow.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Overflow extends Component {
   state = {
     showMenu: false,
   };
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.closeMenu);
+  }
 
   showMenu = (event) => {
     event.preventDefault();
@@ -41,7 +45,7 @@ class Overflow extends Component {
               ? (
                 <div className="drop-menu">
                   <Link className="menu-item" to={`/edit-item/${id}`}>Edit</Link>
-                  <button className="menu-item" onClick={toggleModal}>Delete</button>
+                  <button className="delete-item menu-item" onClick={() => toggleModal(id)}>Delete</button>
                 </div>
               )
               : (null)

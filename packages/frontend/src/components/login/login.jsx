@@ -92,7 +92,6 @@ export class Login extends Component {
                     </div>
                     <form className="login_form" onSubmit={(e) => this.handleSubmit(e, loginMutation)} noValidate>
                       <div className="login_form_wrapper">
-
                         <div className="field">
                           <div className="control">
                             <input
@@ -181,9 +180,7 @@ Login.propTypes = {
 
 function mapStateToProps(state) {
   const { loading } = state.global;
-  return {
-    loading,
-  };
+  return { loading };
 }
 
 const ConnectedLogin = connect(mapStateToProps)(Login);

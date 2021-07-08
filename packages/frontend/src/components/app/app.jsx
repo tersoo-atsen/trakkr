@@ -13,7 +13,6 @@ import ConnectedActivity from '../activity';
 import ConnectedUserProfile from '../userProfile';
 import AddItem from '../addItem';
 import EditItem from '../editItem';
-import DeleteItem from '../deleteItem';
 
 const App = () => (
   <Switch>
@@ -26,7 +25,6 @@ const App = () => (
     <PrivateRoute path={Routes.profile} component={ConnectedUserProfile} />
     <PrivateRoute path={Routes.addItem} component={AddItem} />
     <PrivateRoute path={Routes.editItem} component={EditItem} />
-    <PrivateRoute path={Routes.deleteItem} component={DeleteItem} />
     <Route component={NotFoundPage} />
   </Switch>
 );

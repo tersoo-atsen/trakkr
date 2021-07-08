@@ -83,7 +83,7 @@ describe('Navbar component', () => {
     expect(navbar.length).toEqual(1);
   });
 
-  it('should show the display user name, profile photo and menu when user is signed on', () => {
+  it('should show the username, profile photo and menu when user is signed on', () => {
     expect(connectedNavbar.contains('user_name')).toBeDefined();
     expect(connectedNavbar.contains('dropdown__button')).toBeDefined();
   });
