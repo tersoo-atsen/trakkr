@@ -1,5 +1,7 @@
 .activity-page-wrapper {
   padding: 10px;
+  position: relative;
+  min-height: calc(100vh - 106px);
 
   .activity-area__title {
     margin-bottom: 50px;
@@ -14,7 +16,9 @@
       color: #6a6a6ab0;
     }
   }
-
+  .table-wrap {
+    min-height: 420px;
+  }  
   .table {
     background-color: transparent;
     border-collapse: separate;
@@ -46,7 +50,7 @@
             color: #fa080c;
           }
         }
-        
+
         td:first-child {
           border-radius: 10px 0 0 10px;
           padding-left: 20px;
@@ -67,6 +71,8 @@
 @media screen and (min-width: 768px) {
   .activity-page-wrapper {
     padding: 50px;
+    position: relative;
+    min-height: 80vh;
 
     .table {
       thead {

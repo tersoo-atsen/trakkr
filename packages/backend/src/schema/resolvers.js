@@ -8,6 +8,7 @@ import {
 } from '../utils';
 import { isAuthenticated, isItemOwner } from './authorization';
 import Date from './scalar/Date';
+import pubsub, { EVENTS } from '../Subscription/subscription';
 
 const { Op } = Sequelize;
 const resolvers = {
@@ -73,9 +74,9 @@ const resolvers = {
 
       return { signature, timestamp }
     },
-    getUserStats: async (root, args, { models, me }) => {
+    getUserStats: async (root, { id }, { models }) => {
       const items = await models.Item.findAll({
-        where: { userId: me.id },
+        where: { userId: id },
         attributes: [
           [Sequelize.fn('sum', Sequelize.col('value')), 'totalValue'],
           [Sequelize.fn('sum', Sequelize.col('quantity')), 'totalQuantity'],
@@ -140,22 +141,29 @@ const resolvers = {
     createItem: combineResolvers(
       isAuthenticated,
       async (root, {
+        id,
         name,
         description,
         value,
         imageUrl,
         location,
         quantity,
-      }, { models, me }) => {
-        return models.Item.create({
-          userId: me.id,
+      }, { models }) => {
+        const item = models.Item.create({
+          userId: id,
           name,
           description,
           value,
           imageUrl,
           location,
           quantity,
-        })
+        });
+
+        pubsub.publish(EVENTS.ITEM.CREATED, {
+          itemCreated: { item },
+        });
+
+        return item;
       },
     ),
     deleteItem: combineResolvers(
@@ -166,7 +174,7 @@ const resolvers = {
       },
     ),
     updateItem: async (root, {
-      id, name, description, quantity, value, location,
+      id, name, description, quantity, value, location, imageUrl,
     }, { models }) => {
       const item = await models.Item.findByPk(id);
       if (!item) {
@@ -174,9 +182,14 @@ const resolvers = {
       }
       return item.update(
         {
-          name, description, quantity, value, location,
+          name, description, quantity, value, location, imageUrl,
         },
       );
+    },
+  },
+  Subscription: {
+    itemCreated: {
+      subscribe: () => pubsub.asyncIterator(EVENTS.ITEM.CREATED),
     },
   },
 };

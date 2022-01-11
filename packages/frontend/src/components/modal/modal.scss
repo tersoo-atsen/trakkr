@@ -1,0 +1,100 @@
+div.modal {
+  display: flex;
+}
+
+div.modal-card {
+  margin: 50px auto;
+  max-width: 90%;
+}
+
+div.modal-card-body {
+  border-radius: 4px;
+  padding: 30px;
+
+  .lead-text {
+    font-size: 10px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+  }
+
+  .sub-text {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    justify-content: flex-end;
+
+    .button.delete-confirm,
+    .button.cancel-button {
+      margin: 0;
+      width: 100px;
+    }
+
+    .button.cancel-button {
+      border: 1px solid #505050;
+      color: #505050;
+
+      &:hover {
+        border: 1px solid #505050;
+        background-color: #505050;
+        color: #ffffff;
+      }
+    }
+
+    .button.delete-confirm {
+      background-color: #ff0000;
+      border: 1px solid transparent;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #a50000;
+        border: 1px solid #a50000;
+      }
+    }
+
+    .button {
+      border-radius: 50px;
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px;
+      margin: none;
+      width: 80px;
+      transition: background-color ease-in 0.3s;
+      -webkit-transition: background-color ease-in 0.3s;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  div.modal-card {
+    width: 400px;
+  }
+
+  div.modal-card-body {
+    .lead-text {
+      font-size: inherit;
+      font-weight: bolder;
+      margin-bottom: 10px;
+    }
+
+    .sub-text {
+      font-size: inherit;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      .button {
+        border-radius: 50px;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 10px 20px;
+        width: 150px;
+        transition: background-color ease-in 0.3s;
+        -webkit-transition: background-color ease-in 0.3s;
+      }
+    }
+  }
+}

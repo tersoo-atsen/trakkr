@@ -6,6 +6,7 @@ export const getMe = async (request, secret) => {
   if (!auth) return;
   const token = auth.split('Bearer ')[1];
 
+  /* istanbul ignore else */
   if (token) {
     try {
       return await jwt.verify(token, secret);

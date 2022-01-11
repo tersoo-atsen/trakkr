@@ -5,18 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './pagination.scss';
 
 const Pagination = (props) => {
+  const { pageInfo, handleData, currentPage } = props;
   const {
-    totalPages, currentPage, hasNext, hasPrevious, handleData,
-  } = props;
-
+    pages, hasPrevPage, hasNextPage,
+  } = pageInfo;
   const handleClick = (e) => {
     e.preventDefault();
     const pageNumber = parseInt(e.target.getAttribute('tabIndex'), 10);
     handleData(pageNumber);
   };
 
-  const handleNext = () => {
-    if (currentPage <= totalPages) {
+  const handleNext = (e) => {
+    if (currentPage <= pages) {
       handleData(currentPage + 1);
     }
     return null;
@@ -29,7 +29,7 @@ const Pagination = (props) => {
   };
 
   const pageNumbers = [];
-  for (let number = 1; number <= totalPages; number += 1) {
+  for (let number = 1; number <= pages; number += 1) {
     pageNumbers.push(number);
   }
   const renderPageNumbers = pageNumbers.map((number) => {
@@ -44,7 +44,7 @@ const Pagination = (props) => {
         onClick={(event) => handleClick(event)}
         aria-hidden="true"
       >
-        { number}
+        {number}
       </span>
     );
   });
@@ -54,19 +54,19 @@ const Pagination = (props) => {
       {renderPageNumbers}
       <button
         id="previous-button"
-        onClick={handlePrevious}
         className="button"
-        disabled={!hasPrevious}
+        disabled={!hasPrevPage}
+        onClick={handlePrevious}
       >
         <span className="previous-arrow">
           <FontAwesomeIcon icon="chevron-left" size="sm" />
         </span>
-          Prev
+        Prev
       </button>
       <button
         id="next-button"
         className="button"
-        disabled={!hasNext}
+        disabled={!hasNextPage}
         onClick={handleNext}
       >
         Next
@@ -79,11 +79,13 @@ const Pagination = (props) => {
 };
 
 Pagination.propTypes = {
-  hasNext: PropTypes.bool.isRequired,
-  hasPrevious: PropTypes.bool.isRequired,
-  handleData: PropTypes.func.isRequired,
+  pageInfo: PropTypes.shape({
+    pages: PropTypes.number.isRequired,
+    hasPrevPage: PropTypes.bool.isRequired,
+    hasNextPage: PropTypes.bool.isRequired,
+  }).isRequired,
   currentPage: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  totalPages: PropTypes.number.isRequired,
+  handleData: PropTypes.func.isRequired,
 };
 
 export default Pagination;

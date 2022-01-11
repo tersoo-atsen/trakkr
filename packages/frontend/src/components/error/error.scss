@@ -1,29 +1,39 @@
 .error-page-wrapper {
   .error-page_inner {
-    position: fixed;
-    top: 50%;
-    left: 55%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 212px);
+    width: 100%;
 
     .content-wrapper {
-      max-width: 500px;
+      text-align: center;
 
       .error-message {
-        font-size: 1.5rem;
+        font-size: 2rem;
         text-transform: uppercase;
       }
 
       .error-description {
-        color: #b1b1b1;
-        margin: 1rem auto;
+        color: #505050;
+        opacity: 0.5;
+        font-size: 1rem;
+        max-width: 500px;
       }
 
-      .try-again {
+      .go-home-btn {
+        display: inline-block;
+        border: 1px solid #505050;
+        color: #505050;
         text-transform: uppercase;
-        color: #d70508;
+        margin-top: 20px;
         font-weight: 600;
+        padding: 10px 20px;
+        transition: 0.3s ease;
+        &:hover {
+          background-color: #505050;
+          color: #ffffff;
+        }
       }
     }
   }

@@ -6,10 +6,12 @@ import Pagination from './pagination';
 describe('Pagination Component', () => {
   let wrapper;
   let props = {
-    totalPages: 2,
+    pageInfo: {
+      pages: 2,
+      hasNextPage: true,
+      hasPrevPage: false,
+    },
     currentPage: 1,
-    hasNext: true,
-    hasPrevious: false,
     handleData: jest.fn(),
   };
 
@@ -29,7 +31,9 @@ describe('Pagination Component', () => {
   it('should render second page when next is clicked', () => {
     const nextButton = wrapper.find('#next-button');
     nextButton.simulate('click');
-    wrapper.setProps({ currentPage: 2, hasNext: false, hasPrevious: true });
+    wrapper.setProps({
+      currentPage: 2, pageInfo: { pages: 2, hasNextPage: false, hasPrevPage: true },
+    });
     wrapper.update();
     const nextButtonAfter = wrapper.find('#next-button');
     const previousButtonAfter = wrapper.find('#previous-button');
@@ -40,7 +44,14 @@ describe('Pagination Component', () => {
   it('should render second page when page 2 button is clicked', () => {
     const pageTwoButton = wrapper.find('[tabIndex=2]');
     pageTwoButton.simulate('click');
-    wrapper.setProps({ currentPage: 2, hasNext: false, hasPrevious: true });
+    wrapper.setProps({
+      currentPage: 2,
+      pageInfo: {
+        pages: 2,
+        hasNextPage: false,
+        hasPrevPage: true,
+      },
+    });
     wrapper.update();
     const nextButtonAfter = wrapper.find('#next-button');
     const previousButtonAfter = wrapper.find('#previous-button');
@@ -50,16 +61,18 @@ describe('Pagination Component', () => {
   });
   it('should go back to first page when pevious button is clicked', () => {
     props = {
-      totalPages: 2,
+      pageInfo: {
+        pages: 2,
+        hasNextPage: false,
+        hasPrevPage: true,
+      },
       currentPage: 2,
-      hasNext: false,
-      hasPrevious: true,
       handleData: jest.fn(),
     };
     wrapper = mount(<Pagination {...props} />);
     const previousButton = wrapper.find('#previous-button');
     previousButton.simulate('click');
-    wrapper.setProps({ currentPage: 1, hasNext: true, hasPrevious: false });
+    wrapper.setProps({ currentPage: 1, pageInfo: { pages: 2, hasNextPage: true, hasPrevPage: false } });
     wrapper.update();
     const nextButtonAfter = wrapper.find('#next-button');
     const previousButtonAfter = wrapper.find('#previous-button');
@@ -70,8 +83,11 @@ describe('Pagination Component', () => {
   it('should not change page if current page is greater than total pages', () => {
     props = {
       ...props,
+      pageInfo: {
+        ...props.pageInfo,
+        hasNextPage: true,
+      },
       currentPage: 10,
-      hasNext: true,
     };
     wrapper = mount(<Pagination {...props} />);
     const nextButton = wrapper.find('#next-button');
@@ -80,8 +96,11 @@ describe('Pagination Component', () => {
   it('should not change page if current page is less than 1', () => {
     props = {
       ...props,
+      pageInfo: {
+        ...props.pageInfo,
+        hasPrevPage: true,
+      },
       currentPage: 0,
-      hasPrevious: true,
     };
     wrapper = mount(<Pagination {...props} />);
     const previousButton = wrapper.find('#previous-button');

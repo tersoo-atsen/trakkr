@@ -30,7 +30,7 @@ const typeDefs = gql`
       id: Int!
       name: String!
       user: User!
-      item: Item!
+      item: Item
       fields: [String]
       createdAt: Date!
     }
@@ -42,7 +42,7 @@ const typeDefs = gql`
       getUserItems(userId: Int!, page: Int, perPage: Int): Items
       searchItems(search: String): [Item]!
       getSignature(publicId: String!): Signature
-      getUserStats: Stats
+      getUserStats(id: Int!): Stats
     }
 
     type AuthResponse {
@@ -81,9 +81,18 @@ const typeDefs = gql`
       signUp(firstName: String!, lastName: String!, email: String!, password: String!, userName: String): AuthResponse
       signIn(login: String!, password: String!): AuthResponse
       updateUser(firstName: String, lastName: String, userName: String, avatarUrl: String): User
-      createItem(name: String!, description: String!, value: Int!, imageUrl: String!, location: String!, quantity: Int!): Item!
-      updateItem(id: Int!, name: String, description: String, value: Int, quantity: Int, location: String): Item
+      createItem(id: Int!, name: String!, description: String!, value: Int!, imageUrl: String!, location: String!, quantity: Int!, imageUrl: String): Item!
+      updateItem(id: Int!, name: String, description: String, value: Int, quantity: Int, location: String, imageUrl: String): Item
       deleteItem(id: Int!): Boolean!
-    }`
+    }
+    
+    type Subscription {
+      itemCreated: ItemCreated!
+    }
+
+    type ItemCreated {
+      item: Item!
+    }
+  `;
 
 export default typeDefs

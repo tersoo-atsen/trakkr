@@ -1,5 +1,5 @@
 import { userConstants } from '../constants';
-import userService from '../../services';
+import { userService } from '../../services';
 
 export const updateUserInfo = (updateUserParams) => async (dispatch) => {
   const request = () => ({ type: userConstants.UPDATE_USER_REQUEST });

@@ -94,29 +94,22 @@
       }
 
       .button.edit-user-submit_submit_button {
-        font-weight: bold;
+        background-color: #fa0000;
+        border: 1px solid #fa0000;
         border-radius: 50px;
+        color: #ffffff;
+        font-size: 10px;
+        margin-right: 10px;
+        padding: 1em 1.5em;
         -webkit-transition: all ease-in-out 0.3s;
         -moz-transition: all ease-in-out 0.3s;
         transition: all ease-in-out 0.3s;
+        text-transform: uppercase;
         width: auto;
-        font-size: 12px;
 
         &:hover {
-          -webkit-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
-          -moz-box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
-          box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.6);
+          background-color: #a50000;
         }
-      }
-
-      .button.edit-user-submit_submit_button {
-        color: #ffffff;
-        background-color: #fa0000;
-        border: 1px solid #fa0000;
-      }
-
-      .button.edit-user-submit_submit_button {
-        margin-right: 10px;
       }
     }
     .user-profile-wrapper .edit-user_form .user-profile_form_wrapper .profile-pic-wrapper .preview-image {
@@ -140,7 +133,7 @@
         }
 
         .button.edit-user-submit_submit_button {
-          font-size: inherit;
+          font-size: 12px;
         }
       }
     }

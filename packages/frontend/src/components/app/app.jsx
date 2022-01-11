@@ -11,6 +11,8 @@ import ConnectedItems from '../items';
 import PrivateRoute from '../privateRoute';
 import ConnectedActivity from '../activity';
 import ConnectedUserProfile from '../userProfile';
+import AddItem from '../addItem';
+import EditItem from '../editItem';
 
 const App = () => (
   <Switch>
@@ -21,6 +23,8 @@ const App = () => (
     <PrivateRoute path={Routes.items} component={ConnectedItems} />
     <PrivateRoute path={Routes.activity} component={ConnectedActivity} />
     <PrivateRoute path={Routes.profile} component={ConnectedUserProfile} />
+    <PrivateRoute path={Routes.addItem} component={AddItem} />
+    <PrivateRoute path={Routes.editItem} component={EditItem} />
     <Route component={NotFoundPage} />
   </Switch>
 );

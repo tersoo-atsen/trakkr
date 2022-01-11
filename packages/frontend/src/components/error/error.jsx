@@ -15,7 +15,7 @@ const Error = (props) => {
             Sorry the page you are looking is temporarily unavailable and
             we are working to fix the problem. We should be up and running shortly.
           </p>
-          <Link className="try-again" to="/dashboard">Go Home</Link>
+          <Link className="go-home-btn" to="/dashboard">Go Home</Link>
         </div>
       </div>
     </div>

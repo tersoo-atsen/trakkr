@@ -33,11 +33,11 @@ export class MainLayout extends Component {
 
   updateDimensions = () => {
     const windowWidth = window.innerWidth;
-    const isMobile = windowWidth <= 769;
+    const isMobile = windowWidth <= 992;
     this.setState({ isMobile, showSidebar: !isMobile });
   }
 
-  openDropdown = (event) => {
+  toggleDropdown = (event) => {
     event.preventDefault();
     const { showDropdown } = this.state;
     this.setState({ showDropdown: !showDropdown });
@@ -79,26 +79,24 @@ export class MainLayout extends Component {
     return (
       <div className="main-layout_wrapper">
         {
-          (isMobile
-            && showSidebar
+          (
+            isMobile && showSidebar
             && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
           )
-          || (!isMobile
-            && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
+          || (
+            !isMobile && (<Sidebar showSidebar={showSidebar} toggleSidebar={this.toggleSidebar} />)
           )
         }
-
-        { isMobile && this.renderToggler(classes)}
-
+        {isMobile && this.renderToggler(classes)}
         <div className="user-menu" ref={this.container}>
           <Usermenu
             currentUser={currentUser}
-            openDropdown={this.openDropdown}
+            toggleDropdown={this.toggleDropdown}
             showDropdown={showDropdown}
             handleLogout={this.handleLogout}
+            closeDropdown={this.closeDropdown}
           />
         </div>
-
         <div className="main-content">
           {children}
         </div>
@@ -123,6 +121,5 @@ const mapStateToProps = (state) => {
     currentUser,
   };
 };
-
 const ConnectedMainLayout = connect(mapStateToProps)(withRouter(MainLayout));
 export default ConnectedMainLayout;

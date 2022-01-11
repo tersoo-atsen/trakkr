@@ -8,7 +8,7 @@
     "build": "npx parcel build ./public/index.html -d build",
     "lint": "npx eslint --fix src/**/*.js*",
     "test:dev": "jest --watch",
-    "test": "jest --config jest.config.js --coverage -u",
+    "test": "jest --config jest.config.js --coverage -u --runInBand",
     "jest-watch": "jest --config jest.config.js --coverage -u --watch",
     "test:coverage": "jest --config jest.config.js --coverage -u --colors"
   },
@@ -42,7 +42,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "node-sass": "^4.13.1",
-    "parcel-bundler": "^1.12.4",
+    "parcel-bundler": "^1.11.0",
     "react-redux": "^7.1.3",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
@@ -58,7 +58,10 @@
     "@fortawesome/react-fontawesome": "^0.1.13",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.14",
     "apollo-link-http": "^1.5.16",
+    "apollo-link-ws": "^1.0.20",
+    "apollo-utilities": "^1.3.4",
     "bulma": "^0.8.2",
     "cloudinary-core": "^2.11.3",
     "cloudinary-react": "^1.2.1",
@@ -70,7 +73,9 @@
     "react-apollo": "^3.1.3",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
+    "react-toastify": "^7.0.4",
     "redux-persist": "^6.0.0",
+    "subscriptions-transport-ws": "^0.9.19",
     "unfetch": "^4.1.0"
   },
   "jest": {

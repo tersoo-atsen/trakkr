@@ -12,11 +12,13 @@ import Loader from '../loader';
 import Error from '../error';
 import apolloClient from '../../utils/apolloClient';
 import {
-  userProfileMocks, userProfileErrorMocks, updateUserMocks, sigResponse,
+  userProfileMocks,
+  userProfileErrorMocks,
+  updateUserMocks,
+  sigResponse,
 } from '../../../__mocks__/graphqlMocks';
 
 jest.mock('../../utils/apolloClient');
-
 const mockStore = configureStore([]);
 
 describe('UserProfile component', () => {
@@ -29,6 +31,7 @@ describe('UserProfile component', () => {
       id: 1, firstName: 'John', lastName: 'Doe', avatarUrl: 'trakkr/john-doe',
     },
   };
+  global.fetch = jest.fn();
 
   beforeEach(async () => {
     const store = mockStore({
@@ -143,7 +146,7 @@ describe('UserProfile component', () => {
     const file = new File(['(⌐□_□)'], 'chucknorris.png', { type: 'image/png' });
     apolloClient.query.mockImplementation(() => Promise.resolve(sigResponse));
     global.URL.createObjectURL = jest.fn(() => 'blob:http://localhost:5000/9a9a3978-84bf-42df-b4b4-b0a8be5e4d77');
-    global.fetch = jest.fn(() => Promise.resolve({
+    global.fetch.mockImplementationOnce(() => Promise.resolve({
       json: () => Promise.resolve(),
     }));
 
@@ -165,7 +168,8 @@ describe('UserProfile component', () => {
     expect(instance.state.firstName).toBe('Jonas');
     expect(instance.state.lastName).toBe('Does');
     expect(instance.state.userName).toBe('jonas-does');
-    expect(instance.state.selectedImagePath).toBe('blob:http://localhost:5000/9a9a3978-84bf-42df-b4b4-b0a8be5e4d77');
+    expect(instance.state.selectedImagePath)
+      .toBe('blob:http://localhost:5000/9a9a3978-84bf-42df-b4b4-b0a8be5e4d77');
     expect(instance.state.imageFile).toBe(file);
   });
 

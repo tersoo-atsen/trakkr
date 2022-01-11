@@ -8,7 +8,7 @@ import './userMenu.scss';
 
 const UserMenu = (props) => {
   const {
-    currentUser, openDropdown, showDropdown, handleLogout,
+    currentUser, toggleDropdown, showDropdown, handleLogout,
   } = props;
   return (
     <div className="profile-menu">
@@ -29,7 +29,7 @@ const UserMenu = (props) => {
         <Transformation quality="80" fetchFormat="auto" />
       </Image>
       <div className="dropdown">
-        <button className="dropdown__button" onClick={openDropdown}>
+        <button className="dropdown__button" onClick={toggleDropdown}>
           <FontAwesomeIcon className="dropdown__expand_arrow" icon="angle-down" />
         </button>
         {
@@ -48,7 +48,7 @@ const UserMenu = (props) => {
 UserMenu.propTypes = {
   currentUser: PropTypes
     .objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired,
-  openDropdown: PropTypes.func.isRequired,
+  toggleDropdown: PropTypes.func.isRequired,
   showDropdown: PropTypes.bool.isRequired,
   handleLogout: PropTypes.func.isRequired,
 };

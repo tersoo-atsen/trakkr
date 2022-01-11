@@ -82,7 +82,7 @@ describe('User Test Cases', () => {
 
   test(`${userStats.id}`, async () => {
     const result = await graphql(
-      schema, userStats.query, null, context, null,
+      schema, userStats.query, null, context, userStats.variables,
     );
     return expect(result).toEqual(userStats.expected);
   });

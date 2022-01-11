@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import './oveflow.scss';
+import './overflow.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Overflow extends Component {
-  state = { showMenu: false };
+  state = {
+    showMenu: false,
+  };
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.closeMenu);
+  }
 
   showMenu = (event) => {
     event.preventDefault();
@@ -24,22 +32,20 @@ class Overflow extends Component {
 
   render() {
     const { showMenu } = this.state;
+    const { id, toggleModal } = this.props;
 
     return (
       <div className="overflow-wrapper">
         <div className="overflow-menu">
-          <button
-            className="trigger"
-            onClick={this.showMenu}
-          >
+          <button className="trigger" onClick={this.showMenu}>
             <FontAwesomeIcon icon="ellipsis-h" />
           </button>
           {
             showMenu
               ? (
                 <div className="drop-menu">
-                  <div className="menu-item">Edit</div>
-                  <div className="menu-item">Delete</div>
+                  <Link className="menu-item" to={`/edit-item/${id}`}>Edit</Link>
+                  <button className="delete-item menu-item" onClick={() => toggleModal(id)}>Delete</button>
                 </div>
               )
               : (null)
@@ -49,4 +55,10 @@ class Overflow extends Component {
     );
   }
 }
+
+Overflow.propTypes = {
+  id: PropTypes.number.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
+
 export default Overflow;

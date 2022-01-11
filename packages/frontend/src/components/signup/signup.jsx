@@ -246,10 +246,12 @@ export class Signup extends Component {
     );
   }
 }
+
 Signup.propTypes = {
   history: PropTypes.shape({ push: PropTypes.func.isRequired }).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
+
 const mapStateToProps = (state) => {
   const { registering, error } = state.register;
   return {
@@ -257,5 +259,6 @@ const mapStateToProps = (state) => {
     sigupError: error,
   };
 };
+
 const ConnectedSignup = connect(mapStateToProps)(Signup);
 export default ConnectedSignup;
